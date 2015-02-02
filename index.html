@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Patientenverwaltung</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="header">
+<h1>Patientenverwaltung</h1>
+</div>
+
+<div id="middle">
+    <div id="nav">
+        <p>Patientenaufnahme</p>
+        <p>gespeicherte Patienten</p>
+    </div>
+
+    <div id="content">
+        <form>
+            <div id="section1">
+                Vorname<br>
+                Nachname<br>
+                Geschlecht<br>
+                Blutgruppe<br>
+                <p id="space"></p>
+                Bekannte Antikörper<br>
+            </div>
+
+            <div id="input">
+                <input type="text" class="name" required><br>
+                <input type="text" class="surname" required><br>
+                <input type="radio" name="sex" value="weiblich" checked>Weiblich
+                <input type="radio" name="sex" value="männlich">Männlich<br>
+                <table id="invisible">
+                    <tr>
+                        <td id="invisible"><input type="radio" name="bg" value="0+" checked>0+</td>
+                        <td id="invisible"><input type="radio" name="bg" value="0-">0-</td>
+                    </tr>
+                    <tr>
+                        <td id="invisible"><input type="radio" name="bg" value="A+">A+</td>
+                        <td id="invisible"><input type="radio" name="bg" value="A-">A-</td>
+                    </tr>
+                    <tr>
+                        <td id="invisible"><input type="radio" name="bg" value="B+">B+</td>
+                        <td id="invisible"><input type="radio" name="bg" value="B-">B-</td>
+                    </tr>
+                    <tr>
+                        <td id="invisible"><input type="radio" name="bg" value="AB+">AB+</td>
+                        <td id="invisible"><input type="radio" name="bg" value="AB-">AB-</td>
+                    </tr>
+                </table>
+                <br>
+                <select class="ak">
+                    <option value="keine">keine</option>
+                    <option value="D">Anti-D</option>
+                    <option value="C">Anti-C</option>
+                    <option value="c">Anti-c</option>
+                    <option value="E">Anti-E</option>
+                    <option value="e">Anti-e</option>
+                    <option value="K">Anti-K</option>
+                </select>
+                <br>
+                <button class="save">Speichern</button>
+            </div>
+        </form>
+
+        <div id="search">
+            <input type="text" class="search" placeholder="Suche" style="font-style: italic">
+        </div>
+
+
+        <div id="table">
+            <h2>gespeicherte Patienten</h2><br>
+            <table id="pat">
+                <tr>
+                    <th>Vorame</th>
+                    <th>Nachname</th>
+                    <th>Geschlecht</th>
+                    <th>Blutgruppe</th>
+                    <th>Antikörper</th>
+                </tr>
+                <tbody id="tablepat">
+                  <tr>
+                    <td>Anna</td>
+                    <td>Muster</td>
+                    <td>Weiblich</td>
+                    <td>0+</td>
+                    <td>keine</td>
+                 </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+<div id="footer">
+    ©Murièle Trentini // Januar 2015
+</div>
+</body>
+</html>
