@@ -4,9 +4,9 @@ var saveButton = document.querySelector('.save');
 var inputName = document.querySelector('.name');
 var inputSurname = document.querySelector('.surname');
 var inputAk = document.querySelector('.ak');
-var tablePatient = document.querySelector('#tablepat');
+var patientListBodyElement = document.querySelector('#patientlist tbody');
 var inputSearch =document.querySelector('input.search');
-var table = document.querySelector('table');
+var patientList = document.querySelector('#patientlist table');
 
 var patients = [];
 
@@ -41,7 +41,7 @@ function updateTable () {
         text += "<td>" + currentpat.bg + "</td>";
         text += "<td>" + currentpat.ak + "</td> </tr>";
     }
-    tablePatient.innerHTML = text;
+    patientListBodyElement.innerHTML = text;
 }
 
 saveButton.addEventListener('click', handleclicksave);
@@ -51,23 +51,23 @@ var handlesearch = function () {
 
     var rowNr;
 
-    for (var rowIndex = 0; rowIndex < table.rows.length; rowIndex++) {
+    for (var rowIndex = 0; rowIndex < patientList.rows.length; rowIndex++) {
         var rowData ='';
 
         if (rowIndex == 0) {
-            rowNr = table.rows.item(rowIndex).cells.length;
+            rowNr = patientList.rows.item(rowIndex).cells.length;
             continue;
         }
 
         for (var colIndex = 0; colIndex < rowNr; colIndex++) {
-            rowData += table.rows.item(rowIndex).cells.item(colIndex).textContent;
+            rowData += patientList.rows.item(rowIndex).cells.item(colIndex).textContent;
         }
 
         if (rowData.indexOf(inputSearch.value) == -1) {
-            table.rows.item(rowIndex).style.display = 'none';
+            patientList.rows.item(rowIndex).style.display = 'none';
         }
         else {
-            table.rows.item(rowIndex).style.display = 'table-row';
+            patientList.rows.item(rowIndex).style.display = 'table-row';
         }
     }
 
