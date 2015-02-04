@@ -10,7 +10,7 @@ var table = document.querySelector('table');
 
 var patients = [];
 
-var handleclicksave = function (event) {
+var handleclicksave = function () {
 
     var sex = document.querySelector('input[name="sex"]:checked').value;
     var bg = document.querySelector('input[name="bg"]:checked').value;
@@ -47,7 +47,7 @@ function updateTable () {
 saveButton.addEventListener('click', handleclicksave);
 
 
-var handlesearch = function (event) {
+var handlesearch = function () {
 
     var rowNr;
 
