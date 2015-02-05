@@ -10,6 +10,8 @@ var patientList = document.querySelector('#patientlist table');
 
 var patients = [];
 
+patientListBodyElement.innerHTML = localStorage.getItem("newPatient");
+
 var handleclicksave = function () {
 
     var sex = document.querySelector('input[name="sex"]:checked').value;
@@ -35,13 +37,15 @@ function updateTable () {
     var i;
     for (i = 0; i < patients.length; i++) {
         var currentpat = patients[i];
+        text += localStorage.getItem("newPatient");
         text += "<tr> <td>" + currentpat.name + "</td>";
         text += "<td>" + currentpat.surname + "</td>";
         text += "<td>" + currentpat.sex + "</td>";
         text += "<td>" + currentpat.bg + "</td>";
         text += "<td>" + currentpat.ak + "</td> </tr>";
     }
-    patientListBodyElement.innerHTML = text;
+    localStorage.setItem("newPatient", text);
+    patientListBodyElement.innerHTML = localStorage.getItem("newPatient");
 }
 
 saveButton.addEventListener('click', handleclicksave);
