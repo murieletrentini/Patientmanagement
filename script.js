@@ -9,9 +9,23 @@ var patientList = document.querySelector('#patientlist table');
 var addAkButton = document.querySelector('.addAk');
 var removeAkButton = document.querySelector('.removeAk');
 
-var patients = [];
+var patientArray = [];
 
-patientListBodyElement.innerHTML = localStorage.getItem("newPatient");
+var patientStorage = JSON.parse(localStorage.getItem("storedPatientArray"));
+console.log(patientStorage);
+if (patientStorage !== null) {
+    var text = '';
+    var i;
+    for (i = 0; i < patientStorage.length; i++) {
+        var currentpat = patientStorage[i];
+        text += "<tr> <td>" + currentpat.surname + "</td>";
+        text += "<td>" + currentpat.name + "</td>";
+        text += "<td>" + currentpat.sex + "</td>";
+        text += "<td>" + currentpat.bg + "</td>";
+        text += "<td>" + currentpat.ak + "</td> </tr>";
+    }
+    patientListBodyElement.innerHTML = text;
+}
 
 var handleAddAk = function () {
     var selectedAk = document.querySelector('#possibleAk option:checked');
@@ -29,6 +43,15 @@ removeAkButton.addEventListener('click', handleRemoveAk);
 
 var handleclicksave = function () {
 
+    setLocalStorage();
+    inputName.value = '';
+    inputSurname.value = '';
+    updateTable();
+};
+
+function setLocalStorage() {
+    var storedPatients = JSON.parse(localStorage.getItem("storedPatientArray"));
+    if (storedPatients == null) storedPatients = [];
     var sex = document.querySelector('input[name="sex"]:checked').value;
     var bg = document.querySelector('input[name="bg"]:checked').value;
     var rh = document.querySelector('input[name="rh"]:checked').value;
@@ -45,45 +68,34 @@ var handleclicksave = function () {
     else {
         inputAk = "keine";
     }
-    var patient = {
+    var patientObject = {
         name: inputName.value,
         surname: inputSurname.value,
         ak: inputAk,
         sex: sex,
         bg: bg + " " + rh
     };
-    patients.push(patient);
-    console.log(patients);
-    inputName.value = '';
-    inputSurname.value = '';
-    updateTable();
+    localStorage.setItem("patientObject", JSON.stringify(patientObject));
+    storedPatients.push(patientObject);
+    localStorage.setItem("storedPatientArray", JSON.stringify(storedPatients));
 };
 
 function updateTable() {
-    var text = '';
-    var i;
-    if (localStorage.getItem("newPatient") === null) {
-    for (i = 0; i < patients.length; i++) {
-        var currentpat = patients[i];
-        text += "<tr> <td>" + currentpat.surname + "</td>";
-        text += "<td>" + currentpat.name + "</td>";
-        text += "<td>" + currentpat.sex + "</td>";
-        text += "<td>" + currentpat.bg + "</td>";
-        text += "<td>" + currentpat.ak + "</td> </tr>";
-    }}
-    else {
-        for (i = 0; i < patients.length; i++) {
-            var currentpat = patients[i];
-            text += text += localStorage.getItem("newPatient");
+    var patientStorage = JSON.parse(localStorage.getItem("storedPatientArray"));
+    console.log(patientStorage);
+
+        var text = '';
+        var i;
+        for (i = 0; i < patientStorage.length; i++) {
+            var currentpat = patientStorage[i];
             text += "<tr> <td>" + currentpat.surname + "</td>";
             text += "<td>" + currentpat.name + "</td>";
             text += "<td>" + currentpat.sex + "</td>";
             text += "<td>" + currentpat.bg + "</td>";
             text += "<td>" + currentpat.ak + "</td> </tr>";
         }
-    }
-    localStorage.setItem("newPatient", text);
-    patientListBodyElement.innerHTML = localStorage.getItem("newPatient");
+        patientListBodyElement.innerHTML = text;
+
 }
 
 saveButton.addEventListener('click', handleclicksave);
@@ -117,5 +129,5 @@ var handlesearch = function () {
 
 inputSearch.addEventListener('keyup', handlesearch);
 
-// localStorage.removeItem("newPatient");
+// localStorage.removeItem("patient");
 
