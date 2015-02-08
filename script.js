@@ -3,28 +3,51 @@
 var saveButton = document.querySelector('.save');
 var inputName = document.querySelector('.name');
 var inputSurname = document.querySelector('.surname');
-var inputAk = document.querySelector('.ak');
 var patientListBodyElement = document.querySelector('#patientlist tbody');
-var inputSearch =document.querySelector('input.search');
+var inputSearch = document.querySelector('input.search');
 var patientList = document.querySelector('#patientlist table');
+var addAkButton = document.querySelector('.addAk');
+var removeAkButton = document.querySelector('.removeAk');
 
 var patients = [];
 
+patientListBodyElement.innerHTML = localStorage.getItem("newPatient");
 
-    patientListBodyElement.innerHTML = localStorage.getItem("newPatient");
+var handleAddAk = function () {
+    var selectedAk = document.querySelector('#possibleAk option:checked');
+    document.querySelector('#addedAk').appendChild(selectedAk);
+}
 
+addAkButton.addEventListener('click', handleAddAk);
 
+var handleRemoveAk = function () {
+    var selectedAk = document.querySelector('#addedAk option:checked');
+    document.querySelector('#possibleAk').appendChild(selectedAk);
+}
+
+removeAkButton.addEventListener('click', handleRemoveAk);
 
 var handleclicksave = function () {
 
     var sex = document.querySelector('input[name="sex"]:checked').value;
     var bg = document.querySelector('input[name="bg"]:checked').value;
     var rh = document.querySelector('input[name="rh"]:checked').value;
+    var addedAk = document.querySelector('#addedAk');
+    var inputAk = '';
+    var x;
+    if (addedAk.length > 0) {
+        for (x = 0; x < addedAk.length; x++) {
+            inputAk = addedAk[x].value + ", " + inputAk;
+        }
+    }
+    else {
+        inputAk = "keine";
+    }
 
     var patient = {
         name: inputName.value,
         surname: inputSurname.value,
-        ak: inputAk.value,
+        ak: inputAk,
         sex: sex,
         bg: bg + " " + rh
     };
@@ -36,8 +59,8 @@ var handleclicksave = function () {
     updateTable();
 };
 
-function updateTable () {
-    var text ='';
+function updateTable() {
+    var text = '';
     var i;
     for (i = 0; i < patients.length; i++) {
         var currentpat = patients[i];
@@ -60,7 +83,7 @@ var handlesearch = function () {
     var rowNr;
 
     for (var rowIndex = 0; rowIndex < patientList.rows.length; rowIndex++) {
-        var rowData ='';
+        var rowData = '';
 
         if (rowIndex == 0) {
             rowNr = patientList.rows.item(rowIndex).cells.length;

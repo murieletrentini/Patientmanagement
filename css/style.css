@@ -19,13 +19,17 @@ a {
     color: black;
 }
 
-/*headings
+/*navbar
 ---------------------------------------------------------------------*/
+.navbar-nav > li > a {
+    padding: 0;
+    padding-top: 5px;
+}
 
-
-
-
-
+.navbar-brand {
+    padding-top: 30px;
+    padding-left: 50px;
+}
 
 /*input
 ---------------------------------------------------------------------*/
@@ -40,5 +44,5 @@ input:valid {
 /*bootstrap change
 -----------------------------------------------------------------------*/
 .container-content {
-    margin-top: 80px;
+    margin-top: 100px;
 }

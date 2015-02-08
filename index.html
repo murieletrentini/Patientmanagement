@@ -6,18 +6,18 @@
     <title>Patientenverwaltung</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="bootstrap.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="#">Patientenverwaltung</a>
         <ul class="nav navbar-nav">
-            <li><a href="#">Patientenliste</a></li>
-            <li><a href="#">Link</a></li>
+            <li><a href="#"><img src="img/newPat.png" title="Patientenaufnahme" width="70" height="70"></a></li>
+            <li><a href="#"><img src="img/patlist-blue.png" title="Patientenliste" width="70" height="70"></a></li>
         </ul>
+        <a class="navbar-brand" href="#">Patientenverwaltung</a>
     </div>
 </nav>
 
@@ -71,15 +71,26 @@
         </div>
         <div class="form-group">
             <label>Bekannte Antikörper</label><br>
-            <select class="form-control ak">
-                <option value="keine">keine</option>
-                <option value="Anti-D">Anti-D</option>
-                <option value="Anti-C">Anti-C</option>
-                <option value="Anti-c">Anti-c</option>
-                <option value="Anti-E">Anti-E</option>
-                <option value="Anti-e">Anti-e</option>
-                <option value="Anti-K">Anti-K</option>
-            </select>
+
+            <div>
+                <select class="form-control" id="addedAk" size="5" multiple></select>
+            </div>
+            <div>
+                <button class="btn btn-default addAk">+</button>
+                <button class="btn btn-default removeAk">-</button>
+            </div>
+            <div>
+                <select class="form-control" id="possibleAk" size="5">
+                    <option value="Anti-D">Anti-D</option>
+                    <option value="Anti-C">Anti-C</option>
+                    <option value="Anti-c">Anti-c</option>
+                    <option value="Anti-E">Anti-E</option>
+                    <option value="Anti-e">Anti-e</option>
+                    <option value="Anti-K">Anti-K</option>
+                </select>
+
+            </div>
+
     </form>
     <br>
     <button class="btn btn-default save">Speichern</button>
