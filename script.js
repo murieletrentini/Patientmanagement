@@ -117,7 +117,7 @@ var handlesearch = function () {
             rowData += patientList.rows.item(rowIndex).cells.item(colIndex).textContent;
         }
 
-        if (rowData.indexOf(inputSearch.value) == -1) {
+        if (rowData.toUpperCase().indexOf(inputSearch.value.toUpperCase()) == -1) {
             patientList.rows.item(rowIndex).style.display = 'none';
         }
         else {
