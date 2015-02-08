@@ -6,97 +6,109 @@
     <title>Patientenverwaltung</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bootstrap.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="header">
-<h1>Patientenverwaltung</h1>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">Patientenverwaltung</a>
+        <ul class="nav navbar-nav">
+            <li><a href="#">Patientenliste</a></li>
+            <li><a href="#">Link</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+<div class="container container-content">
+
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label>Nachname</label>
+            <input type="text" class="form-control surname" placeholder="Nachname des Patienten">
+        </div>
+        <div class="form-group">
+            <label>Vorname</label>
+            <input type="text" class="form-control name" placeholder="Vorname des Patienten">
+        </div>
+        <div class="form-group">
+            <label>Geschlecht</label><br>
+            <label class="radio-inline">
+                <input type="radio" name="sex" id="inlineRadio1" value="weiblich" checked> Weiblich
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="sex" id="inlineRadio2" value="männlich"> Männlich
+            </label>
+        </div>
+        <div class="form-group">
+            <label>Blutgruppe</label><br>
+            <label class="radio-inline">
+                <input type="radio" name="bg" id="inlineRadio1" value="A" checked> A
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="bg" id="inlineRadio2" value="B"> B
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="bg" id="inlineRadio2" value="0"> 0
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="bg" id="inlineRadio2" value="AB"> AB
+            </label>
+        </div>
+        <div class="form-group">
+            <label>Rhesus</label><br>
+            <label class="radio-inline">
+                <input type="radio" name="rh" id="inlineRadio1" value="positiv" checked> positiv
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="rh" id="inlineRadio2" value="negativ"> negativ
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="rh" id="inlineRadio2" value="D weak"> D weak
+            </label>
+        </div>
+        <div class="form-group">
+            <label>Bekannte Antikörper</label><br>
+            <select class="form-control ak">
+                <option value="keine">keine</option>
+                <option value="Anti-D">Anti-D</option>
+                <option value="Anti-C">Anti-C</option>
+                <option value="Anti-c">Anti-c</option>
+                <option value="Anti-E">Anti-E</option>
+                <option value="Anti-e">Anti-e</option>
+                <option value="Anti-K">Anti-K</option>
+            </select>
+    </form>
+    <br>
+    <button class="btn btn-default save">Speichern</button>
 </div>
 
-<div id="middle">
-    <div id="nav">
-        <p>Patientenaufnahme</p>
-        <p>gespeicherte Patienten</p>
+<div id="patientlist">
+    <h2>gespeicherte Patienten</h2><br>
+    <div id="search">
+        <input type="text" class="form-control search" placeholder="Suche" style="font-style: italic">
     </div>
+    <br>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Nachname</th>
+            <th>Vorname</th>
+            <th>Geschlecht</th>
+            <th>Blutgruppe</th>
+            <th>Antikörper</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 
-    <div id="content">
-        <form>
-            <div id="section1">
-                Vorname<br>
-                Nachname<br>
-                Geschlecht<br>
-                Blutgruppe<br>
-                <p id="space"></p>
-                Bekannte Antikörper<br>
-            </div>
-
-            <div id="input">
-                <input type="text" class="name" required><br>
-                <input type="text" class="surname" required><br>
-                <input type="radio" name="sex" value="weiblich" checked>Weiblich
-                <input type="radio" name="sex" value="männlich">Männlich<br>
-                <table id="invisible">
-                    <tr>
-                        <td id="invisible"><input type="radio" name="bg" value="0+" checked>0+</td>
-                        <td id="invisible"><input type="radio" name="bg" value="0-">0-</td>
-                    </tr>
-                    <tr>
-                        <td id="invisible"><input type="radio" name="bg" value="A+">A+</td>
-                        <td id="invisible"><input type="radio" name="bg" value="A-">A-</td>
-                    </tr>
-                    <tr>
-                        <td id="invisible"><input type="radio" name="bg" value="B+">B+</td>
-                        <td id="invisible"><input type="radio" name="bg" value="B-">B-</td>
-                    </tr>
-                    <tr>
-                        <td id="invisible"><input type="radio" name="bg" value="AB+">AB+</td>
-                        <td id="invisible"><input type="radio" name="bg" value="AB-">AB-</td>
-                    </tr>
-                </table>
-                <br>
-                <select class="ak">
-                    <option value="keine">keine</option>
-                    <option value="D">Anti-D</option>
-                    <option value="C">Anti-C</option>
-                    <option value="c">Anti-c</option>
-                    <option value="E">Anti-E</option>
-                    <option value="e">Anti-e</option>
-                    <option value="K">Anti-K</option>
-                </select>
-                <br>
-                <button class="save">Speichern</button>
-            </div>
-        </form>
-
-        <div id="search">
-            <input type="text" class="search" placeholder="Suche" style="font-style: italic">
-        </div>
-
-
-        <div id="patientlist">
-            <h2>gespeicherte Patienten</h2><br>
-            <table>
-                <thead>
-                <tr>
-                    <th>Vorame</th>
-                    <th>Nachname</th>
-                    <th>Geschlecht</th>
-                    <th>Blutgruppe</th>
-                    <th>Antikörper</th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-    </div>
 </div>
-
+</div>
 <script src="script.js"></script>
 
-<div id="footer">
-    ©Murièle Trentini // Januar 2015
-</div>
+
 </body>
 </html>

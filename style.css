@@ -21,124 +21,11 @@ a {
 
 /*headings
 ---------------------------------------------------------------------*/
-h1 {
-    color: white;
-    font-family: sans-serif;
-}
 
-h2 {
-    font-family: sans-serif;
-    color: #474747;
-    margin-top: 50px;
-}
 
-/*buttons
----------------------------------------------------------------------*/
 
-button.save {
-    color: black;
-    font-size: 12pt;
-    margin-top: 30px;
-    float: left;
-    background: #DDD;
-    border-radius: 6px;
-    -moz-border-radius: 6px;
-    -webkit-border-radius: 6px;
-    border-top: 1px solid #EEE;
-    border-left: 1px solid #EEE;
-    border-right: 1px solid #AAA;
-    border-bottom: 1px solid #AAA;
-    padding: 6px;
-}
 
-/*divs
----------------------------------------------------------------------*/
-div#header {
-    background-color: #5F5F5F;
-    text-align: center;
-    padding:5px;
-}
 
-div#middle {
-    position: relative;
-    border-left: 160px solid darkgray;
-}
-
-#middle:after {
-    clear: both;
-    display: table;
-    content: '';
-}
-
-    div#nav {
-        background-color: transparent;
-        float: left;
-        position: relative;
-        width: 150px;
-        padding-left: 10px;
-        left: -160px;
-    }
-
-    div#content {
-        float: left;
-        position: relative;
-        padding: 30px;
-        left: -160px;
-    }
-
-        div#section1 {
-            float: left;
-            position: relative;
-            margin: 10px;
-        }
-
-        div#input {
-           float: left;
-           position: relative;
-           margin: 10px;
-        }
-
-        div#search {
-            float: left;
-            position: relative;
-            margin-top: 25px;
-        }
-
-        div#table {
-            clear: left;
-            padding: 5px;
-        }
-
-div#footer {
-    background-color: #5F5F5F;
-    color: white;
-    text-align: center;
-    padding: 5px;
-    height: 20px;
-}
-
-/*table
----------------------------------------------------------------------*/
-table {
-    border-collapse: collapse;
-}
-
-table#patientlist {
-    border: 1px solid black;
-}
-
-#invisible {
-    border: hidden;
-}
-
-td#invisible {
-    padding-right: 20px;
-}
-
-th, td {
-    border: 1px solid black;
-    padding: 5px;
-}
 
 /*input
 ---------------------------------------------------------------------*/
@@ -148,4 +35,10 @@ input:invalid {
 
 input:valid {
     border: 1px solid black;
+}
+
+/*bootstrap change
+-----------------------------------------------------------------------*/
+.container-content {
+    margin-top: 80px;
 }

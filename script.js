@@ -10,19 +10,23 @@ var patientList = document.querySelector('#patientlist table');
 
 var patients = [];
 
-patientListBodyElement.innerHTML = localStorage.getItem("newPatient");
+
+    patientListBodyElement.innerHTML = localStorage.getItem("newPatient");
+
+
 
 var handleclicksave = function () {
 
     var sex = document.querySelector('input[name="sex"]:checked').value;
     var bg = document.querySelector('input[name="bg"]:checked').value;
+    var rh = document.querySelector('input[name="rh"]:checked').value;
 
     var patient = {
         name: inputName.value,
         surname: inputSurname.value,
         ak: inputAk.value,
         sex: sex,
-        bg: bg
+        bg: bg + " " + rh
     };
     patients.push(patient);
     console.log(patients);
@@ -38,8 +42,8 @@ function updateTable () {
     for (i = 0; i < patients.length; i++) {
         var currentpat = patients[i];
         text += localStorage.getItem("newPatient");
-        text += "<tr> <td>" + currentpat.name + "</td>";
-        text += "<td>" + currentpat.surname + "</td>";
+        text += "<tr> <td>" + currentpat.surname + "</td>";
+        text += "<td>" + currentpat.name + "</td>";
         text += "<td>" + currentpat.sex + "</td>";
         text += "<td>" + currentpat.bg + "</td>";
         text += "<td>" + currentpat.ak + "</td> </tr>";
@@ -79,4 +83,5 @@ var handlesearch = function () {
 
 inputSearch.addEventListener('keyup', handlesearch);
 
+// localStorage.removeItem("newPatient");
 
