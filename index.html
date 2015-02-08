@@ -69,14 +69,16 @@
                 <input type="radio" name="rh" id="inlineRadio2" value="D weak"> D weak
             </label>
         </div>
-        <div class="form-group">
+
+        <div class="form-group" id="ak">
             <label>Bekannte Antikörper</label><br>
 
             <div>
                 <select class="form-control" id="addedAk" size="5" multiple></select>
             </div>
-            <div>
+            <div id="akButton">
                 <button class="btn btn-default addAk">+</button>
+                <br>
                 <button class="btn btn-default removeAk">-</button>
             </div>
             <div>
@@ -90,32 +92,34 @@
                 </select>
 
             </div>
-
+        </div>
     </form>
-    <br>
+
     <button class="btn btn-default save">Speichern</button>
-</div>
 
-<div id="patientlist">
-    <h2>gespeicherte Patienten</h2><br>
-    <div id="search">
-        <input type="text" class="form-control search" placeholder="Suche" style="font-style: italic">
+
+    <div id="patientlist">
+        <h2>gespeicherte Patienten</h2><br>
+
+        <div id="search">
+            <input type="text" class="form-control search" placeholder="Suche" style="font-style: italic">
+        </div>
+        <br>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Nachname</th>
+                <th>Vorname</th>
+                <th>Geschlecht</th>
+                <th>Blutgruppe</th>
+                <th>Antikörper</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
     </div>
-    <br>
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>Nachname</th>
-            <th>Vorname</th>
-            <th>Geschlecht</th>
-            <th>Blutgruppe</th>
-            <th>Antikörper</th>
-        </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-
 </div>
 </div>
 <script src="script.js"></script>

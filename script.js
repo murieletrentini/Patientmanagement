@@ -37,13 +37,14 @@ var handleclicksave = function () {
     var x;
     if (addedAk.length > 0) {
         for (x = 0; x < addedAk.length; x++) {
-            inputAk = addedAk[x].value + ", " + inputAk;
+            inputAk = inputAk + ", " + addedAk[x].value;
+
         }
+        inputAk = inputAk.replace(/([/s/S]*),/, '$1');
     }
     else {
         inputAk = "keine";
     }
-
     var patient = {
         name: inputName.value,
         surname: inputSurname.value,
@@ -55,21 +56,31 @@ var handleclicksave = function () {
     console.log(patients);
     inputName.value = '';
     inputSurname.value = '';
-    inputAk.value = 'keine';
     updateTable();
 };
 
 function updateTable() {
     var text = '';
     var i;
+    if (localStorage.getItem("newPatient") === null) {
     for (i = 0; i < patients.length; i++) {
         var currentpat = patients[i];
-        text += localStorage.getItem("newPatient");
         text += "<tr> <td>" + currentpat.surname + "</td>";
         text += "<td>" + currentpat.name + "</td>";
         text += "<td>" + currentpat.sex + "</td>";
         text += "<td>" + currentpat.bg + "</td>";
         text += "<td>" + currentpat.ak + "</td> </tr>";
+    }}
+    else {
+        for (i = 0; i < patients.length; i++) {
+            var currentpat = patients[i];
+            text += text += localStorage.getItem("newPatient");
+            text += "<tr> <td>" + currentpat.surname + "</td>";
+            text += "<td>" + currentpat.name + "</td>";
+            text += "<td>" + currentpat.sex + "</td>";
+            text += "<td>" + currentpat.bg + "</td>";
+            text += "<td>" + currentpat.ak + "</td> </tr>";
+        }
     }
     localStorage.setItem("newPatient", text);
     patientListBodyElement.innerHTML = localStorage.getItem("newPatient");

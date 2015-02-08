@@ -46,3 +46,23 @@ input:valid {
 .container-content {
     margin-top: 100px;
 }
+
+
+#addedAk, #possibleAk {
+    float: left;
+    max-width: 300px;
+}
+
+
+#akButton {
+    float: left;
+}
+
+
+
+.addAk, .removeAk {
+    margin: 2px;
+    width: 35px;
+}
+
+
