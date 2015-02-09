@@ -8,45 +8,51 @@ var inputSearch = document.querySelector('input.search');
 var patientList = document.querySelector('#patientlist table');
 var addAkButton = document.querySelector('.addAk');
 var removeAkButton = document.querySelector('.removeAk');
+var removeButton = document.querySelector('.remove');
 
 var patientArray = [];
 
 var patientStorage = JSON.parse(localStorage.getItem("storedPatientArray"));
 console.log(patientStorage);
-if (patientStorage !== null) {
+if (patientStorage.length > 0) {
     var text = '';
     var i;
     for (i = 0; i < patientStorage.length; i++) {
         var currentpat = patientStorage[i];
-        text += "<tr> <td>" + currentpat.surname + "</td>";
+        text += "<tr><td>" + currentpat.surname + "</td>";
         text += "<td>" + currentpat.name + "</td>";
         text += "<td>" + currentpat.sex + "</td>";
         text += "<td>" + currentpat.bg + "</td>";
-        text += "<td>" + currentpat.ak + "</td> </tr>";
+        text += "<td>" + currentpat.ak + "<span class='glyphicon glyphicon-remove' onclick='removeObject(this)'></span></td></tr>";
     }
     patientListBodyElement.innerHTML = text;
 }
+else {
+    text = "<tr><td colspan='4'>Es sind keine Patienten in der Datenbank vorhanden</td></tr>";
+    patientListBodyElement.innerHTML = text;
+}
+
 
 var handleAddAk = function () {
     var selectedAk = document.querySelector('#possibleAk option:checked');
     document.querySelector('#addedAk').appendChild(selectedAk);
-}
+};
 
 addAkButton.addEventListener('click', handleAddAk);
 
 var handleRemoveAk = function () {
     var selectedAk = document.querySelector('#addedAk option:checked');
     document.querySelector('#possibleAk').appendChild(selectedAk);
-}
+};
 
 removeAkButton.addEventListener('click', handleRemoveAk);
 
 var handleclicksave = function () {
 
     setLocalStorage();
+    updateTable();
     inputName.value = '';
     inputSurname.value = '';
-    updateTable();
 };
 
 function setLocalStorage() {
@@ -84,20 +90,19 @@ function updateTable() {
     var patientStorage = JSON.parse(localStorage.getItem("storedPatientArray"));
     console.log(patientStorage);
 
-        var text = '';
-        var i;
-        for (i = 0; i < patientStorage.length; i++) {
-            var currentpat = patientStorage[i];
-            text += "<tr> <td>" + currentpat.surname + "</td>";
-            text += "<td>" + currentpat.name + "</td>";
-            text += "<td>" + currentpat.sex + "</td>";
-            text += "<td>" + currentpat.bg + "</td>";
-            text += "<td>" + currentpat.ak + "</td> </tr>";
-        }
-        patientListBodyElement.innerHTML = text;
+    var text = '';
+    var i;
+    for (i = 0; i < patientStorage.length; i++) {
+        var currentpat = patientStorage[i];
+        text += "<tr><td>" + currentpat.surname + "</td>";
+        text += "<td>" + currentpat.name + "</td>";
+        text += "<td>" + currentpat.sex + "</td>";
+        text += "<td>" + currentpat.bg + "</td>";
+        text += "<td>" + currentpat.ak + "<span class='glyphicon glyphicon-remove' onclick='removeObject(this)'></span></td></tr>";
+    }
+    patientListBodyElement.innerHTML = text;
 
 }
-
 saveButton.addEventListener('click', handleclicksave);
 
 
@@ -126,8 +131,22 @@ var handlesearch = function () {
     }
 
 };
-
 inputSearch.addEventListener('keyup', handlesearch);
 
-// localStorage.removeItem("patient");
+
+
+
+function removeObject(clickedElement) {
+    console.log(clickedElement);
+    var span = clickedElement;
+    var td = span.parentNode;
+    var tr = td.parentNode.rowIndex;
+    console.log(tr);
+    var patientStorage = JSON.parse(localStorage.getItem("storedPatientArray"));
+    var x = tr-1;
+    patientStorage.splice(x, 1);
+    localStorage.setItem("storedPatientArray", JSON.stringify(patientStorage));
+    window.location.reload();
+}
+
 

@@ -59,10 +59,20 @@ input:valid {
 }
 
 
+.glyphicon {
+    float: right;
+}
 
 .addAk, .removeAk {
     margin: 2px;
     width: 35px;
 }
 
+
+table.glyphicon-hover .glyphicon {
+    visibility: hidden;
+}
+table.glyphicon-hover td:hover .glyphicon {
+    visibility: visible;
+}
 
