@@ -23,7 +23,7 @@ if (patientStorage.length > 0) {
         text += "<td>" + currentpat.name + "</td>";
         text += "<td>" + currentpat.sex + "</td>";
         text += "<td>" + currentpat.bg + "</td>";
-        text += "<td>" + currentpat.ak + "<span class='glyphicon glyphicon-remove' onclick='removeObject(this)'></span></td></tr>";
+        text += "<td>" + currentpat.ak + "<span class='glyphicon glyphicon-remove' onclick='removePatient(this)'></span></td></tr>";
     }
     patientListBodyElement.innerHTML = text;
 }
@@ -98,7 +98,7 @@ function updateTable() {
         text += "<td>" + currentpat.name + "</td>";
         text += "<td>" + currentpat.sex + "</td>";
         text += "<td>" + currentpat.bg + "</td>";
-        text += "<td>" + currentpat.ak + "<span class='glyphicon glyphicon-remove' onclick='removeObject(this)'></span></td></tr>";
+        text += "<td>" + currentpat.ak + "<span class='glyphicon glyphicon-remove' onclick='removePatient(this)'></span></td></tr>";
     }
     patientListBodyElement.innerHTML = text;
 
@@ -134,19 +134,20 @@ var handlesearch = function () {
 inputSearch.addEventListener('keyup', handlesearch);
 
 
-
-
-function removeObject(clickedElement) {
-    console.log(clickedElement);
-    var span = clickedElement;
-    var td = span.parentNode;
-    var tr = td.parentNode.rowIndex;
-    console.log(tr);
-    var patientStorage = JSON.parse(localStorage.getItem("storedPatientArray"));
-    var x = tr-1;
-    patientStorage.splice(x, 1);
-    localStorage.setItem("storedPatientArray", JSON.stringify(patientStorage));
-    window.location.reload();
+function removePatient(clickedElement) {
+    var ask = confirm("Soll der Patient wirklich gelöscht werden?");
+    if (ask == true) {
+        var td = clickedElement.parentNode;
+        var tr = td.parentNode.rowIndex;
+        console.log(tr);
+        var patientStorage = JSON.parse(localStorage.getItem("storedPatientArray"));
+        var x = tr - 1;
+        patientStorage.splice(x, 1);
+        localStorage.setItem("storedPatientArray", JSON.stringify(patientStorage));
+        window.location.reload();
+    }
+    else {
+    }
 }
 
 
