@@ -24,14 +24,14 @@
 
 <div class="container container-content">
 
-    <form class="form-horizontal">
+    <div class="form-horizontal">
         <div class="form-group">
             <label>Nachname</label>
-            <input type="text" class="form-control surname" placeholder="Nachname des Patienten">
+            <input type="text" class="form-control surname" placeholder="Nachname des Patienten" required>
         </div>
         <div class="form-group">
             <label>Vorname</label>
-            <input type="text" class="form-control name" placeholder="Vorname des Patienten">
+            <input type="text" class="form-control name" placeholder="Vorname des Patienten" required>
         </div>
         <div class="form-group">
             <label>Geschlecht</label><br>
@@ -45,57 +45,73 @@
         <div class="form-group">
             <label>Blutgruppe</label><br>
             <label class="radio-inline">
-                <input type="radio" name="bg" id="inlineRadio1" value="A" checked> A
+                <input type="radio" name="bloodType" id="inlineRadio1" value="A" checked> A
             </label>
             <label class="radio-inline">
-                <input type="radio" name="bg" id="inlineRadio2" value="B"> B
+                <input type="radio" name="bloodType" id="inlineRadio2" value="B"> B
             </label>
             <label class="radio-inline">
-                <input type="radio" name="bg" id="inlineRadio2" value="0"> 0
+                <input type="radio" name="bloodType" id="inlineRadio2" value="0"> 0
             </label>
             <label class="radio-inline">
-                <input type="radio" name="bg" id="inlineRadio2" value="AB"> AB
+                <input type="radio" name="bloodType" id="inlineRadio2" value="AB"> AB
             </label>
         </div>
         <div class="form-group">
             <label>Rhesus</label><br>
             <label class="radio-inline">
-                <input type="radio" name="rh" id="inlineRadio1" value="positiv" checked> positiv
+                <input type="radio" name="rhesus" id="inlineRadio1" value="positiv" checked> positiv
             </label>
             <label class="radio-inline">
-                <input type="radio" name="rh" id="inlineRadio2" value="negativ"> negativ
+                <input type="radio" name="rhesus" id="inlineRadio2" value="negativ"> negativ
             </label>
             <label class="radio-inline">
-                <input type="radio" name="rh" id="inlineRadio2" value="D weak"> D weak
+                <input type="radio" name="rhesus" id="inlineRadio2" value="D weak"> D weak
             </label>
         </div>
 
-        <div class="form-group" id="ak">
+        <div class="form-group" id="antiBody">
             <label>Bekannte Antikörper</label><br>
 
             <div>
-                <select class="form-control" id="addedAk" size="5" multiple></select>
+                <select class="form-control" id="addedAntiBody" size="7" multiple></select>
             </div>
-            <div id="akButton">
-                <button class="btn btn-default addAk">+</button>
+            <div id="antiBodyButton">
+                <button class="btn btn-default addAntiBody">+</button>
                 <br>
-                <button class="btn btn-default removeAk">-</button>
+                <button class="btn btn-default removeAntiBody">-</button>
             </div>
             <div>
-                <select class="form-control" id="possibleAk" size="5">
+                <select class="form-control" id="possibleAntiBody" size="7">
                     <option value="Anti-D">Anti-D</option>
                     <option value="Anti-C">Anti-C</option>
                     <option value="Anti-c">Anti-c</option>
                     <option value="Anti-E">Anti-E</option>
                     <option value="Anti-e">Anti-e</option>
                     <option value="Anti-K">Anti-K</option>
+                    <option value="Anti-k">Anti-k</option>
+                    <option value="Anti-Kpa">Anti-Kpa</option>
+                    <option value="Anti-Kpb">Anti-Kpb</option>
+                    <option value="Anti-Fya">Anti-Fya</option>
+                    <option value="Anti-Fyb">Anti-Fyb</option>
+                    <option value="Anti-Jka">Anti-Jka</option>
+                    <option value="Anti-Jkb">Anti-Jkb</option>
+                    <option value="Anti-Lea">Anti-Lea</option>
+                    <option value="Anti-Leb">Anti-Leb</option>
+                    <option value="Anti-P1">Anti-P1</option>
+                    <option value="Anti-M">Anti-M</option>
+                    <option value="Anti-N">Anti-N</option>
+                    <option value="Anti-S">Anti-S</option>
+                    <option value="Anti-s">Anti-s</option>
+                    <option value="Anti-Lua">Anti-Lua</option>
+                    <option value="Anti-Lub">Anti-Lub</option>
                 </select>
 
             </div>
         </div>
-    </form>
+    </div>
 
-    <button class="btn btn-default save">Speichern</button>
+    <button class="btn btn-default save">Speichern</button><span class="required error"></span>
 
 
 

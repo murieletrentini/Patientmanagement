@@ -6,90 +6,93 @@ var inputSurname = document.querySelector('.surname');
 var patientListBodyElement = document.querySelector('#patientlist tbody');
 var inputSearch = document.querySelector('input.search');
 var patientList = document.querySelector('#patientlist table');
-var addAkButton = document.querySelector('.addAk');
-var removeAkButton = document.querySelector('.removeAk');
-var removeButton = document.querySelector('.remove');
+var addAntiBodyButton = document.querySelector('.addAntiBody');
+var removeAntiBodyButton = document.querySelector('.removeAntiBody');
 
-var patientArray = [];
 
-var patientStorage = JSON.parse(localStorage.getItem("storedPatientArray"));
-console.log(patientStorage);
-if (patientStorage.length > 0) {
-    var text = '';
-    var i;
-    for (i = 0; i < patientStorage.length; i++) {
-        var currentpat = patientStorage[i];
-        text += "<tr><td>" + currentpat.surname + "</td>";
-        text += "<td>" + currentpat.name + "</td>";
-        text += "<td>" + currentpat.sex + "</td>";
-        text += "<td>" + currentpat.bg + "</td>";
-        text += "<td>" + currentpat.ak + "<span class='glyphicon glyphicon-remove' onclick='removePatient(this)'></span></td></tr>";
+function checkStorage() {
+    var patientStorage = JSON.parse(localStorage.getItem("storedPatientArray"));
+    if (patientStorage == null) patientStorage = [];
+    if (patientStorage.length > 0) {
+        var text = '';
+        var i;
+        for (i = 0; i < patientStorage.length; i++) {
+            var currentpat = patientStorage[i];
+            text += "<tr><td>" + currentpat.surname + "</td>";
+            text += "<td>" + currentpat.name + "</td>";
+            text += "<td>" + currentpat.sex + "</td>";
+            text += "<td>" + currentpat.bloodType + "</td>";
+            text += "<td>" + currentpat.antiBody + "<span class='glyphicon glyphicon-remove' onclick='removePatient(this)'></span></td></tr>";
+        }
+        patientListBodyElement.innerHTML = text;
     }
-    patientListBodyElement.innerHTML = text;
+    else {
+        text = "<tr><td colspan='4'>Es sind keine Patienten in der Datenbank vorhanden</td></tr>";
+        patientListBodyElement.innerHTML = text;
+    }
 }
-else {
-    text = "<tr><td colspan='4'>Es sind keine Patienten in der Datenbank vorhanden</td></tr>";
-    patientListBodyElement.innerHTML = text;
+
+checkStorage();
+
+var addedAntiBodyArray = [];
+
+function handleAddAntiBody() {
+    var selectedAntiBody = document.querySelector('#possibleAntiBody option:checked');
+    document.querySelector('#addedAntiBody').appendChild(selectedAntiBody);
+    addedAntiBodyArray.push(selectedAntiBody.value);
 }
 
 
-var handleAddAk = function () {
-    var selectedAk = document.querySelector('#possibleAk option:checked');
-    document.querySelector('#addedAk').appendChild(selectedAk);
-};
+addAntiBodyButton.addEventListener('click', handleAddAntiBody);
 
-addAkButton.addEventListener('click', handleAddAk);
+function handleRemoveAntiBody() {
+    var selectedAntiBody = document.querySelector('#addedAntiBody option:checked');
+    document.querySelector('#possibleAntiBody').appendChild(selectedAntiBody);
+}
 
-var handleRemoveAk = function () {
-    var selectedAk = document.querySelector('#addedAk option:checked');
-    document.querySelector('#possibleAk').appendChild(selectedAk);
-};
-
-removeAkButton.addEventListener('click', handleRemoveAk);
+removeAntiBodyButton.addEventListener('click', handleRemoveAntiBody);
 
 var handleclicksave = function () {
-
-    setLocalStorage();
-    updateTable();
-    inputName.value = '';
-    inputSurname.value = '';
+    if (inputName.validity.valid == true && inputSurname.validity.valid == true) {
+        setLocalStorage();
+        updateTable();
+        inputName.value = '';
+        inputSurname.value = '';
+    }
+    else {
+        document.querySelector('span.required').innerHTML = "Bitte füllen Sie die Pflichtfelder aus.";
+    }
 };
 
 function setLocalStorage() {
     var storedPatients = JSON.parse(localStorage.getItem("storedPatientArray"));
     if (storedPatients == null) storedPatients = [];
     var sex = document.querySelector('input[name="sex"]:checked').value;
-    var bg = document.querySelector('input[name="bg"]:checked').value;
-    var rh = document.querySelector('input[name="rh"]:checked').value;
-    var addedAk = document.querySelector('#addedAk');
-    var inputAk = '';
+    var bloodType = document.querySelector('input[name="bloodType"]:checked').value;
+    var rhesus = document.querySelector('input[name="rhesus"]:checked').value;
+    var addedAntiBody = document.querySelector('#addedAntiBody');
+    var inputAntiBody = '';
     var x;
-    if (addedAk.length > 0) {
-        for (x = 0; x < addedAk.length; x++) {
-            inputAk = inputAk + ", " + addedAk[x].value;
-
-        }
-        inputAk = inputAk.replace(/([/s/S]*),/, '$1');
+    if (addedAntiBody.length > 0) {
+        inputAntiBody = addedAntiBodyArray.join();
     }
     else {
-        inputAk = "keine";
+        inputAntiBody = "keine";
     }
     var patientObject = {
         name: inputName.value,
         surname: inputSurname.value,
-        ak: inputAk,
+        antiBody: inputAntiBody,
         sex: sex,
-        bg: bg + " " + rh
+        bloodType: bloodType + " " + rhesus
     };
     localStorage.setItem("patientObject", JSON.stringify(patientObject));
     storedPatients.push(patientObject);
     localStorage.setItem("storedPatientArray", JSON.stringify(storedPatients));
-};
+}
 
 function updateTable() {
     var patientStorage = JSON.parse(localStorage.getItem("storedPatientArray"));
-    console.log(patientStorage);
-
     var text = '';
     var i;
     for (i = 0; i < patientStorage.length; i++) {
@@ -97,8 +100,8 @@ function updateTable() {
         text += "<tr><td>" + currentpat.surname + "</td>";
         text += "<td>" + currentpat.name + "</td>";
         text += "<td>" + currentpat.sex + "</td>";
-        text += "<td>" + currentpat.bg + "</td>";
-        text += "<td>" + currentpat.ak + "<span class='glyphicon glyphicon-remove' onclick='removePatient(this)'></span></td></tr>";
+        text += "<td>" + currentpat.bloodType + "</td>";
+        text += "<td>" + currentpat.antiBody + "<span class='glyphicon glyphicon-remove' onclick='removePatient(this)'></span></td></tr>";
     }
     patientListBodyElement.innerHTML = text;
 

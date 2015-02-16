@@ -48,13 +48,13 @@ input:valid {
 }
 
 
-#addedAk, #possibleAk {
+#addedAntiBody, #possibleAntiBody {
     float: left;
     max-width: 300px;
 }
 
 
-#akButton {
+#antiBodyButton {
     float: left;
 }
 
@@ -63,7 +63,7 @@ input:valid {
     float: right;
 }
 
-.addAk, .removeAk {
+.addAntiBody, .removeAntiBody {
     margin: 2px;
     width: 35px;
 }
@@ -76,3 +76,7 @@ table.glyphicon-hover td:hover .glyphicon {
     visibility: visible;
 }
 
+span.error {
+color: crimson;
+    margin-left: 100px;
+}
