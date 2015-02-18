@@ -72,7 +72,6 @@ var handleclicksave = function () {
 };
 
 function setLocalStorage() {
-    var storedPatients = JSON.parse(localStorage.getItem("storedPatientArray"));
     var sex = document.querySelector('input[name="sex"]:checked').value;
     var bloodType = document.querySelector('input[name="bloodType"]:checked').value;
     var rhesus = document.querySelector('input[name="rhesus"]:checked').value;
@@ -91,13 +90,11 @@ function setLocalStorage() {
         sex: sex,
         bloodType: bloodType + " " + rhesus
     };
-    localStorage.setItem("patientObject", JSON.stringify(patientObject));
-    storedPatients.push(patientObject);
-    localStorage.setItem("storedPatientArray", JSON.stringify(storedPatients));
+    patientStorage.push(patientObject);
+    localStorage.setItem("storedPatientArray", JSON.stringify(patientStorage));
 }
 
 function updateTable() {
-    var patientStorage = JSON.parse(localStorage.getItem("storedPatientArray"));
     var text = '';
     var i;
     for (i = 0; i < patientStorage.length; i++) {
