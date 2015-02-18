@@ -1,4 +1,8 @@
 /* Created by muriele on 03.01.15. */
+var compiledTemplateFunction = _.template('hello <%= user %>!');
+console.log(compiledTemplateFunction({ 'user': 'fred' }));
+console.log(compiledTemplateFunction({ 'user': 'Georg' }));
+
 function getPatientsFromStorage() {
     var patientStorage = JSON.parse(localStorage.getItem("storedPatientArray"));
     if (patientStorage == null) {
@@ -13,28 +17,17 @@ function savePatientsToStorage(patients) {
 
 var patients = getPatientsFromStorage();
 
-
-function updateTable(patients) {
+function updateTable (patients) {
     var patientListBodyElement = document.querySelector('#patientlist tbody');
     if (patients.length > 0) {
-        var text = '';
-        var i;
-        for (i = 0; i < patients.length; i++) {
-            var currentpat = patients[i];
-            text += "<tr><td>" + currentpat.surname + "</td>";
-            text += "<td>" + currentpat.name + "</td>";
-            text += "<td>" + currentpat.sex + "</td>";
-            text += "<td>" + currentpat.bloodType + "</td>";
-            text += "<td>" + currentpat.antiBody + "<span class='glyphicon glyphicon-remove' onclick='removePatient(this)'></span></td></tr>";
-        }
-        patientListBodyElement.innerHTML = text;
+        var compiled = _.template(document.querySelector('#tableTemplate').innerHTML);
+        var result = compiled({patients: patients});
+        patientListBodyElement.innerHTML = result;
     }
     else {
-        text = "<tr><td colspan='4'>Es sind keine Patienten in der Datenbank vorhanden</td></tr>";
-        patientListBodyElement.innerHTML = text;
+        patientListBodyElement.innerHTML = "<tr><td colspan='4'>Es sind keine Patienten in der Datenbank vorhanden</td></tr>";
     }
 }
-
 
 updateTable(patients);
 
