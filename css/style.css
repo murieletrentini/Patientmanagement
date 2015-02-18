@@ -22,8 +22,7 @@ a {
 /*navbar
 ---------------------------------------------------------------------*/
 .navbar-nav > li > a {
-    padding: 0;
-    padding-top: 5px;
+    padding: 5px 0 0;
 }
 
 .navbar-brand {
@@ -53,7 +52,6 @@ input:valid {
     max-width: 300px;
 }
 
-
 #antiBodyButton {
     float: left;
 }
@@ -63,7 +61,7 @@ input:valid {
     float: right;
 }
 
-.addAntiBody, .removeAntiBody {
+button.addAntiBody, button.removeAntiBody {
     margin: 2px;
     width: 35px;
 }

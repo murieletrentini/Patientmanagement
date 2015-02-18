@@ -8,11 +8,16 @@ var inputSearch = document.querySelector('input.search');
 var patientList = document.querySelector('#patientlist table');
 var addAntiBodyButton = document.querySelector('.addAntiBody');
 var removeAntiBodyButton = document.querySelector('.removeAntiBody');
+var patientStorage;
 
-
-function checkStorage() {
-    var patientStorage = JSON.parse(localStorage.getItem("storedPatientArray"));
+function getPatientsFromStorage () {
+    patientStorage = JSON.parse(localStorage.getItem("storedPatientArray"));
     if (patientStorage == null) patientStorage = [];
+}
+
+getPatientsFromStorage();
+
+function displayStorage() {
     if (patientStorage.length > 0) {
         var text = '';
         var i;
@@ -32,7 +37,7 @@ function checkStorage() {
     }
 }
 
-checkStorage();
+displayStorage();
 
 var addedAntiBodyArray = [];
 
@@ -53,26 +58,26 @@ function handleRemoveAntiBody() {
 removeAntiBodyButton.addEventListener('click', handleRemoveAntiBody);
 
 var handleclicksave = function () {
+    var saveMessage = document.querySelector('div.alert');
     if (inputName.validity.valid == true && inputSurname.validity.valid == true) {
         setLocalStorage();
         updateTable();
         inputName.value = '';
         inputSurname.value = '';
+        saveMessage.hidden = true;
     }
     else {
-        document.querySelector('span.required').innerHTML = "Bitte füllen Sie die Pflichtfelder aus.";
+        saveMessage.hidden = false;
     }
 };
 
 function setLocalStorage() {
     var storedPatients = JSON.parse(localStorage.getItem("storedPatientArray"));
-    if (storedPatients == null) storedPatients = [];
     var sex = document.querySelector('input[name="sex"]:checked').value;
     var bloodType = document.querySelector('input[name="bloodType"]:checked').value;
     var rhesus = document.querySelector('input[name="rhesus"]:checked').value;
     var addedAntiBody = document.querySelector('#addedAntiBody');
     var inputAntiBody = '';
-    var x;
     if (addedAntiBody.length > 0) {
         inputAntiBody = addedAntiBodyArray.join();
     }
