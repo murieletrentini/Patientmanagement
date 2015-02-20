@@ -28,7 +28,7 @@
     <div class="form-horizontal">
         <div class="form-group">
             <label>Nachname</label>
-            <input type="text" class="form-control surname" placeholder="Nachname des Patienten" required>
+            <input type="text" class="form-control surname" placeholder="Nachname des Patienten" required autofocus>
         </div>
         <div class="form-group">
             <label>Vorname</label>
@@ -149,6 +149,11 @@
         <td><%- patient.antiBody %><span class="glyphicon glyphicon-remove" onclick="removePatient(this)"></span></td>
     </tr><% }); %>
 
+</script>
+<script type="text/template" id="elseTemplate">
+    <tr>
+        <td colspan='4'>Es sind keine Patienten in der Datenbank vorhanden</td>
+    </tr>
 </script>
 <script src="lodash.js"></script>
 <script src="script.js"></script>
