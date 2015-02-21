@@ -1,19 +1,7 @@
 /* Created by muriele on 03.01.15. */
-function getPatientsFromStorage() {
-    var patientStorage = JSON.parse(localStorage.getItem("storedPatientArray"));
-    if (patientStorage == null) {
-        patientStorage = [];
-    }
-    return patientStorage;
-}
+var patients = store.getPatients();
 
-function savePatientsToStorage(patients) {
-    localStorage.setItem("storedPatientArray", JSON.stringify(patients));
-}
-
-var patients = getPatientsFromStorage();
-
-function updateTable (patients) {
+function updateTable(patients) {
     var patientListBodyElement = document.querySelector('#patientlist tbody');
     if (patients.length > 0) {
         var compiled = _.template(document.querySelector('#tableTemplate').innerHTML);
@@ -53,7 +41,7 @@ function handleclicksave() {
     var saveMessage = document.querySelector('div.alert');
     if (inputName.validity.valid == true && inputSurname.validity.valid == true) {
         patients.push(buildNewPatientObject());
-        savePatientsToStorage(patients);
+        store.savePatients(patients);
         updateTable(patients);
         inputName.value = '';
         inputSurname.value = '';
@@ -66,7 +54,6 @@ function handleclicksave() {
 }
 var saveButton = document.querySelector('.save');
 saveButton.addEventListener('click', handleclicksave);
-
 
 
 function buildNewPatientObject() {
@@ -86,21 +73,26 @@ function buildNewPatientObject() {
         surname: inputSurname.value,
         antiBody: inputAntiBody,
         sex: sex,
-        bloodType: bloodType + " " + rhesus
+        bloodType: bloodType + " " + rhesus,
+        id: store.getId()
     };
 }
+
 
 
 var inputSearch = document.querySelector('input.search');
 
 function handlesearch() {
+    var filteredPatients = store.getFilteredPatients(inputSearch.value);
+    updateTable(filteredPatients);
+    /*
     var patientList = document.querySelector('#patientlist table');
     var rowNr;
 
     for (var rowIndex = 0; rowIndex < patientList.rows.length; rowIndex++) {
         var rowData = '';
 
-        if (rowIndex == 0) {
+        if (rowIndex === 0) {
             rowNr = patientList.rows.item(rowIndex).cells.length;
             continue;
         }
@@ -116,21 +108,24 @@ function handlesearch() {
             patientList.rows.item(rowIndex).style.display = 'table-row';
         }
     }
-
+*/
 }
 inputSearch.addEventListener('keyup', handlesearch);
 
 
-function removePatient(clickedElement) {
+function onRemovePatient(patientID) {
     var ask = confirm("Soll der Patient wirklich gelöscht werden?");
-    if (ask == true) {
-        var td = clickedElement.parentNode;
-        var tr = td.parentNode.rowIndex;
-        var x = tr - 1;
-        patients.splice(x, 1);
-        savePatientsToStorage(patients);
+    if (ask === true) {
+        removePatient(patientID);
+        store.savePatients(patients);
         updateTable(patients);
     }
 }
 
+
+function removePatient(patientID) {
+    _.remove(patients, function predicate(patient) {
+        return patient.id === patientID;
+    });
+}
 
