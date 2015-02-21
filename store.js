@@ -31,8 +31,14 @@ var store = {
         localStorage.setItem("storedPatientArray", JSON.stringify(patients));
     },
     getFilteredPatients: function (query) {
+        if (query === '') {
+            return this.getPatients();
+        }
+
+        var upperCaseQuery = query.toUpperCase();
         return _.filter(this.getPatients(), function (patient) {
-           return query === patient.surname;
+            return _.values(patient).join(' ').toUpperCase().indexOf(upperCaseQuery) !== -1;
         });
+
     }
 };
