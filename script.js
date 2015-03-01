@@ -1,48 +1,25 @@
 /* Created by muriele on 03.01.15. */
+
+
 var patients = store.getPatients();
 
-function updateTable(patients) {
-    var patientListBodyElement = document.querySelector('#patientlist tbody');
-    if (patients.length > 0) {
-        var compiled = _.template(document.querySelector('#tableTemplate').innerHTML);
-        patientListBodyElement.innerHTML = compiled({patients: patients});
-    }
-    else {
-        patientListBodyElement.innerHTML = document.querySelector('#elseTemplate').innerHTML;
-    }
-}
+view.updateTable(patients);
 
-updateTable(patients);
 
 var addAntiBodyButton = document.querySelector('.addAntiBody');
 var removeAntiBodyButton = document.querySelector('.removeAntiBody');
-var addedAntiBodyArray = [];
+addAntiBodyButton.addEventListener('click', model.addAntiBodyToArray);
+removeAntiBodyButton.addEventListener('click', model.removeAntiBodyFromArray);
 
-function handleAddAntiBody() {
-    var selectedAntiBody = document.querySelector('#possibleAntiBody option:checked');
-    document.querySelector('#addedAntiBody').appendChild(selectedAntiBody);
-    addedAntiBodyArray.push(selectedAntiBody.value);
-}
-
-
-addAntiBodyButton.addEventListener('click', handleAddAntiBody);
-
-function handleRemoveAntiBody() {
-    var selectedAntiBody = document.querySelector('#addedAntiBody option:checked');
-    addedAntiBodyArray.splice(selectedAntiBody.index, 1);
-    document.querySelector('#possibleAntiBody').appendChild(selectedAntiBody);
-}
-
-removeAntiBodyButton.addEventListener('click', handleRemoveAntiBody);
 
 var inputName = document.querySelector('.name');
 var inputSurname = document.querySelector('.surname');
 function handleclicksave() {
     var saveMessage = document.querySelector('div.alert');
     if (inputName.validity.valid == true && inputSurname.validity.valid == true) {
-        patients.push(buildNewPatientObject());
+        patients.push(model.buildNewPatientObject(inputName, inputSurname));
         store.savePatients(patients);
-        updateTable(patients);
+        view.updateTable(patients);
         inputName.value = '';
         inputSurname.value = '';
         inputSurname.focus();
@@ -56,59 +33,11 @@ var saveButton = document.querySelector('.save');
 saveButton.addEventListener('click', handleclicksave);
 
 
-function buildNewPatientObject() {
-    var sex = document.querySelector('input[name="sex"]:checked').value;
-    var bloodType = document.querySelector('input[name="bloodType"]:checked').value;
-    var rhesus = document.querySelector('input[name="rhesus"]:checked').value;
-    var addedAntiBody = document.querySelector('#addedAntiBody');
-    var inputAntiBody = '';
-    if (addedAntiBody.length > 0) {
-        inputAntiBody = addedAntiBodyArray.join();
-    }
-    else {
-        inputAntiBody = "keine";
-    }
-    return {
-        name: inputName.value,
-        surname: inputSurname.value,
-        antiBody: inputAntiBody,
-        sex: sex,
-        bloodType: bloodType + " " + rhesus,
-        id: store.getId()
-    };
-}
-
-
-
 var inputSearch = document.querySelector('input.search');
 
 function handlesearch() {
     var filteredPatients = store.getFilteredPatients(inputSearch.value);
-    updateTable(filteredPatients);
-    /*
-    var patientList = document.querySelector('#patientlist table');
-    var rowNr;
-
-    for (var rowIndex = 0; rowIndex < patientList.rows.length; rowIndex++) {
-        var rowData = '';
-
-        if (rowIndex === 0) {
-            rowNr = patientList.rows.item(rowIndex).cells.length;
-            continue;
-        }
-
-        for (var colIndex = 0; colIndex < rowNr; colIndex++) {
-            rowData += patientList.rows.item(rowIndex).cells.item(colIndex).textContent;
-        }
-
-        if (rowData.toUpperCase().indexOf(inputSearch.value.toUpperCase()) == -1) {
-            patientList.rows.item(rowIndex).style.display = 'none';
-        }
-        else {
-            patientList.rows.item(rowIndex).style.display = 'table-row';
-        }
-    }
-*/
+    view.updateTable(filteredPatients);
 }
 inputSearch.addEventListener('keyup', handlesearch);
 
@@ -118,7 +47,7 @@ function onRemovePatient(patientID) {
     if (ask === true) {
         removePatient(patientID);
         store.savePatients(patients);
-        updateTable(patients);
+        view.updateTable(patients);
     }
 }
 
