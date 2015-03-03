@@ -110,7 +110,7 @@
             </div>
         </div>
     </div>
-    <div class="alert alert-danger" role="alert" hidden="true">Bitte füllen Sie die Pflichtfelder aus</div>
+    <div class="alert alert-danger" role="alert" hidden="hidden">Bitte füllen Sie die Pflichtfelder aus</div>
     <button class="btn btn-default save">Speichern</button>
     </span>
 
@@ -148,7 +148,7 @@
         <td><%- patient.name %></td>
         <td><%- patient.sex %></td>
         <td><%- patient.bloodType %></td>
-        <td><%- patient.antiBody %><span class="glyphicon glyphicon-remove" onclick="onRemovePatient(<%- patient.id %>)"></span></td>
+        <td><%- patient.antiBody %><span class="glyphicon glyphicon-remove" onclick="controller.onRemovePatient(<%- patient.id %>)"></span></td>
     </tr><% }); %>
 
 </script>
@@ -160,6 +160,7 @@
 <script src="lodash.js" type="text/javascript"></script>
 <script src="store.js" type="text/javascript"></script>
 <script src="model.js" type="text/javascript"></script>
+<script src="controller.js" type="text/javascript"></script>
 <script src="view.js" type="text/javascript"></script>
 <script src="script.js" type="text/javascript"></script>
 
