@@ -1,5 +1,6 @@
 /* Created by muriele on 03.01.15. */
 
+
 var patients = store.getPatients();
 
 view.updateTable(patients);

@@ -7,8 +7,10 @@ var model = {
     addAntiBodyToArray: function () {
         var selectedAntiBody = document.querySelector('#possibleAntiBody option:checked');
         if (selectedAntiBody !== null) {
+            selectedIndex = selectedAntiBody.index;
             document.querySelector('#addedAntiBody').appendChild(selectedAntiBody);
             model.antiBodyArray.push(selectedAntiBody.value);
+            view.sortAddedAntiBodyList()
         }
     },
     removeAntiBodyFromArray: function () {
@@ -16,6 +18,7 @@ var model = {
         if (selectedAntiBody !== null) {
             model.antiBodyArray.splice(selectedAntiBody.index, 1);
             document.querySelector('#possibleAntiBody').appendChild(selectedAntiBody);
+            view.sortPossibleAntiBodyList();
         }
     },
     buildNewPatientObject: function (inputName, inputSurname) {
@@ -25,7 +28,7 @@ var model = {
         var addedAntiBody = document.querySelector('#addedAntiBody');
         var inputAntiBody = '';
         if (addedAntiBody.length > 0) {
-            inputAntiBody = this.antiBodyArray.join();
+            inputAntiBody = this.antiBodyArray.join(', ');
         }
         else {
             inputAntiBody = "keine";
