@@ -7,15 +7,26 @@ var controller = {
         view.updateTable(filteredPatients);
     },
     handleClickSave: function () {
-        var saveMessage = document.querySelector('div.alert');
+        var saveMessage = document.querySelector('div.alert-save');
+        var duplicateMessage = document.querySelector('div.alert-duplicate');
         if (inputName.validity.valid == true && inputSurname.validity.valid == true) {
-            patients.push(model.buildNewPatientObject(inputName, inputSurname));
-            store.savePatients(patients);
-            view.updateTable(patients);
-            inputName.value = '';
-            inputSurname.value = '';
-            inputSurname.focus();
-            saveMessage.hidden = true;
+            var duplicatePatientsSurname = store.getFilteredPatients(inputSurname.value);
+            var duplicatePatientsName = store.getFilteredPatients(inputName.value);
+            if (duplicatePatientsSurname.length > 0 && duplicatePatientsName.length > 0) {
+                duplicateMessage.hidden = false;
+                saveMessage.hidden = true;
+                view.updateTable(duplicatePatientsName);
+            }
+            else {
+                patients.push(model.buildNewPatientObject(inputName, inputSurname));
+                store.savePatients(patients);
+                view.updateTable(patients);
+                inputName.value = '';
+                inputSurname.value = '';
+                inputSurname.focus();
+                saveMessage.hidden = true;
+                duplicateMessage.hidden = true;
+            }
         }
         else {
             saveMessage.hidden = false;
