@@ -18,7 +18,7 @@ var controller = {
                 view.updateTable(duplicatePatientsName);
             }
             else {
-                patients.push(model.buildNewPatientObject(inputName, inputSurname));
+                patients.push(model.buildNewPatientObject(inputName, inputSurname, birthDate));
                 store.savePatients(patients);
                 view.updateTable(patients);
                 inputName.value = '';

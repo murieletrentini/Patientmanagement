@@ -21,7 +21,7 @@ var model = {
             view.sortPossibleAntiBodyList();
         }
     },
-    buildNewPatientObject: function (inputName, inputSurname) {
+    buildNewPatientObject: function (inputName, inputSurname, birthDate) {
         var sex = document.querySelector('input[name="sex"]:checked').value;
         var bloodType = document.querySelector('input[name="bloodType"]:checked').value;
         var rhesus = document.querySelector('input[name="rhesus"]:checked').value;
@@ -38,6 +38,7 @@ var model = {
             surname: inputSurname.value,
             antiBody: inputAntiBody,
             sex: sex,
+            birthDate: birthDate.value,
             bloodType: bloodType + " " + rhesus,
             id: store.getId()
         };

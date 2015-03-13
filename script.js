@@ -14,6 +14,7 @@ removeAntiBodyButton.addEventListener('click', model.removeAntiBodyFromArray);
 
 var inputName = document.querySelector('.name');
 var inputSurname = document.querySelector('.surname');
+var birthDate = document.querySelector('.birthDate');
 
 var saveButton = document.querySelector('.save');
 saveButton.addEventListener('click', controller.handleClickSave);
@@ -23,6 +24,7 @@ var inputSearch = document.querySelector('input.search');
 
 
 inputSearch.addEventListener('keyup', controller.handleSearch);
+
 
 
 
