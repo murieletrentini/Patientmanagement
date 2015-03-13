@@ -17,7 +17,7 @@
             <li><a href="#"><img src="img/newPat.png" title="Patientenaufnahme" width="70" height="70"></a></li>
             <li><a href="#"><img src="img/patlist-blue.png" title="Patientenliste" width="70" height="70"></a></li>
         </ul>
-        <a class="navbar-brand" href="#">Patientenverwaltung |
+        <a class="navbar-brand" href="#"><span style="color:#02E026">°</span><span style="color:#20E4FE">°</span> Immupar |
             <small>Patientenaufnahme</small>
         </a>
     </div>
@@ -75,7 +75,7 @@
             <label>Bekannte Antikörper</label><br>
 
             <div>
-                <select class="form-control" id="addedAntiBody" size="7" multiple></select>
+                <select class="form-control" id="addedAntiBody" size="7" multiple ondblclick="model.removeAntiBodyFromArray()"></select>
             </div>
             <div id="antiBodyButton">
                 <button class="btn btn-default addAntiBody">+</button>
@@ -83,7 +83,7 @@
                 <button class="btn btn-default removeAntiBody">-</button>
             </div>
             <div>
-                <select class="form-control" id="possibleAntiBody" size="7">
+                <select class="form-control" id="possibleAntiBody" size="7" ondblclick="model.addAntiBodyToArray()">
                     <option value="Anti-D" id="antiBodyA">Anti-D</option>
                     <option value="Anti-C" id="antiBodyB">Anti-C</option>
                     <option value="Anti-c" id="antiBodyC">Anti-c</option>
