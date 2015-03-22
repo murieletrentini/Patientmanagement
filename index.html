@@ -89,8 +89,8 @@
             <label>Bekannte Antikörper</label><br>
 
             <div>
-                <select class="form-control" id="addedAntiBody" size="7" multiple
-                        ondblclick="model.removeAntiBodyFromArray()"></select>
+                <select class="form-control" id="addedAntiBody" size="7"
+                        ondblclick="controller.removeAntiBodyFromSelection()"></select>
             </div>
             <div id="antiBodyButton">
                 <button class="btn btn-default addAntiBody">+</button>
@@ -98,7 +98,8 @@
                 <button class="btn btn-default removeAntiBody">-</button>
             </div>
             <div>
-                <select class="form-control" id="possibleAntiBody" size="7" ondblclick="model.addAntiBodyToArray()">
+                <select class="form-control" id="possibleAntiBody" size="7"
+                        ondblclick="controller.addAntiBodyToSelection()">
                     <option value="Anti-D" id="antiBodyA">Anti-D</option>
                     <option value="Anti-C" id="antiBodyB">Anti-C</option>
                     <option value="Anti-c" id="antiBodyC">Anti-c</option>
@@ -129,7 +130,9 @@
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 Bitte füllen Sie die Pflichtfelder aus
             </div>
-            <div class="alert alert-danger alert-duplicate" role="alert" hidden="hidden"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Patient möglicherweise bereits
+            <div class="alert alert-danger alert-duplicate" role="alert" hidden="hidden"><span
+                    class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Patient möglicherweise
+                bereits
                 vorhanden
             </div>
             <button class="btn btn-default save">Speichern</button>
@@ -163,6 +166,7 @@
 
     </div>
 </div>
+
 <script type="text/template" id="tableTemplate">
     <% _.forEach(patients, function(patient) { %>
     <tr>
@@ -182,14 +186,15 @@
         <td colspan='4'>Es sind keine Patienten in der Datenbank vorhanden</td>
     </tr>
 </script>
-<script src="lodash/lodash.min.js" type="text/javascript"></script>
+<script src="lodash/lodash.js" type="text/javascript"></script>
 <script src="jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
 <script src="dateTimePicker/bootstrap-datetimepicker.js" type="text/javascript"></script>
 <script src="store.js" type="text/javascript"></script>
-<script src="model.js" type="text/javascript"></script>
 <script src="controller.js" type="text/javascript"></script>
 <script src="view.js" type="text/javascript"></script>
-<script src="script.js" type="text/javascript"></script>
+<script type="text/javascript">
+    controller.init();
+</script>
 
 
 </body>
