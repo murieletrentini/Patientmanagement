@@ -1,0 +1,17 @@
+{
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "quotes": [
+      2,
+      "single"
+    ],
+    "strict": 0,
+    "no-alert":1
+  },
+  "globals": {
+    "PatMng": true,
+    "_": true
+  }
+}
