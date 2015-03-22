@@ -31,57 +31,51 @@
     <div class="form-horizontal">
         <div class="form-group">
             <label>Nachname</label>
-            <input type="text" class="form-control surname" placeholder="Nachname des Patienten" required autofocus>
+            <input type="text" class="form-control surname" placeholder="Nachname des Patienten" required autofocus/>
         </div>
         <div class="form-group">
             <label>Vorname</label>
-            <input type="text" class="form-control name" placeholder="Vorname des Patienten" required>
+            <input type="text" class="form-control name" placeholder="Vorname des Patienten" required/>
         </div>
         <div class="form-group">
             <label>Geschlecht</label><br>
             <label class="radio-inline">
-                <input type="radio" name="sex" value="weiblich" checked> Weiblich
+                <input type="radio" name="sex" value="weiblich" checked/> Weiblich
             </label>
             <label class="radio-inline">
-                <input type="radio" name="sex" value="männlich"> Männlich
+                <input type="radio" name="sex" value="männlich"/> Männlich
             </label>
         </div>
         <div class="form-group">
-            <label>Geburtstag</label><br>
-
-            <div class="input-group date form_date col-md-3" data-date="" data-date-format="dd MM yyyy"
-                 data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-
-                <input class="form-control birthDate" size="16" type="text" value="" readonly>
-                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-            </div>
+            <label>Geburtstag (dd.mm.yy)</label><br>
+<input type="text" class="form-control birthDate"/>
         </div>
 
         <div class="form-group">
             <label>Blutgruppe</label><br>
             <label class="radio-inline">
-                <input type="radio" name="bloodType" value="A" checked> A
+                <input type="radio" name="bloodType" value="A" checked/> A
             </label>
             <label class="radio-inline">
-                <input type="radio" name="bloodType" value="B"> B
+                <input type="radio" name="bloodType" value="B"/> B
             </label>
             <label class="radio-inline">
-                <input type="radio" name="bloodType" value="0"> 0
+                <input type="radio" name="bloodType" value="0"/> 0
             </label>
             <label class="radio-inline">
-                <input type="radio" name="bloodType" value="AB"> AB
+                <input type="radio" name="bloodType" value="AB"/> AB
             </label>
         </div>
         <div class="form-group">
             <label>Rhesus</label><br>
             <label class="radio-inline">
-                <input type="radio" name="rhesus" value="positiv" checked> positiv
+                <input type="radio" name="rhesus" value="positiv" checked/> positiv
             </label>
             <label class="radio-inline">
-                <input type="radio" name="rhesus" value="negativ"> negativ
+                <input type="radio" name="rhesus" value="negativ"/> negativ
             </label>
             <label class="radio-inline">
-                <input type="radio" name="rhesus" value="D weak"> D weak
+                <input type="radio" name="rhesus" value="D weak"/> D weak
             </label>
         </div>
 
@@ -145,7 +139,7 @@
         <h2>gespeicherte Patienten</h2>
 
         <div id="search">
-            <input type="text" class="form-control search" placeholder="Suche" style="font-style: italic">
+            <input type="text" class="form-control search" placeholder="Suche" style="font-style: italic"/>
         </div>
         <br>
         <table class="table table-hover glyphicon-hover">
@@ -187,8 +181,6 @@
     </tr>
 </script>
 <script src="lodash/lodash.js" type="text/javascript"></script>
-<script src="jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
-<script src="dateTimePicker/bootstrap-datetimepicker.js" type="text/javascript"></script>
 <script src="store.js" type="text/javascript"></script>
 <script src="controller.js" type="text/javascript"></script>
 <script src="view.js" type="text/javascript"></script>

@@ -2,7 +2,7 @@
  * Created by muriele on 03.03.15.
  */
 var controller = {
-    init: function() {
+    init: function () {
         this.patients = store.getPatients();
         view.init();
         view.updateTable(this.patients);
@@ -10,34 +10,63 @@ var controller = {
         view.removeAntiBodyButton.addEventListener('click', this.removeAntiBodyFromSelection);
         view.saveButton.addEventListener('click', this.handleClickSave);
         view.inputSearch.addEventListener('keyup', this.handleSearch);
+        view.inputBirthDate.addEventListener('keyup', this.normalizeDateInput);
+        view.inputBirthDate.addEventListener('keypress', this.preventAlpha);
+    },
+
+    preventAlpha: function (evt) {
+        // prevent keypress if not a number or not colon
+        if ((evt.keyCode > 58 || evt.keyCode < 48) && evt.keyCode !== 46) {
+            evt.preventDefault();
+        }
+        if (view.inputBirthDate.value.length > 9) {
+            evt.preventDefault();
+        }
+    },
+
+    normalizeDateInput: function () {
+        var dateInput = view.inputBirthDate.value;
+
+        var twoDigitsRegex = /^\d{3}$/;
+        var fourDigitsRegex = /^\d{2}\.\d{3}$/;
+
+        if (twoDigitsRegex.test(dateInput)) {
+            view.inputBirthDate.value = [dateInput.slice(0, 2), '.', dateInput.slice(2)].join('');
+        }
+
+
+        if (fourDigitsRegex.test(dateInput)) {
+            view.inputBirthDate.value = [dateInput.slice(0, 5), '.', dateInput.slice(5)].join('');
+        }
+
     },
     handleSearch: function () {
         var filteredPatients = store.getFilteredPatients(inputSearch.value);
         view.updateTable(filteredPatients);
     },
     handleClickSave: function () {
-        
-        if (view.inputName.validity.valid == true && view.inputSurname.validity.valid == true) {
-            var duplicatePatientsSurname = store.getFilteredPatients(view.inputSurname.value);
-            var duplicatePatientsName = store.getFilteredPatients(view.inputName.value);
-            if (duplicatePatientsSurname.length > 0 && duplicatePatientsName.length > 0) {
-                view.duplicateMessageAlert.hidden = false;
-                view.saveMessageAlert.hidden = true;
-                view.updateTable(duplicatePatientsName);
-            }
-            else {
-                controller.patients.push(controller.buildNewPatientObject());
-                store.savePatients(controller.patients);
-                view.updateTable(controller.patients);
-                view.inputName.value = '';
-                view.inputSurname.value = '';
-                view.inputSurname.focus();
-                view.saveMessageAlert.hidden = true;
-                view.duplicateMessageAlert.hidden = true;
-            }
+
+        if (view.inputName.validity.valid !== true || view.inputSurname.validity.valid !== true) {
+            view.saveMessageAlert.hidden = false;
+            return;
+        }
+
+        var duplicatePatientsSurname = store.getFilteredPatients(view.inputSurname.value);
+        var duplicatePatientsName = store.getFilteredPatients(view.inputName.value);
+        if (duplicatePatientsSurname.length > 0 && duplicatePatientsName.length > 0) {
+            view.duplicateMessageAlert.hidden = false;
+            view.saveMessageAlert.hidden = true;
+            view.updateTable(duplicatePatientsName);
         }
         else {
-            view.saveMessageAlert.hidden = false;
+            controller.patients.push(controller.buildNewPatientObject());
+            store.savePatients(controller.patients);
+            view.updateTable(controller.patients);
+            view.inputName.value = '';
+            view.inputSurname.value = '';
+            view.inputSurname.focus();
+            view.saveMessageAlert.hidden = true;
+            view.duplicateMessageAlert.hidden = true;
         }
     },
     onRemovePatient: function (patientID) {
