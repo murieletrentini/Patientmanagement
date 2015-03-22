@@ -46,26 +46,9 @@ input:valid {
     margin-top: 100px;
 }
 
-
-#addedAntiBody, #possibleAntiBody {
-    float: left;
-    max-width: 300px;
-}
-
-#antiBodyButton {
-    float: left;
-}
-
-
-.glyphicon {
+.glyphicon-remove {
     float: right;
 }
-
-button.addAntiBody, button.removeAntiBody {
-    margin: 2px;
-    width: 35px;
-}
-
 
 table.glyphicon-hover .glyphicon {
     visibility: hidden;
@@ -76,4 +59,21 @@ table.glyphicon-hover td:hover .glyphicon {
 
 div.alert {
     max-width: 300px;
+}
+
+
+/*antibody window
+-----------------------------------------------------------------------*/
+button.addAntiBody, button.removeAntiBody {
+    margin: 2px;
+    width: 35px;
+}
+
+#addedAntiBody, #possibleAntiBody {
+    float: left;
+    max-width: 300px;
+}
+
+#antiBodyButton {
+    float: left;
 }
