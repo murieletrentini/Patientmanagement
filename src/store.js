@@ -1,7 +1,7 @@
 /**
  * Created by muriele on 21.02.15.
  */
-var store = {
+PatMng.store = {
     id: undefined,
     getPatients: function () {
         var patientStorage = JSON.parse(localStorage.getItem("storedPatientArray"));
