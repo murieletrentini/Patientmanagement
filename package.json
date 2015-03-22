@@ -1,0 +1,23 @@
+{
+  "name": "Patientmanagement",
+  "version": "1.0.0",
+  "description": "My webtool to manage Patients and their data. <br> first Version: 02.02.2015",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tarinya/Patientmanagement.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tarinya/Patientmanagement/issues"
+  },
+  "homepage": "https://github.com/tarinya/Patientmanagement",
+  "dependencies": {
+    "bootstrap": "^3.3.4",
+    "lodash": "^3.5.0"
+  },
+  "devDependencies": {}
+}
