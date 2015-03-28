@@ -68,6 +68,8 @@ PatMng.controller = {
             PatMng.view.inputSurname.focus();
             PatMng.view.saveMessageAlert.hidden = true;
             PatMng.view.duplicateMessageAlert.hidden = true;
+            this.patientAntiBodyArray = [];
+            PatMng.view.updatePatientAntiBodyList(this.patientAntiBodyArray);
         }
     },
     onRemovePatient: function (patientID) {
@@ -107,7 +109,7 @@ PatMng.controller = {
     },
     removeAntiBodyFromPatientAntiBodyArray: function (antiBodyOrder) {
         var antiBodyIndex = _.findIndex(this.patientAntiBodyArray, function(search){
-           return search.order == antiBodyOrder;
+           return search.order === antiBodyOrder;
         });
         this.patientAntiBodyArray.splice(antiBodyIndex, 1);
         PatMng.view.updatePatientAntiBodyList(this.patientAntiBodyArray);
