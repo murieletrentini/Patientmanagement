@@ -20,26 +20,26 @@ PatMng.view = {
             antiBodyArray[i] = possibleAntiBodyList.options[i].id + ',' + possibleAntiBodyList.options[i].value + ',' + possibleAntiBodyList.options[i].text;
         }
         antiBodyArray.sort();
-        for (var i = 0; i < possibleAntiBodyList.length; i++) {
-            x = antiBodyArray[i].split(',');
-            possibleAntiBodyList.options[i].id = x[0];
-            possibleAntiBodyList.options[i].value = x[1];
-            possibleAntiBodyList.options[i].text = x[2];
+        for (var y = 0; y < possibleAntiBodyList.length; y++) {
+            var x = antiBodyArray[y].split(',');
+            possibleAntiBodyList.options[y].id = x[0];
+            possibleAntiBodyList.options[y].value = x[1];
+            possibleAntiBodyList.options[y].text = x[2];
         }
     },
     sortAddedAntiBodyList: function () {
         var addedAntiBodyList = document.querySelector('#addedAntiBody');
         var antiBodyArray = [];
 
-        for (var i = 0; i < addedAntiBodyList.length; i++) {
-            antiBodyArray[i] = addedAntiBodyList.options[i].id + ',' + addedAntiBodyList.options[i].value + ',' + addedAntiBodyList.options[i].text;
+        for (var z = 0; z < addedAntiBodyList.length; z++) {
+            antiBodyArray[z] = addedAntiBodyList.options[z].id + ',' + addedAntiBodyList.options[z].value + ',' + addedAntiBodyList.options[z].text;
         }
         antiBodyArray.sort();
-        for (var i = 0; i < addedAntiBodyList.length; i++) {
-            var x = antiBodyArray[i].split(',');
-            addedAntiBodyList.options[i].id = x[0];
-            addedAntiBodyList.options[i].value = x[1];
-            addedAntiBodyList.options[i].text = x[2];
+        for (var j = 0; j < addedAntiBodyList.length; j++) {
+            var w = antiBodyArray[j].split(',');
+            addedAntiBodyList.options[j].id = w[0];
+            addedAntiBodyList.options[j].value = w[1];
+            addedAntiBodyList.options[j].text = w[2];
         }
     },
     init: function () {
@@ -75,6 +75,9 @@ PatMng.view = {
             inputAntiBody = 'keine';
         }
         return inputAntiBody;
+    },
+    getBirthDateInputValue: function() {
+        return this.inputBirthDate.value;
     },
     getSelectedSexValue: function () {
         return this.getSelectedRadioButtonValue(this.sexRadioButtons);

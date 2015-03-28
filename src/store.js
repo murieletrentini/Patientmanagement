@@ -4,7 +4,7 @@
 PatMng.store = {
     id: undefined,
     getPatients: function () {
-        var patientStorage = JSON.parse(localStorage.getItem("storedPatientArray"));
+        var patientStorage = JSON.parse(localStorage.getItem('storedPatientArray'));
         if (patientStorage == null) {
             patientStorage = [];
         }
@@ -15,11 +15,11 @@ PatMng.store = {
             this.init();
         }
         this.id = this.id + 1;
-        localStorage.setItem("lastId", this.id);
+        localStorage.setItem('lastId', this.id);
         return this.id;
     },
     init: function () {
-        this.id = localStorage.getItem("lastId");
+        this.id = localStorage.getItem('lastId');
         if (this.id == null) {
             this.id = 0;
         }
@@ -28,7 +28,7 @@ PatMng.store = {
         }
     },
     savePatients: function (patients) {
-        localStorage.setItem("storedPatientArray", JSON.stringify(patients));
+        localStorage.setItem('storedPatientArray', JSON.stringify(patients));
     },
     getFilteredPatients: function (query) {
         if (query === '') {

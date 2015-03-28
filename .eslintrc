@@ -8,7 +8,8 @@
       "single"
     ],
     "strict": 0,
-    "no-alert":1
+    "no-alert":1,
+    "no-unused-vars":1
   },
   "globals": {
     "PatMng": true,

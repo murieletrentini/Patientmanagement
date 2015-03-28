@@ -64,6 +64,7 @@ PatMng.controller = {
             PatMng.view.updateTable(PatMng.controller.patients);
             PatMng.view.inputName.value = '';
             PatMng.view.inputSurname.value = '';
+            PatMng.view.inputBirthDate.value = '';
             PatMng.view.inputSurname.focus();
             PatMng.view.saveMessageAlert.hidden = true;
             PatMng.view.duplicateMessageAlert.hidden = true;
@@ -104,7 +105,7 @@ PatMng.controller = {
             surname: PatMng.view.inputSurname.value,
             antiBody: PatMng.view.getSelectedAntiBodies(),
             sex: PatMng.view.getSelectedSexValue(),
-            birthDate: '',
+            birthDate: PatMng.view.getBirthDateInputValue(),
             bloodType: PatMng.view.getSelectedBloodTypeValue() + ' ' + PatMng.view.getSelectedRhesusValue(),
             id: PatMng.store.getId()
         };

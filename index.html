@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -47,7 +47,7 @@
         </div>
         <div class="form-group">
             <label>Geburtstag (dd.mm.yy)</label><br>
-<input type="text" class="form-control birthDate"/>
+            <input type="text" class="form-control birthDate"/>
         </div>
 
         <div class="form-group">
@@ -92,7 +92,7 @@
             </div>
             <div>
                 <select class="form-control" id="possibleAntiBody" size="7"
-                        ondblclick="controller.addAntiBodyToSelection()">
+                        ondblclick="PatMng.controller.addAntiBodyToSelection()">
                     <option value="Anti-D" id="antiBodyA">Anti-D</option>
                     <option value="Anti-C" id="antiBodyB">Anti-C</option>
                     <option value="Anti-c" id="antiBodyC">Anti-c</option>
@@ -135,7 +135,24 @@
 
     <div id="patientlist">
 
-        <h2>gespeicherte Patienten</h2>
+        <h2 style="display: inline-block">gespeicherte Patienten</h2>
+        <div class="dropdown" style="display: inline-block; margin-left: 150px;">
+            <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                erweiterte Suche
+                <span class="caret"></span>
+            </div>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li role="presentation">
+                    <a role="menuitem">alles</a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem">Antikörper</a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem">Geburtsdatum</a>
+                </li>
+            </ul>
+        </div>
 
         <div id="search">
             <input type="text" class="form-control search" placeholder="Suche" style="font-style: italic"/>
@@ -158,6 +175,7 @@
         </table>
 
     </div>
+
 </div>
 
 <script type="text/template" id="tableTemplate">
@@ -170,7 +188,7 @@
         <td><%- patient.birthDate %></td>
         <td><%- patient.bloodType %></td>
         <td><%- patient.antiBody %><span class="glyphicon glyphicon-remove"
-                                         onclick="controller.onRemovePatient(<%- patient.id %>)"></span></td>
+                                         onclick="PatMng.controller.onRemovePatient(<%- patient.id %>)"></span></td>
     </tr><% }); %>
 
 </script>
@@ -180,6 +198,8 @@
     </tr>
 </script>
 <script src="node_modules/lodash/index.js" type="text/javascript"></script>
+<script src="node_modules/jquery/dist/jquery.js" type="text/javascript"></script>
+<script src="node_modules/bootstrap/js/dropdown.js" type="text/javascript"></script>
 <script src="src/app.js" type="text/javascript"></script>
 <script src="src/store.js" type="text/javascript"></script>
 <script src="src/controller.js" type="text/javascript"></script>
