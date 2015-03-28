@@ -39,6 +39,96 @@ PatMng.store = {
         return _.filter(this.getPatients(), function (patient) {
             return _.values(patient).join(' ').toUpperCase().indexOf(upperCaseQuery) !== -1;
         });
+    },
+    antiBodies: [
+        {
+            order: 0,
+            label: 'Anti-D'
+        },
+        {
+            order: 1,
+            label: 'Anti-C'
+        },
+        {
+            order: 2,
+            label: 'Anti-c'
+        },
+        {
+            order: 3,
+            label: 'Anti-E'
+        },
+        {
+            order: 4,
+            label: 'Anti-e'
+        },
+        {
+            order: 5,
+            label: 'Anti-K'
+        },
+        {
+            order: 6,
+            label: 'Anti-k'
+        },
+        {
+            order: 7,
+            label: 'Anti-Kpa'
+        },
+        {
+            order: 8,
+            label: 'Anti-Kpb'
+        },
+        {
+            order: 9,
+            label: 'Anti-Fya'
+        },
+        {
+            order: 10,
+            label: 'Anti-Fyb'
+        },
+        {
+            order: 11,
+            label: 'Anti-Jka'
+        },
+        {
+            order: 12,
+            label: 'Anti-Jkb'
+        },
+        {
+            order: 13,
+            label: 'Anti-Lea'
+        },
+        {
+            order: 14,
+            label: 'Anti-Leb'
+        },
+        {
+            order: 15,
+            label: 'Anti-P1'
+        },
+        {
+            order: 16,
+            label: 'Anti-M'
+        },
+        {
+            order: 17,
+            label: 'Anti-N'
+        },
+        {
+            order: 18,
+            label: 'Anti-S'
+        },
+        {
+            order: 19,
+            label: 'Anti-s'
+        },
+        {
+            order: 20,
+            label: 'Anti-Lua'
+        },
+        {
+            order: 21,
+            label: 'Anti-Lub'
+        }
 
-    }
+    ]
 };

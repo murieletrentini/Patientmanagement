@@ -78,44 +78,14 @@
             </label>
         </div>
 
-        <div class="form-group" id="antiBody">
-            <label>Bekannte Antikörper</label><br>
 
-            <div>
-                <select class="form-control" id="addedAntiBody" size="7"
-                        ondblclick="controller.removeAntiBodyFromSelection()"></select>
+        <div class="form-group">
+            <label>Bekannte Antikörper</label><br>
+            <div class="form-control patientAntiBodyList">
+
             </div>
-            <div id="antiBodyButton">
-                <button class="btn btn-default addAntiBody">+</button>
-                <br>
-                <button class="btn btn-default removeAntiBody">-</button>
-            </div>
-            <div>
-                <select class="form-control" id="possibleAntiBody" size="7"
-                        ondblclick="PatMng.controller.addAntiBodyToSelection()">
-                    <option value="Anti-D" id="antiBodyA">Anti-D</option>
-                    <option value="Anti-C" id="antiBodyB">Anti-C</option>
-                    <option value="Anti-c" id="antiBodyC">Anti-c</option>
-                    <option value="Anti-E" id="antiBodyD">Anti-E</option>
-                    <option value="Anti-e" id="antiBodyE">Anti-e</option>
-                    <option value="Anti-K" id="antiBodyF">Anti-K</option>
-                    <option value="Anti-k" id="antiBodyG">Anti-k</option>
-                    <option value="Anti-Kpa" id="antiBodyH">Anti-Kpa</option>
-                    <option value="Anti-Kpb" id="antiBodyI">Anti-Kpb</option>
-                    <option value="Anti-Fya" id="antiBodyJ">Anti-Fya</option>
-                    <option value="Anti-Fyb" id="antiBodyK">Anti-Fyb</option>
-                    <option value="Anti-Jka" id="antiBodyL">Anti-Jka</option>
-                    <option value="Anti-Jkb" id="antiBodyM">Anti-Jkb</option>
-                    <option value="Anti-Lea" id="antiBodyN">Anti-Lea</option>
-                    <option value="Anti-Leb" id="antiBodyO">Anti-Leb</option>
-                    <option value="Anti-P1" id="antiBodyP">Anti-P1</option>
-                    <option value="Anti-M" id="antiBodyQ">Anti-M</option>
-                    <option value="Anti-N" id="antiBodyR">Anti-N</option>
-                    <option value="Anti-S" id="antiBodyS">Anti-S</option>
-                    <option value="Anti-s" id="antiBodyT">Anti-s</option>
-                    <option value="Anti-Lua" id="antiBodyU">Anti-Lua</option>
-                    <option value="Anti-Lub" id="antiBodyV">Anti-Lub</option>
-                </select>
+            <div class="form-control possibleAntiBodyList">
+
             </div>
         </div>
         <div class="form-group">
@@ -136,6 +106,7 @@
     <div id="patientlist">
 
         <h2 style="display: inline-block">gespeicherte Patienten</h2>
+
         <div class="dropdown" style="display: inline-block; margin-left: 150px;">
             <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 erweiterte Suche
@@ -189,13 +160,29 @@
         <td><%- patient.bloodType %></td>
         <td><%- patient.antiBody %><span class="glyphicon glyphicon-remove"
                                          onclick="PatMng.controller.onRemovePatient(<%- patient.id %>)"></span></td>
-    </tr><% }); %>
+    </tr>
+    <% }); %>
 
 </script>
 <script type="text/template" id="elseTemplate">
     <tr>
         <td colspan='4'>Es sind keine Patienten in der Datenbank vorhanden</td>
     </tr>
+</script>
+<script type="text/template" id="antiBodyTemplate">
+    <% _.forEach(antiBodies, function(antiBody) { %>
+
+        <p ondblclick="PatMng.controller.addAntiBodyToPatientAntiBodyArray(<%- antiBody.order %>)"><%- antiBody.label %></p>
+
+    <% }); %>
+</script>
+
+<script type="text/template" id="patientAntiBodyTemplate">
+    <% _.forEach(antiBodies, function(antiBody) { %>
+
+    <p ondblclick="PatMng.controller.removeAntiBodyFromPatientAntiBodyArray(<%- antiBody.order %>)"><%- antiBody.label %></p>
+
+    <% }); %>
 </script>
 <script src="node_modules/lodash/index.js" type="text/javascript"></script>
 <script src="node_modules/jquery/dist/jquery.js" type="text/javascript"></script>

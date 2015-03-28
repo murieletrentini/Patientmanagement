@@ -4,10 +4,10 @@
 PatMng.controller = {
     init: function () {
         this.patients = PatMng.store.getPatients();
+        this.patientAntiBodyArray = [];
         PatMng.view.init();
         PatMng.view.updateTable(this.patients);
-        PatMng.view.addAntiBodyButton.addEventListener('click', this.addAntiBodyToSelection);
-        PatMng.view.removeAntiBodyButton.addEventListener('click', this.removeAntiBodyFromSelection);
+        PatMng.view.buildPossibleAntiBodyList(PatMng.store.antiBodies);
         PatMng.view.saveButton.addEventListener('click', this.handleClickSave);
         PatMng.view.inputSearch.addEventListener('keyup', this.handleSearch);
         PatMng.view.inputBirthDate.addEventListener('keyup', this.normalizeDateInput);
@@ -15,7 +15,7 @@ PatMng.controller = {
     },
 
     preventAlpha: function (evt) {
-        // prevent keypress if not a number or not colon
+        // prevent keypress if not a number or not period
         if ((evt.keyCode > 58 || evt.keyCode < 48) && evt.keyCode !== 46) {
             evt.preventDefault();
         }
@@ -83,31 +83,33 @@ PatMng.controller = {
             return patient.id === patientID;
         });
     },
-
-    addAntiBodyToSelection: function () {
-        var selectedAntiBody = PatMng.view.possibleAntiBodySelect.selectedOptions[0];
-        if (selectedAntiBody) {
-            PatMng.view.addedAntiBodySelect.appendChild(selectedAntiBody);
-            PatMng.view.sortAddedAntiBodyList();
-        }
-    },
-    removeAntiBodyFromSelection: function () {
-        var selectedAntiBody = PatMng.view.addedAntiBodySelect.selectedOptions[0];
-        if (selectedAntiBody) {
-            PatMng.view.possibleAntiBodySelect.appendChild(selectedAntiBody);
-            PatMng.view.sortPossibleAntiBodyList();
-        }
-    },
     buildNewPatientObject: function () {
-
+        if (this.patientAntiBodyArray.length > 0) {
+            var antiBodies = _.map(this.patientAntiBodyArray, 'label');
+            var joinedAntiBodies = antiBodies.join(', ');
+        }
+        else {
+            joinedAntiBodies = 'keine';
+        }
         return {
             name: PatMng.view.inputName.value,
             surname: PatMng.view.inputSurname.value,
-            antiBody: PatMng.view.getSelectedAntiBodies(),
+            antiBody: joinedAntiBodies,
             sex: PatMng.view.getSelectedSexValue(),
             birthDate: PatMng.view.getBirthDateInputValue(),
             bloodType: PatMng.view.getSelectedBloodTypeValue() + ' ' + PatMng.view.getSelectedRhesusValue(),
             id: PatMng.store.getId()
         };
+    },
+    addAntiBodyToPatientAntiBodyArray: function (antiBodyOrder) {
+        this.patientAntiBodyArray.splice(antiBodyOrder, 0, PatMng.store.antiBodies[antiBodyOrder]);
+        PatMng.view.updatePatientAntiBodyList(this.patientAntiBodyArray);
+    },
+    removeAntiBodyFromPatientAntiBodyArray: function (antiBodyOrder) {
+        var antiBodyIndex = _.findIndex(this.patientAntiBodyArray, function(search){
+           return search.order == antiBodyOrder;
+        });
+        this.patientAntiBodyArray.splice(antiBodyIndex, 1);
+        PatMng.view.updatePatientAntiBodyList(this.patientAntiBodyArray);
     }
 };
