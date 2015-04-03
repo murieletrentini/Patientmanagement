@@ -13,6 +13,7 @@
   },
   "globals": {
     "PatMng": true,
-    "_": true
+    "_": true,
+    "angular": true
   }
 }
