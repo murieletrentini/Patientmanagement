@@ -154,7 +154,7 @@ angular.module('patientmanager').controller('MainController', function () {
     }
 
     function onRemove() {
-        $('#myModal').on('show.bs.modal', function (event) {
+        $('#deletePatientModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             var patientId = button.data('whatever');
             var modal = $(this);
@@ -162,7 +162,7 @@ angular.module('patientmanager').controller('MainController', function () {
                 return patient.id === patientId;
             });
         });
-        $('#myModal').modal('hide');
+        $('#deletePatientModal').modal('hide');
         /* var ask = confirm('Soll der Patient wirklich gelöscht werden?');
          if (ask === true) {
          _.remove(vm.patientArray, function predicate(patient) {
