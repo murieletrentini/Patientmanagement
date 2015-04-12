@@ -98,6 +98,26 @@ angular.module('patientmanager').controller('MainController', function () {
 
 
     ];
+    vm.patientArray = [];
+
+    function getID() {
+        if (_.isUndefined(vm.id)) {
+            initID();
+        }
+        vm.id = vm.id + 1;
+        localStorage.setItem('lastId', vm.id);
+        return vm.id;
+    }
+
+    function initID() {
+        vm.id = localStorage.getItem('lastId');
+        if (vm.id == null) {
+            vm.id = 0;
+        }
+        else {
+            vm.id = parseInt(vm.id, 10);
+        }
+    }
 
     function resetPatient() {
         vm.newPatient = {
@@ -116,47 +136,39 @@ angular.module('patientmanager').controller('MainController', function () {
 
     function buildAntiBodyString() {
         if (vm.newPatient.antiBodies.length > 0) {
-            vm.newPatient.antiBodyString = (_.map(vm.newPatient.antiBodies, 'label')).join(', ');
+            vm.newPatient.antiBodyString = (_.pluck(_.sortBy(vm.newPatient.antiBodies, 'order'), 'label')).join(', ');
         }
         else {
             vm.newPatient.antiBodyString = 'keine';
         }
     }
 
-    vm.patientArray = [{
-        id: 1,
-        surname: 'Trentini',
-        name: 'Muriele',
-        gender: 'weiblich',
-        birthday: '15.10.1988',
-        bloodType: '0',
-        rhesus: 'positiv',
-        antiBodies: [{
-            order: 0,
-            label: 'Anti-D'
-        },
-            {
-                order: 1,
-                label: 'Anti-C'
-            }],
-        antiBodyString: 'Anti-D, Anti-C'
-    }];
 
     function onSave() {
-        vm.newPatient.id = 1;
+        getID();
+        vm.newPatient.id = vm.id;
         buildAntiBodyString();
         vm.patientArray.push(vm.newPatient);
         resetPatient();
 
     }
 
-    function onRemove(patientId) {
-        var ask = confirm('Soll der Patient wirklich gelöscht werden?');
-        if (ask === true) {
+    function onRemove() {
+        $('#myModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var patientId = button.data('whatever');
+            var modal = $(this);
             _.remove(vm.patientArray, function predicate(patient) {
                 return patient.id === patientId;
             });
-        }
+        });
+        $('#myModal').modal('hide');
+        /* var ask = confirm('Soll der Patient wirklich gelöscht werden?');
+         if (ask === true) {
+         _.remove(vm.patientArray, function predicate(patient) {
+         return patient.id === patientId;
+         });
+         }*/
 
     }
 });

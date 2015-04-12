@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="css/style.css"/>
     <script type="text/javascript" src="node_modules/angular/angular.js"></script>
     <script type="text/javascript" src="node_modules/lodash/index.js"></script>
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="node_modules/ui-select/dist/select.min.js"></script>
 </head>
 <body ng-app="patientmanager">
@@ -121,11 +123,27 @@
                 <td>{{patient.gender}}</td>
                 <td>{{patient.birthday}}</td>
                 <td>{{patient.bloodType}} {{patient.rhesus}}</td>
-                <td>{{patient.antiBodyString}}<span ng-click="main.onRemove(patient.id)" class="glyphicon glyphicon-remove"></span></td>
+                <td>{{patient.antiBodyString}}<span data-toggle="modal" data-target="#myModal" data-whatever="{{patient.id}}" class="glyphicon glyphicon-remove"></span></td>
             </tr>
             </tbody>
         </table>
-
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Patient löschen?</h4>
+                    </div>
+                    <div class="modal-body">
+                        Mit dieser Aktion wird der Patient vollständig und unwiederruflich gelöscht.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+                        <button type="button" ng-click="main.onRemove()" class="btn btn-danger">Patient löschen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 </div>
