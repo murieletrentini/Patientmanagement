@@ -8,8 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"
           type="text/css"/>
-    <link rel="stylesheet" href="css/style.css">
+    <link href="node_modules/ui-select/dist/select.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/style.css"/>
     <script type="text/javascript" src="node_modules/angular/angular.js"></script>
+    <script type="text/javascript" src="node_modules/lodash/index.js"></script>
+    <script type="text/javascript" src="node_modules/ui-select/dist/select.min.js"></script>
 </head>
 <body ng-app="patientmanager">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -28,53 +31,62 @@
     <div class="form-horizontal">
         <div class="form-group">
             <label>Nachname</label>
-            <input ng-model="main.newPatientSurname" type="text" class="form-control surname"
+            <input ng-model="main.newPatient.surname" type="text" class="form-control surname"
                    placeholder="Nachname des Patienten" required autofocus/>
         </div>
         <div class="form-group">
             <label>Vorname</label>
-            <input ng-model="main.newPatientName" type="text" class="form-control name"
+            <input ng-model="main.newPatient.name" type="text" class="form-control name"
                    placeholder="Vorname des Patienten" required/>
         </div>
         <div class="form-group">
             <label>Geschlecht</label><br>
             <label class="radio-inline">
-                <input ng-model="main.newPatientGender" type="radio" name="sex" value="weiblich" checked/> Weiblich
+                <input ng-model="main.newPatient.gender" type="radio" name="sex" value="weiblich" checked/> Weiblich
             </label>
             <label class="radio-inline">
-                <input ng-model="main.newPatientGender" type="radio" name="sex" value="männlich"/> Männlich
+                <input ng-model="main.newPatient.gender" type="radio" name="sex" value="männlich"/> Männlich
             </label>
         </div>
         <div class="form-group">
-            <label>Geburtstag (dd.mm.yy)</label><br>
-            <input ng-model="main.newPatientBirthday" type="text" class="form-control birthDate"/>
+            <label>Geburtstag</label><br>
+            <input ng-model="main.newPatient.birthday" placeholder="dd.mm.yyyy" type="text" class="form-control birthDate"/>
         </div>
         <div class="form-group">
             <label>Blutgruppe</label><br>
             <label class="radio-inline">
-                <input ng-model="main.newPatientBloodType" type="radio" name="bloodType" value="A" checked/> A
+                <input ng-model="main.newPatient.bloodType" type="radio" name="bloodType" value="A" checked/> A
             </label>
             <label class="radio-inline">
-                <input ng-model="main.newPatientBloodType" type="radio" name="bloodType" value="B"/> B
+                <input ng-model="main.newPatient.bloodType" type="radio" name="bloodType" value="B"/> B
             </label>
             <label class="radio-inline">
-                <input ng-model="main.newPatientBloodType" type="radio" name="bloodType" value="0"/> 0
+                <input ng-model="main.newPatient.bloodType" type="radio" name="bloodType" value="0"/> 0
             </label>
             <label class="radio-inline">
-                <input ng-model="main.newPatientBloodType" type="radio" name="bloodType" value="AB"/> AB
+                <input ng-model="main.newPatient.bloodType" type="radio" name="bloodType" value="AB"/> AB
             </label>
         </div>
         <div class="form-group">
             <label>Rhesus</label><br>
             <label class="radio-inline">
-                <input ng-model="main.newPatientRhesus" type="radio" name="rhesus" value="positiv" checked/> positiv
+                <input ng-model="main.newPatient.rhesus" type="radio" name="rhesus" value="positiv" checked/> positiv
             </label>
             <label class="radio-inline">
-                <input ng-model="main.newPatientRhesus" type="radio" name="rhesus" value="negativ"/> negativ
+                <input ng-model="main.newPatient.rhesus" type="radio" name="rhesus" value="negativ"/> negativ
             </label>
             <label class="radio-inline">
-                <input ng-model="main.newPatientRhesus" type="radio" name="rhesus" value="D weak"/> D weak
+                <input ng-model="main.newPatient.rhesus" type="radio" name="rhesus" value="D weak"/> D weak
             </label>
+        </div>
+        <div class="form-group">
+            <label>Bekannte Antikörper</label>
+            <ui-select ng-model="main.newPatient.antiBodies" multiple>
+                <ui-select-match placeholder="Antikörper hinzufügen">{{$item.label}}</ui-select-match>
+                <ui-select-choices repeat="antiBody in main.availableAntiBodies | filter: $select.search">
+                    <div>{{antiBody.label}}</div>
+                </ui-select-choices>
+            </ui-select>'
         </div>
         <div class="form-group">
             <button ng-click="main.onSave()" class="btn btn-default">Speichern</button>
@@ -85,7 +97,8 @@
         <h2>gespeicherte Patienten</h2>
 
         <div id="search">
-            <input ng-model="query" type="text" class="form-control search" placeholder="Suche" style="font-style: italic"/>
+            <input ng-model="query" type="text" class="form-control search" placeholder="Suche"
+                   style="font-style: italic"/>
         </div>
         <br>
         <table class="table table-hover glyphicon-hover">
@@ -108,15 +121,19 @@
                 <td>{{patient.gender}}</td>
                 <td>{{patient.birthday}}</td>
                 <td>{{patient.bloodType}} {{patient.rhesus}}</td>
-                <td>{{patient.antiBodies}}</td>
+                <td>{{patient.antiBodyString}}<span ng-click="main.onRemove(patient.id)" class="glyphicon glyphicon-remove"></span></td>
             </tr>
             </tbody>
         </table>
+
 
     </div>
 </div>
 
 <script type="text/javascript" src="src/app.js"></script>
+<script type="text/javascript" src="src/MainController.js"></script>
+
+
 
 </body>
 </html>
