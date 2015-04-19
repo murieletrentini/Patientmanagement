@@ -42,6 +42,10 @@ input:valid {
 
 /*bootstrap change
 -----------------------------------------------------------------------*/
+#deletePatientModal {
+    top: 20%;
+}
+
 .container-content {
     margin-top: 100px;
 }

@@ -1,7 +1,7 @@
-
-
 var gulp = require('gulp'),
-    eslint = require('gulp-eslint');
+    eslint = require('gulp-eslint'),
+    connect = require('gulp-connect');
+
 
 
 gulp.task('lint', function () {
@@ -15,4 +15,12 @@ gulp.task('lint', function () {
 
 gulp.task('default', ['lint'], function () {
     // This will only run if the lint task is successful...
+});
+
+gulp.task('serve', function () {
+    connect.server({
+        root: '.',
+        livereload: true,
+        port: 9000
+    });
 });
