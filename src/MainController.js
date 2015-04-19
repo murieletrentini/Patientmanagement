@@ -1,34 +1,16 @@
 /**
  * Created by muriele on 03.04.15.
  */
-angular.module('patientmanager').controller('MainController', function (RefDataStore) {
+angular.module('patientmanager').controller('MainController', function (RefDataStore, PatientStore) {
+    var vm = this;
     RefDataStore.getAntiBodies(function (data) {
         vm.availableAntiBodies = data;
     });
-    var vm = this;
+    vm.patientArray = PatientStore.getPatients();
     vm.onSave = onSave;
     vm.onRemove = onRemove;
-    vm.patientArray = [];
 
 
-    function getID() {
-        if (_.isUndefined(vm.id)) {
-            initID();
-        }
-        vm.id = vm.id + 1;
-        localStorage.setItem('lastId', vm.id);
-        return vm.id;
-    }
-
-    function initID() {
-        vm.id = localStorage.getItem('lastId');
-        if (vm.id == null) {
-            vm.id = 0;
-        }
-        else {
-            vm.id = parseInt(vm.id, 10);
-        }
-    }
 
     function resetPatient() {
         vm.newPatient = {
@@ -56,10 +38,10 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
 
 
     function onSave() {
-        getID();
-        vm.newPatient.id = vm.id;
+        vm.newPatient.id = PatientStore.getID();
         buildAntiBodyString();
         vm.patientArray.push(vm.newPatient);
+        PatientStore.savePatients(vm.patientArray);
         resetPatient();
 
     }
@@ -72,6 +54,7 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
             _.remove(vm.patientArray, function predicate(patient) {
                 return patient.id === patientId;
             });
+            PatientStore.savePatients(vm.patientArray);
         });
         $('#deletePatientModal').modal('hide');
 
