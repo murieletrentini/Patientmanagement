@@ -1,7 +1,7 @@
 /**
  * Created by muriele on 03.04.15.
  */
-angular.module('patientmanager').controller('MainController', function (RefDataStore, PatientStore, $modal, $log) {
+angular.module('patientmanager').controller('MainController', function (RefDataStore, PatientStore, $modal) {
     var vm = this;
     RefDataStore.getAntiBodies(function (data) {
         vm.availableAntiBodies = data;
@@ -63,7 +63,7 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
         });
 
         modalInstance.result.then(function () {
-        vm.onRemove(patientId)
+        vm.onRemove(patientId);
         });
     }
 

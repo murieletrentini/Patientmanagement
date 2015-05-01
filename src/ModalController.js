@@ -1,5 +1,3 @@
-
-
 angular.module('patientmanager').controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
 
 
