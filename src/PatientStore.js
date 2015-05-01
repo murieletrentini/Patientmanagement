@@ -30,6 +30,6 @@ angular.module('patientmanager').factory('PatientStore', function () {
             }
         }
 
-    }
+    };
 
 });

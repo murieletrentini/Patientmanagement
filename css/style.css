@@ -18,6 +18,9 @@ p#space {
 a {
     color: black;
 }
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
 
 /*navbar
 ---------------------------------------------------------------------*/
@@ -42,7 +45,7 @@ input:valid {
 
 /*bootstrap change
 -----------------------------------------------------------------------*/
-#deletePatientModal {
+#removePatientModal {
     top: 20%;
 }
 

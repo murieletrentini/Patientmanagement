@@ -17,6 +17,7 @@
   "homepage": "https://github.com/tarinya/Patientmanagement",
   "dependencies": {
     "angular": "^1.3.15",
+    "angular-ui-bootstrap": "^0.12.1",
     "bootstrap": "^3.3.4",
     "jquery": "^2.1.3",
     "lodash": "^3.5.0",

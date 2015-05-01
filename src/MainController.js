@@ -1,7 +1,7 @@
 /**
  * Created by muriele on 03.04.15.
  */
-angular.module('patientmanager').controller('MainController', function (RefDataStore, PatientStore) {
+angular.module('patientmanager').controller('MainController', function (RefDataStore, PatientStore, $modal, $log) {
     var vm = this;
     RefDataStore.getAntiBodies(function (data) {
         vm.availableAntiBodies = data;
@@ -9,6 +9,7 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
     vm.patientArray = PatientStore.getPatients();
     vm.onSave = onSave;
     vm.onRemove = onRemove;
+    vm.openConfirmationDialog = openConfirmationDialog;
 
 
 
@@ -46,18 +47,24 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
 
     }
 
-    function onRemove() {
-        $('#deletePatientModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var patientId = button.data('whatever');
-            var modal = $(this);
+    function onRemove(patientId) {
             _.remove(vm.patientArray, function predicate(patient) {
                 return patient.id === patientId;
             });
             PatientStore.savePatients(vm.patientArray);
+        }
+
+   function openConfirmationDialog(patientId) {
+
+        var modalInstance = $modal.open({
+            templateUrl: 'removePatientModal',
+            controller: 'ModalInstanceCtrl',
+            size: 'sm'
         });
-        $('#deletePatientModal').modal('hide');
 
-
+        modalInstance.result.then(function () {
+        vm.onRemove(patientId)
+        });
     }
+
 });
