@@ -10,7 +10,7 @@ angular.module('patientmanager').factory('PatientStore', function () {
             return patientStorage;
         },
         savePatients: function (patients) {
-            localStorage.setItem('storedPatientArray', JSON.stringify(patients));
+            localStorage.setItem('storedPatientArray', angular.toJson(patients));
         },
         getID: function () {
             if (_.isUndefined(this.id)) {

@@ -18,6 +18,7 @@ p#space {
 a {
     color: black;
 }
+
 .nav, .pagination, .carousel, .panel-title a {
     cursor: pointer;
 }
@@ -53,8 +54,9 @@ input:valid {
     margin-top: 100px;
 }
 
-.glyphicon-remove {
+.glyphicon-pencil, .glyphicon-remove {
     float: right;
+    padding: 0 5px;
 }
 
 table.glyphicon-hover .glyphicon {
@@ -63,26 +65,6 @@ table.glyphicon-hover .glyphicon {
 
 table.glyphicon-hover td:hover .glyphicon {
     visibility: visible;
-}
-
-
-
-.possibleAntiBodyList, .patientAntiBodyList {
-    border-radius: 4px;
-    border-color: rgb(204, 204, 204);
-    border-style: solid;
-    border-width: 1px;
-    display: inline-block;
-    margin: 10px 10px 10px 0;
-    padding: 5px;
-    vertical-align: top;
-    width: 150px;
-    height: 150px;
-    overflow: auto;
-}
-
-.possibleAntiBodyList p, .patientAntiBodyList p {
-    margin-bottom: 0;
 }
 
 /*antibody window

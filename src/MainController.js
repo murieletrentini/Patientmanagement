@@ -9,9 +9,10 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
     vm.patientArray = PatientStore.getPatients();
     vm.onSave = onSave;
     vm.onRemove = onRemove;
-    vm.openConfirmationDialog = openConfirmationDialog;
+    vm.openRemovePatientConfirmationDialog = openRemovePatientConfirmationDialog;
     vm.preventAlpha = preventAlpha;
     vm.normalizeDateInput = normalizeDateInput;
+    vm.editPatient = editPatient;
 
     vm.birthdayAlert = true;
     vm.nameAlert = true;
@@ -27,11 +28,19 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
             bloodType: 'A',
             rhesus: 'positiv',
             antiBodies: [],
-            antiBodyString: ''
+            antiBodyString: '',
+            id: ''
         };
     }
 
     resetPatient();
+
+    function editPatient(patientId) {
+        vm.editedPatientIndex = _.findIndex(vm.patientArray, function (patient) {
+            return patient.id === patientId;
+        });
+        vm.newPatient = vm.patientArray[vm.editedPatientIndex];
+    }
 
     function buildAntiBodyString() {
         if (vm.newPatient.antiBodies.length > 0) {
@@ -73,25 +82,34 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
         var currentDate = new Date();
         var currentYear = currentDate.getFullYear();
 
-        if (day > 32 || month > 12 || year > currentYear || year < currentYear - 150) {
+        if (vm.newPatient.birthday.length < 9 || day > 32 || month > 12 || year > currentYear || year < currentYear - 150) {
             return false;
         }
     }
 
     function onSave() {
-        vm.newPatient.id = PatientStore.getID();
-        buildAntiBodyString();
         validateBirthday();
-        if (validateBirthday() === false){
-            vm.birthdayAlert = false;
-        }
-        else if (vm.newPatient.surname.length < 1 || vm.newPatient.name.length < 1) {
+        //only saves Patient if Name and Surname is given
+        if (vm.newPatient.surname.length < 1 || vm.newPatient.name.length < 1) {
             vm.nameAlert = false;
         }
+        //only saves Patient if birthday is a plausible date
+        else if (validateBirthday() === false) {
+            vm.birthdayAlert = false;
+        }
         else {
+            buildAntiBodyString();
             vm.birthdayAlert = true;
             vm.nameAlert = true;
-            vm.patientArray.push(vm.newPatient);
+            //adds patient to Array if its a new one i.e. has no id
+            if (vm.newPatient.id === '') {
+                vm.newPatient.id = PatientStore.getID();
+                vm.patientArray.push(vm.newPatient);
+            }
+            //updates patient in Array if its an existing one i.e. has id
+            else {
+                vm.patientArray.splice(vm.editedPatientIndex, 1, vm.newPatient);
+            }
             PatientStore.savePatients(vm.patientArray);
             resetPatient();
         }
@@ -105,7 +123,7 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
         PatientStore.savePatients(vm.patientArray);
     }
 
-    function openConfirmationDialog(patientId) {
+    function openRemovePatientConfirmationDialog(patientId) {
 
         var modalInstance = $modal.open({
             templateUrl: 'removePatientModal',
