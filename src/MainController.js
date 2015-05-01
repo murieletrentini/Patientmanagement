@@ -10,7 +10,12 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
     vm.onSave = onSave;
     vm.onRemove = onRemove;
     vm.openConfirmationDialog = openConfirmationDialog;
+    vm.preventAlpha = preventAlpha;
+    vm.normalizeDateInput = normalizeDateInput;
 
+    vm.birthdayAlert = true;
+    vm.nameAlert = true;
+    vm.duplicateAlert = true;
 
 
     function resetPatient() {
@@ -37,24 +42,70 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
         }
     }
 
+    function preventAlpha($event) {
+        // prevent keypress if not a number or not period
+        if (($event.keyCode > 58 || $event.keyCode < 48) && $event.keyCode !== 46) {
+            $event.preventDefault();
+        }
+        if (vm.newPatient.birthday.length > 9) {
+            $event.preventDefault();
+        }
+    }
+
+    function normalizeDateInput() {
+        var birthday = vm.newPatient.birthday;
+        var twoDigitsRegex = /^\d{3}$/;
+        var fourDigitsRegex = /^\d{2}\.\d{3}$/;
+
+        if (twoDigitsRegex.test(birthday)) {
+            vm.newPatient.birthday = [birthday.slice(0, 2), '.', birthday.slice(2)].join('');
+        }
+
+        if (fourDigitsRegex.test(birthday)) {
+            vm.newPatient.birthday = [birthday.slice(0, 5), '.', birthday.slice(5)].join('');
+        }
+    }
+
+    function validateBirthday() {
+        var day = vm.newPatient.birthday.slice(0, 2);
+        var month = vm.newPatient.birthday.slice(3, 5);
+        var year = vm.newPatient.birthday.slice(6);
+        var currentDate = new Date();
+        var currentYear = currentDate.getFullYear();
+
+        if (day > 32 || month > 12 || year > currentYear || year < currentYear - 150) {
+            return false;
+        }
+    }
 
     function onSave() {
         vm.newPatient.id = PatientStore.getID();
         buildAntiBodyString();
-        vm.patientArray.push(vm.newPatient);
-        PatientStore.savePatients(vm.patientArray);
-        resetPatient();
+        validateBirthday();
+        if (validateBirthday() === false){
+            vm.birthdayAlert = false;
+        }
+        else if (vm.newPatient.surname.length < 1 || vm.newPatient.name.length < 1) {
+            vm.nameAlert = false;
+        }
+        else {
+            vm.birthdayAlert = true;
+            vm.nameAlert = true;
+            vm.patientArray.push(vm.newPatient);
+            PatientStore.savePatients(vm.patientArray);
+            resetPatient();
+        }
 
     }
 
     function onRemove(patientId) {
-            _.remove(vm.patientArray, function predicate(patient) {
-                return patient.id === patientId;
-            });
-            PatientStore.savePatients(vm.patientArray);
-        }
+        _.remove(vm.patientArray, function predicate(patient) {
+            return patient.id === patientId;
+        });
+        PatientStore.savePatients(vm.patientArray);
+    }
 
-   function openConfirmationDialog(patientId) {
+    function openConfirmationDialog(patientId) {
 
         var modalInstance = $modal.open({
             templateUrl: 'removePatientModal',
@@ -63,7 +114,7 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
         });
 
         modalInstance.result.then(function () {
-        vm.onRemove(patientId);
+            vm.onRemove(patientId);
         });
     }
 

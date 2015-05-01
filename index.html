@@ -53,8 +53,10 @@
             </label>
         </div>
         <div class="form-group">
-            <label>Geburtstag</label><br>
-            <input ng-model="main.newPatient.birthday" placeholder="dd.mm.yyyy" type="text" class="form-control birthDate"/>
+            <label>Geburtstag</label><br> {{main.newPatient.birthday}}
+            <input ng-keypress="main.preventAlpha($event)" ng-keyup="main.normalizeDateInput()"
+                   ng-model="main.newPatient.birthday" placeholder="dd.mm.yyyy" type="text"
+                   class="form-control birthDate"/>
         </div>
         <div class="form-group">
             <label>Blutgruppe</label><br>
@@ -90,7 +92,20 @@
                 <ui-select-choices repeat="antiBody in main.availableAntiBodies | filter: $select.search">
                     <div>{{antiBody.label}}</div>
                 </ui-select-choices>
-            </ui-select>'
+            </ui-select>
+            '
+        </div>
+        <div class="form-group">
+            <div ng-hide="main.nameAlert" class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                Bitte geben Sie den vollständigen Namen des Patienten an.
+            </div>
+            <div ng-hide="main.birthdayAlert" class="alert alert-danger" role="alert"><span
+                    class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Bitte geben Sie ein gültiges Geburtsdatum ein.
+            </div>
+            <div ng-hide="main.duplicateAlert" class="alert alert-danger" role="alert"><span
+                    class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Patient möglicherweise bereits vorhanden
+            </div>
         </div>
         <div class="form-group">
             <button ng-click="main.onSave()" class="btn btn-default">Speichern</button>
@@ -125,7 +140,8 @@
                 <td>{{patient.gender}}</td>
                 <td>{{patient.birthday}}</td>
                 <td>{{patient.bloodType}} {{patient.rhesus}}</td>
-                <td>{{patient.antiBodyString}}<span ng-click="main.openConfirmationDialog(patient.id)" class="glyphicon glyphicon-remove"></span></td>
+                <td>{{patient.antiBodyString}}<span ng-click="main.openConfirmationDialog(patient.id)"
+                                                    class="glyphicon glyphicon-remove"></span></td>
             </tr>
             </tbody>
         </table>
@@ -136,7 +152,7 @@
                     <h3 class="modal-title">Patient löschen</h3>
                 </div>
                 <div class="modal-body">
-                   Soll der Patient wirklich unwiederruflich gelöscht werden?
+                    Soll der Patient wirklich unwiederruflich gelöscht werden?
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-danger" ng-click="ok()">OK</button>
@@ -154,7 +170,6 @@
 <script type="text/javascript" src="src/PatientStore.js"></script>
 <script type="text/javascript" src="src/MainController.js"></script>
 <script type="text/javascript" src="src/ModalController.js"></script>
-
 
 
 </body>

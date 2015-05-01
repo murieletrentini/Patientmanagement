@@ -13,16 +13,18 @@ PatMng.controller = {
         PatMng.view.inputBirthDate.addEventListener('keyup', this.normalizeDateInput);
         PatMng.view.inputBirthDate.addEventListener('keypress', this.preventAlpha);
     },
+/*
+ preventAlpha: function (evt) {
+ // prevent keypress if not a number or not period
+ if ((evt.keyCode > 58 || evt.keyCode < 48) && evt.keyCode !== 46) {
+ evt.preventDefault();
+ }
+ if (PatMng.view.inputBirthDate.value.length > 9) {
+ evt.preventDefault();
+ }
+ },
 
-    preventAlpha: function (evt) {
-        // prevent keypress if not a number or not period
-        if ((evt.keyCode > 58 || evt.keyCode < 48) && evt.keyCode !== 46) {
-            evt.preventDefault();
-        }
-        if (PatMng.view.inputBirthDate.value.length > 9) {
-            evt.preventDefault();
-        }
-    },
+
 
     normalizeDateInput: function () {
         var dateInput = PatMng.view.inputBirthDate.value;
@@ -39,7 +41,8 @@ PatMng.controller = {
             PatMng.view.inputBirthDate.value = [dateInput.slice(0, 5), '.', dateInput.slice(5)].join('');
         }
 
-    },
+    }
+ ,*/
     handleSearch: function () {
         var filteredPatients = PatMng.store.getFilteredPatients(PatMng.view.inputSearch.value);
         PatMng.view.updateTable(filteredPatients);
