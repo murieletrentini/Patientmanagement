@@ -11,10 +11,10 @@ PatMng.controller = {
         PatMng.view.saveButton.addEventListener('click', this.handleClickSave);
         PatMng.view.inputSearch.addEventListener('keyup', this.handleSearch);
         PatMng.view.inputBirthDate.addEventListener('keyup', this.normalizeDateInput);
-        PatMng.view.inputBirthDate.addEventListener('keypress', this.preventAlpha);
+        PatMng.view.inputBirthDate.addEventListener('keypress', this.preventAlphaInBirthday);
     },
 /*
- preventAlpha: function (evt) {
+ preventAlphaInBirthday: function (evt) {
  // prevent keypress if not a number or not period
  if ((evt.keyCode > 58 || evt.keyCode < 48) && evt.keyCode !== 46) {
  evt.preventDefault();

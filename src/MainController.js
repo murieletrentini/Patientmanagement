@@ -10,7 +10,6 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
     vm.onSave = onSave;
     vm.onRemove = onRemove;
     vm.openRemovePatientConfirmationDialog = openRemovePatientConfirmationDialog;
-    vm.preventAlpha = preventAlpha;
     vm.normalizeDateInput = normalizeDateInput;
     vm.editPatient = editPatient;
 
@@ -51,15 +50,16 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
         }
     }
 
-    function preventAlpha($event) {
-        // prevent keypress if not a number or not period
-        if (($event.keyCode > 58 || $event.keyCode < 48) && $event.keyCode !== 46) {
-            $event.preventDefault();
-        }
-        if (vm.newPatient.birthday.length > 9) {
-            $event.preventDefault();
-        }
-    }
+
+    jQuery(function(){
+        $('.name')   .alpha(
+            {allow: '-'}
+        );
+        $('.surname')   .alpha(
+            {allow: '-'}
+        );
+        $('.birthDate') .numeric();
+    });
 
     function normalizeDateInput() {
         var birthday = vm.newPatient.birthday;
