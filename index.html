@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="icon" href="img/icon/favicon.png" type="image/png" sizes="16x16">
     <script type="text/javascript" src="node_modules/angular/angular.js"></script>
+    <script type="text/javascript" src="node_modules/angular-route/angular-route.min.js"></script>
     <script type="text/javascript" src="node_modules/lodash/index.js"></script>
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="jquery-plugin/jquery.alphanum/jquery.alphanum.js"></script>
@@ -22,162 +23,27 @@
 <body ng-app="patientmanager">
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
-        <ul class="nav navbar-nav">
-            <li><a href="#"><img src="img/newPat.png" title="Patientenaufnahme" width="70" height="70"></a></li>
-            <li><a href="#"><img src="img/patlist-blue.png" title="Patientenliste" width="70" height="70"></a></li>
-        </ul>
-        <a class="navbar-brand" href="#"><span style="color:#02E026">°</span><span style="color:#20E4FE">°</span>
+        <a class="navbar-brand" href="/"><span style="color:#02E026">°</span><span style="color:#20E4FE">°</span>
             Immupar |
-            <small>Patientenaufnahme</small>
+            <small>Patientenmanger</small>
         </a>
+        <ul class="nav navbar-nav">
+            <li><a href="#addPatient"><img src="img/newPat.png" title="Patientenaufnahme" width="70" height="70"></a>
+            </li>
+            <li><a href="#addPatient"><img src="img/patlist.png" title="Patientenliste" width="70" height="70"></a></li>
+            <li><a href="#patientFile"><img src="img/akte.png" title="Patientenakte" width="70" height="70"></a></li>
+        </ul>
     </div>
 </nav>
-<div class="container container-content" ng-controller="MainController as main">
-    <div class="form-horizontal">
-        <div class="form-group">
-            <label>ID</label>
-            <input ng-model="main.newPatient.id" type="number" class="form-control id" disabled>
-        </div>
-        <div class="form-group">
-            <label>Nachname</label>
-            <input ng-model="main.newPatient.surname" type="text" class="form-control surname"
-                   placeholder="Nachname des Patienten" required autofocus/>
-        </div>
-        <div class="form-group">
-            <label>Vorname</label>
-            <input ng-model="main.newPatient.name" type="text" class="form-control name"
-                   placeholder="Vorname des Patienten" required/>
-        </div>
-        <div class="form-group">
-            <label>Geschlecht</label><br>
-            <label class="radio-inline">
-                <input ng-model="main.newPatient.gender" type="radio" name="sex" value="weiblich" checked/> Weiblich
-            </label>
-            <label class="radio-inline">
-                <input ng-model="main.newPatient.gender" type="radio" name="sex" value="männlich"/> Männlich
-            </label>
-        </div>
-        <div class="form-group">
-            <label>Geburtstag</label><br>
-            <input ng-keyup="main.normalizeDateInput()"
-                   ng-model="main.newPatient.birthday" placeholder="dd.mm.yyyy" type="text"
-                   class="form-control birthDate"/>
-        </div>
-        <div class="form-group">
-            <label>Blutgruppe</label><br>
-            <label class="radio-inline">
-                <input ng-model="main.newPatient.bloodType" type="radio" name="bloodType" value="A" checked/> A
-            </label>
-            <label class="radio-inline">
-                <input ng-model="main.newPatient.bloodType" type="radio" name="bloodType" value="B"/> B
-            </label>
-            <label class="radio-inline">
-                <input ng-model="main.newPatient.bloodType" type="radio" name="bloodType" value="0"/> 0
-            </label>
-            <label class="radio-inline">
-                <input ng-model="main.newPatient.bloodType" type="radio" name="bloodType" value="AB"/> AB
-            </label>
-        </div>
-        <div class="form-group">
-            <label>Rhesus</label><br>
-            <label class="radio-inline">
-                <input ng-model="main.newPatient.rhesus" type="radio" name="rhesus" value="positiv" checked/> positiv
-            </label>
-            <label class="radio-inline">
-                <input ng-model="main.newPatient.rhesus" type="radio" name="rhesus" value="negativ"/> negativ
-            </label>
-            <label class="radio-inline">
-                <input ng-model="main.newPatient.rhesus" type="radio" name="rhesus" value="D weak"/> D weak
-            </label>
-        </div>
-        <div class="form-group">
-            <label>Bekannte Antikörper</label>
-            <ui-select ng-model="main.newPatient.antiBodies" multiple>
-                <ui-select-match placeholder="Antikörper hinzufügen">{{$item.label}}</ui-select-match>
-                <ui-select-choices repeat="antiBody in main.availableAntiBodies | filter: $select.search">
-                    <div>{{antiBody.label}}</div>
-                </ui-select-choices>
-            </ui-select>
+<div ng-view></div>
 
-        </div>
-        <div class="form-group">
-            <div ng-hide="main.nameAlert" class="alert alert-danger" role="alert">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                Bitte geben Sie den vollständigen Namen des Patienten an.
-            </div>
-            <div ng-hide="main.birthdayAlert" class="alert alert-danger" role="alert"><span
-                    class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Bitte geben Sie ein gültiges
-                Geburtsdatum ein.
-            </div>
-            <div ng-hide="main.duplicateAlert" class="alert alert-danger" role="alert"><span
-                    class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Patient möglicherweise
-                bereits vorhanden
-            </div>
-        </div>
-        <div class="form-group">
-            <button ng-click="main.onSave()" class="btn btn-default">Speichern</button>
-        </div>
-    </div>
-    <div id="patientlist">
-
-        <h2>gespeicherte Patienten</h2>
-
-        <div id="search">
-            <input ng-model="query" type="text" class="form-control search" placeholder="Suche"
-                   style="font-style: italic"/>
-        </div>
-        <br>
-        <table class="table table-hover glyphicon-hover">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nachname</th>
-                <th>Vorname</th>
-                <th>Geschlecht</th>
-                <th>Geburtstag</th>
-                <th>Blutgruppe</th>
-                <th>Antikörper</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="patient in main.patientArray | filter:query as results">
-                <td>{{patient.id}}</td>
-                <td>{{patient.surname}}</td>
-                <td>{{patient.name}}</td>
-                <td>{{patient.gender}}</td>
-                <td>{{patient.birthday}}</td>
-                <td>{{patient.bloodType}} {{patient.rhesus}}</td>
-                <td>{{patient.antiBodyString}}
-                    <span ng-click="main.openRemovePatientConfirmationDialog(patient.id)"
-                          class="glyphicon glyphicon-remove"></span>
-                    <span ng-click="main.editPatient(patient.id)" class="glyphicon glyphicon-pencil"></span></td>
-            </tr>
-            </tbody>
-        </table>
-
-        <div>
-            <script type="text/ng-template" id="removePatientModal">
-                <div class="modal-header">
-                    <h3 class="modal-title">Patient löschen</h3>
-                </div>
-                <div class="modal-body">
-                    Soll der Patient wirklich unwiederruflich gelöscht werden?
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger" ng-click="ok()">OK</button>
-                    <button class="btn" ng-click="cancel()">Cancel</button>
-                </div>
-            </script>
-        </div>
-
-    </div>
-
-</div>
 
 <script type="text/javascript" src="src/app.js"></script>
 <script type="text/javascript" src="src/RefDataStore.js"></script>
 <script type="text/javascript" src="src/PatientStore.js"></script>
+<script type="text/javascript" src="src/config.js"></script>
 <script type="text/javascript" src="src/MainController.js"></script>
+<script type="text/javascript" src="src/PatientFileController.js"></script>
 <script type="text/javascript" src="src/ModalController.js"></script>
 
 

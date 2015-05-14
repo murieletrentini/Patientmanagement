@@ -1,2 +1,2 @@
-angular.module('patientmanager', ['ui.select', 'ui.bootstrap']);
+angular.module('patientmanager', ['ui.select', 'ui.bootstrap', 'ngRoute']);
 

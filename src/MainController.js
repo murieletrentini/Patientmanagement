@@ -52,10 +52,10 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
 
 
     jQuery(function(){
-        $('.name')   .alpha(
+        $('.name') .alpha(
             {allow: '-'}
         );
-        $('.surname')   .alpha(
+        $('.surname') .alpha(
             {allow: '-'}
         );
         $('.birthDate') .numeric();

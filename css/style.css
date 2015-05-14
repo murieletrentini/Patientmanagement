@@ -31,7 +31,7 @@ a {
 
 .navbar-brand {
     padding-top: 30px;
-    padding-left: 50px;
+    padding-right: 20px;
 }
 
 /*input
@@ -49,10 +49,20 @@ input:valid {
 #removePatientModal {
     top: 20%;
 }
+.navbar-subbar {
+    border: none;
+    background-color: transparent;
+    padding-top: 6px;
+}
 
 .container-content {
-    margin-top: 100px;
+    margin-top: 75px;
 }
+
+.form-horizontal {
+    padding-top: 25px;
+}
+
 
 .glyphicon-pencil, .glyphicon-remove {
     float: right;
@@ -67,18 +77,7 @@ table.glyphicon-hover td:hover .glyphicon {
     visibility: visible;
 }
 
-/*antibody window
------------------------------------------------------------------------*/
-button.addAntiBody, button.removeAntiBody {
-    margin: 2px;
-    width: 35px;
-}
 
-#addedAntiBody, #possibleAntiBody {
-    float: left;
-    max-width: 300px;
-}
-
-#antiBodyButton {
-    float: left;
+.form-inline label {
+    margin-right: 50px;
 }

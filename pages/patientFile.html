@@ -1,0 +1,48 @@
+<div ng-controller="PatientFileController as file" class="container-content">
+    <nav class="navbar navbar-default navbar-subbar">
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active"><a href="#">Patientenmappe</a></li>
+                <li role="presentation"><a href="#" ng-click="file.createNewCase()">+</a></li>
+                <li role="presentation"><a href="#">{{file.patient.case.date}}</a></li>
+                <li role="presentation"><a href="#">01.01.2014</a></li>
+
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+
+        <div class="form-inline">
+            <div class="form-group">
+                <label>ID</label>
+                <input ng-keypress="file.findPatient($event,file.patient.id)" ng-model="file.patient.id" type="number"
+                       class="form-control id" autofocus>
+            </div>
+        </div>
+        <br>
+
+        <div class="form-inline">
+            <div class="form-group">
+                <label>Blutgruppe</label>
+                <input class="form-control" type="text" value="{{file.patient.bloodType}} {{file.patient.rhesus}}"
+                       disabled>
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label>Antikörper</label>
+                <input class="form-control" type="text" value="{{file.patient.antiBodyString}}" disabled>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script type="text/javascript" src="../src/app.js"></script>
+    <script type="text/javascript" src="../src/RefDataStore.js"></script>
+    <script type="text/javascript" src="../src/PatientStore.js"></script>
+    <script type="text/javascript" src="../src/PatientFileController.js"></script>
+    <script type="text/javascript" src="../src/ModalController.js"></script>
+
+
+</div>
