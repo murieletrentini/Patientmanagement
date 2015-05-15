@@ -1,52 +1,56 @@
 /**
  * Created by muriele on 10.05.15.
  */
-angular.module('patientmanager').controller('PatientFileController', function (PatientStore, RefDataStore, $scope) {
+angular.module('patientmanager').controller('PatientFileController', function (PatientStore, RefDataStore, $routeParams) {
+
     var vm = this;
     RefDataStore.getAnalysis(function (data) {
         vm.availableAnalysis = data;
     });
     vm.patientArray = PatientStore.getPatients();
-    vm.patient = {};
-    vm.patient.case = [
-        {
-            nr: '',
-            date: '',
-            analysis: []
-        }
-    ];
+    vm.patient = {
+        cases: []
+    };
     vm.findPatient = findPatient;
     vm.createNewCase = createNewCase;
+    vm.saveCase = saveCase;
+
+    if (!_.isUndefined($routeParams.patientId)){
+       var patientId = parseInt($routeParams.patientId);
+        vm.patient = PatientStore.getPatientById(patientId);
+
+    }
 
     function findPatient($event, patientID) {
         if ($event.keyCode === 13) {
-            vm.patientIndex = _.findIndex(vm.patientArray, function (patient) {
-                return patient.id === patientID;
-            });
-            vm.patient = vm.patientArray[vm.patientIndex];
-            $scope.tabs = vm.patient.case;
+            vm.patient = PatientStore.getPatientById(patientID);
         }
     }
 
-    function createNewCase () {
-        var monthNames = [
-            '.1.', '.2.', '.3.',
-            '.4.', '.5.', '.6.', '.7.',
-            '.8.', '.9.', '.10.',
-            '.11.', '.12.'
-        ];
 
-        var date = new Date();
-        var day = date.getDate();
-        var monthIndex = date.getMonth();
-        var year = date.getFullYear();
+    function createNewCase() {
+        if (_.isUndefined(vm.patient.id)) {
+            return;
+        }
 
-        vm.patient.case.date = day + monthNames[monthIndex] + year;
-        vm.patient.case.push({title: vm.patient.case.date, content: 'blabla'})
+        var newCase = {
+            date: new Date(),
+            nr: PatientStore.getCaseNr()
+        };
+        if (_.isUndefined(vm.patient.cases)) {
+            vm.patient.cases = [];
+        }
+
+        vm.patient.cases.push(newCase);
     }
 
-    $scope.tabs = [
+    function saveCase() {
+        vm.patientArray.splice(_.findIndex(vm.patientArray, function(patient) {
+            return patient.id === vm.patient.id;
+        }), 1, vm.patient);
+        PatientStore.savePatients(vm.patientArray)
+    }
 
-    ];
+    vm.currentlySelectedCaseNr = 5;
 
 });

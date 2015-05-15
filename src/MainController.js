@@ -12,7 +12,7 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
     vm.openRemovePatientConfirmationDialog = openRemovePatientConfirmationDialog;
     vm.normalizeDateInput = normalizeDateInput;
     vm.editPatient = editPatient;
-
+    vm.preventDefault = preventDefault;
     vm.birthdayAlert = true;
     vm.nameAlert = true;
     vm.duplicateAlert = true;
@@ -51,15 +51,7 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
     }
 
 
-    jQuery(function(){
-        $('.name') .alpha(
-            {allow: '-'}
-        );
-        $('.surname') .alpha(
-            {allow: '-'}
-        );
-        $('.birthDate') .numeric();
-    });
+
 
     function normalizeDateInput() {
         var birthday = vm.newPatient.birthday;
@@ -72,6 +64,12 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
 
         if (fourDigitsRegex.test(birthday)) {
             vm.newPatient.birthday = [birthday.slice(0, 5), '.', birthday.slice(5)].join('');
+        }
+    }
+
+    function preventDefault($event) {
+        if (vm.newPatient.birthday.length > 9) {
+            $event.preventDefault();
         }
     }
 

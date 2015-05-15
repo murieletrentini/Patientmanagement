@@ -1,66 +1,69 @@
 <div ng-controller="PatientFileController as file" class="container-content">
 
-        <tabset class="tabs">
-            <tab heading="Patientenmappe">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <label>ID</label>
-                        </div>
-                        <div class="col-md-10">
-                            <input ng-keypress="file.findPatient($event,file.patient.id)" ng-model="file.patient.id"
-                                   type="number"
-                                   class="form-control id" autofocus>
-                        </div>
+    <tabset class="tabs">
+        <tab heading="Patientenmappe">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>ID</label>
                     </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <label>Name</label>
-                        </div>
-                        <div class="col-md-10">
-                            <input class="form-control" type="text"
-                                   value="{{file.patient.surname}} {{file.patient.name}}"
-                                   disabled>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <label>Blutgruppe</label>
-                        </div>
-                        <div class="col-md-10">
-                            <input class="form-control" type="text"
-                                   value="{{file.patient.bloodType}} {{file.patient.rhesus}}"
-                                   disabled>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <label>Antikörper</label>
-                        </div>
-                        <div class="col-md-10">
-                            <input class="form-control" type="text" value="{{file.patient.antiBodyString}}" disabled>
-                        </div>
+                    <div class="col-md-10">
+                        <input ng-keypress="file.findPatient($event,file.patient.id)" ng-model="file.patient.id"
+                               type="number"
+                               class="form-control id" autofocus>
                     </div>
                 </div>
-            </tab>
-            <tab heading="+">
-                <label>Analysen hinzufügen</label>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>Name</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input class="form-control" type="text"
+                               value="{{file.patient.surname}} {{file.patient.name}}"
+                               disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>Blutgruppe</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input class="form-control" type="text"
+                               value="{{file.patient.bloodType}} {{file.patient.rhesus}}"
+                               disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>Antikörper</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input class="form-control" type="text" value="{{file.patient.antiBodyString}}" disabled>
+                    </div>
+                </div>
+            </div>
+        </tab>
+        <button ng-click="file.createNewCase()" class="btn btn-default">+</button>
+        <tab ng-repeat="case in file.patient.cases" heading="{{case.date | date: 'dd.mm.yyyy'}} | Nr: {{case.nr}}">
+            <label>Fallnummer</label> {{case.nr}}
+            <ui-select ng-model="case.analysis" multiple>
+                <ui-select-match placeholder="Analysen hinzufügen">{{$item.label}}</ui-select-match>
+                <ui-select-choices repeat="analysis in file.availableAnalysis | filter: $select.search">
+                    <div>{{analysis.label}}</div>
+                </ui-select-choices>
+            </ui-select>
+            <br>
+            <button class="btn btn-default" ng-click="file.saveCase()">Speichern</button>
+        </tab>
+    </tabset>
 
-                <ui-select ng-model="file.patient.case.analysis" multiple>
-                    <ui-select-match placeholder="Analysen hinzufügen">{{$item.label}}</ui-select-match>
-                    <ui-select-choices repeat="analysis in file.availableAnalysis | filter: $select.search">
-                        <div>{{analysis.label}}</div>
-                    </ui-select-choices>
-                </ui-select>
-                <br>
-                <button class="btn btn-default" ng-click="file.createNewCase()">Speichern</button>
-            </tab>
-            <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
-                {{tab.content}}
-            </tab>
-        </tabset>
+    <hr/>
 
-        <hr/>
+
+
+
+
+    <br>
 
 
     <script type="text/javascript" src="../src/app.js"></script>

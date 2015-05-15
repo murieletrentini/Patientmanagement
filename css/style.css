@@ -69,7 +69,7 @@ input:valid {
 }
 
 
-.glyphicon-pencil, .glyphicon-remove {
+.glyphicon-pencil, .glyphicon-remove, .glyphicon-folder-open {
     float: right;
     padding: 0 5px;
 }
