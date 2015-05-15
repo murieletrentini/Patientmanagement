@@ -1,42 +1,67 @@
 <div ng-controller="PatientFileController as file" class="container-content">
-    <nav class="navbar navbar-default navbar-subbar">
-        <div class="container">
-            <ul class="nav nav-tabs">
-                <li role="presentation" class="active"><a href="#">Patientenmappe</a></li>
-                <li role="presentation"><a href="#" ng-click="file.createNewCase()">+</a></li>
-                <li role="presentation"><a href="#">{{file.patient.case.date}}</a></li>
-                <li role="presentation"><a href="#">01.01.2014</a></li>
 
-            </ul>
-        </div>
-    </nav>
-    <div class="container">
+        <tabset class="tabs">
+            <tab heading="Patientenmappe">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label>ID</label>
+                        </div>
+                        <div class="col-md-10">
+                            <input ng-keypress="file.findPatient($event,file.patient.id)" ng-model="file.patient.id"
+                                   type="number"
+                                   class="form-control id" autofocus>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label>Name</label>
+                        </div>
+                        <div class="col-md-10">
+                            <input class="form-control" type="text"
+                                   value="{{file.patient.surname}} {{file.patient.name}}"
+                                   disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label>Blutgruppe</label>
+                        </div>
+                        <div class="col-md-10">
+                            <input class="form-control" type="text"
+                                   value="{{file.patient.bloodType}} {{file.patient.rhesus}}"
+                                   disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label>Antikörper</label>
+                        </div>
+                        <div class="col-md-10">
+                            <input class="form-control" type="text" value="{{file.patient.antiBodyString}}" disabled>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="+">
+                <label>Analysen hinzufügen</label>
 
-        <div class="form-inline">
-            <div class="form-group">
-                <label>ID</label>
-                <input ng-keypress="file.findPatient($event,file.patient.id)" ng-model="file.patient.id" type="number"
-                       class="form-control id" autofocus>
-            </div>
-        </div>
-        <br>
+                <ui-select ng-model="file.patient.case.analysis" multiple>
+                    <ui-select-match placeholder="Analysen hinzufügen">{{$item.label}}</ui-select-match>
+                    <ui-select-choices repeat="analysis in file.availableAnalysis | filter: $select.search">
+                        <div>{{analysis.label}}</div>
+                    </ui-select-choices>
+                </ui-select>
+                <br>
+                <button class="btn btn-default" ng-click="file.createNewCase()">Speichern</button>
+            </tab>
+            <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
+                {{tab.content}}
+            </tab>
+        </tabset>
 
-        <div class="form-inline">
-            <div class="form-group">
-                <label>Blutgruppe</label>
-                <input class="form-control" type="text" value="{{file.patient.bloodType}} {{file.patient.rhesus}}"
-                       disabled>
-            </div>
-            <br>
+        <hr/>
 
-            <div class="form-group">
-                <label>Antikörper</label>
-                <input class="form-control" type="text" value="{{file.patient.antiBodyString}}" disabled>
-            </div>
-        </div>
-
-
-    </div>
 
     <script type="text/javascript" src="../src/app.js"></script>
     <script type="text/javascript" src="../src/RefDataStore.js"></script>

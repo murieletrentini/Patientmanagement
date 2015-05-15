@@ -1,8 +1,11 @@
 /**
  * Created by muriele on 10.05.15.
  */
-angular.module('patientmanager').controller('PatientFileController', function (PatientStore) {
+angular.module('patientmanager').controller('PatientFileController', function (PatientStore, RefDataStore, $scope) {
     var vm = this;
+    RefDataStore.getAnalysis(function (data) {
+        vm.availableAnalysis = data;
+    });
     vm.patientArray = PatientStore.getPatients();
     vm.patient = {};
     vm.patient.case = [
@@ -21,6 +24,7 @@ angular.module('patientmanager').controller('PatientFileController', function (P
                 return patient.id === patientID;
             });
             vm.patient = vm.patientArray[vm.patientIndex];
+            $scope.tabs = vm.patient.case;
         }
     }
 
@@ -38,5 +42,11 @@ angular.module('patientmanager').controller('PatientFileController', function (P
         var year = date.getFullYear();
 
         vm.patient.case.date = day + monthNames[monthIndex] + year;
+        vm.patient.case.push({title: vm.patient.case.date, content: 'blabla'})
     }
+
+    $scope.tabs = [
+
+    ];
+
 });

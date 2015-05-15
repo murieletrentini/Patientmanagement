@@ -49,10 +49,15 @@ input:valid {
 #removePatientModal {
     top: 20%;
 }
-.navbar-subbar {
-    border: none;
-    background-color: transparent;
+
+.tabs {
+
     padding-top: 6px;
+    margin-left: 20px;
+}
+
+.tab-pane {
+    margin-top: 20px;
 }
 
 .container-content {
