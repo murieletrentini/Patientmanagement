@@ -44,6 +44,10 @@ input:valid {
     border: 1px solid black;
 }
 
+input {
+    min-width: 200px;
+}
+
 /*bootstrap change
 -----------------------------------------------------------------------*/
 #removePatientModal {

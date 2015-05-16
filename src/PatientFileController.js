@@ -35,6 +35,7 @@ angular.module('patientmanager').controller('PatientFileController', function (P
 
         var newCase = {
             date: new Date(),
+            analysis: [],
             nr: PatientStore.getCaseNr()
         };
         if (_.isUndefined(vm.patient.cases)) {
