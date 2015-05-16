@@ -55,3 +55,4 @@ angular.module('patientmanager').controller('PatientFileController', function (P
     vm.currentlySelectedCaseNr = 5;
 
 });
+
