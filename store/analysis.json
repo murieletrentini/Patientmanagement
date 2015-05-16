@@ -2,26 +2,32 @@
 
   {
     "order": 0,
-    "label": "Blutgruppe"
+    "label": "Blutgruppe",
+    "result": ""
   },
   {
     "order": 1,
-    "label": "Isoagglutinine"
+    "label": "Isoagglutinine",
+    "result": ""
   },
   {
     "order": 2,
-    "label": "Rhesus Phänotyp"
+    "label": "Rhesus Phänotyp",
+    "result": ""
   },
   {
     "order": 3,
-    "label": "Antikörpersuchtest"
+    "label": "Antikörpersuchtest",
+    "result": ""
   },
   {
     "order": 4,
-    "label": "Antikörperspezifizierung"
+    "label": "Antikörperspezifizierung",
+    "result": ""
   },
   {
     "order": 5,
-    "label": "ABD Kontrolle"
+    "label": "ABD Kontrolle",
+    "result": ""
   }
 ]

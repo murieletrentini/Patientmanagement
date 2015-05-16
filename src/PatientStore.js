@@ -3,9 +3,9 @@ angular.module('patientmanager').factory('PatientStore', function () {
     return {
         id: undefined,
         getPatients: function () {
-            var patientStorage = JSON.parse(localStorage.getItem('storedPatientArray'));
+            var patientStorage = JSON.parse(localStorage.getItem('storedPatients'));
             if (patientStorage == null) {
-                patientStorage = [];
+                patientStorage = {};
             }
             return patientStorage;
         },
@@ -14,7 +14,7 @@ angular.module('patientmanager').factory('PatientStore', function () {
             return _.find(patientArray, 'id', patientId);
         },
         savePatients: function (patients) {
-            localStorage.setItem('storedPatientArray', angular.toJson(patients));
+            localStorage.setItem('storedPatients', angular.toJson(patients));
         },
         getID: function () {
             if (_.isUndefined(this.id)) {

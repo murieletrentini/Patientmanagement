@@ -44,8 +44,9 @@
             </div>
         </tab>
         <button ng-click="file.createNewCase()" class="btn btn-default">+</button>
-        <tab ng-repeat="case in file.patient.cases" heading="{{case.date | date: 'dd.mm.yyyy'}} | Nr: {{case.nr}}">
+        <tab ng-repeat="(key, case) in file.patient.cases" heading="{{case.date | date: 'dd.mm.yyyy'}} | Nr: {{case.nr}}">
             <label>Fallnummer</label> {{case.nr}}
+            <span  ng-click="file.removeCase(case.nr)" style="cursor: pointer" class="glyphicon glyphicon-remove"> <i>Fall löschen</i></span>
             <ui-select ng-model="case.analysis" multiple>
                 <ui-select-match placeholder="Analysen hinzufügen">{{$item.label}}</ui-select-match>
                 <ui-select-choices repeat="analysis in file.availableAnalysis | filter: $select.search">
@@ -54,6 +55,10 @@
             </ui-select>
             <br>
             <button class="btn btn-default" ng-click="file.saveCase()">Speichern</button>
+            <br>
+            <div ng-repeat="analysis in case.analysis">
+                <p>{{analysis.label}}</p>
+            </div>
         </tab>
     </tabset>
 

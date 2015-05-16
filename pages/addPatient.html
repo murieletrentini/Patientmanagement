@@ -106,7 +106,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="patient in main.patientArray | filter:query as results">
+            <tr ng-repeat="patient in main.patients | filter:query as results">
                 <td>{{patient.id}}</td>
                 <td>{{patient.surname}}</td>
                 <td>{{patient.name}}</td>

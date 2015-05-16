@@ -80,10 +80,12 @@ input {
 
 table.glyphicon-hover .glyphicon {
     visibility: hidden;
+    cursor: pointer;
 }
 
 table.glyphicon-hover td:hover .glyphicon {
     visibility: visible;
+    cursor: pointer;
 }
 
 

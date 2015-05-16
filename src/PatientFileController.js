@@ -7,23 +7,25 @@ angular.module('patientmanager').controller('PatientFileController', function (P
     RefDataStore.getAnalysis(function (data) {
         vm.availableAnalysis = data;
     });
-    vm.patientArray = PatientStore.getPatients();
+    vm.patients = PatientStore.getPatients();
     vm.patient = {
-        cases: []
+        cases: {}
     };
+    vm.currentlySelectedCaseNr = 5;
     vm.findPatient = findPatient;
     vm.createNewCase = createNewCase;
     vm.saveCase = saveCase;
+    vm.removeCase = removeCase;
 
     if (!_.isUndefined($routeParams.patientId)){
        var patientId = parseInt($routeParams.patientId);
-        vm.patient = PatientStore.getPatientById(patientId);
+        vm.patient = vm.patients[patientId];
 
     }
 
-    function findPatient($event, patientID) {
+    function findPatient($event, patientId) {
         if ($event.keyCode === 13) {
-            vm.patient = PatientStore.getPatientById(patientID);
+            vm.patient = vm.patients[patientId];
         }
     }
 
@@ -39,20 +41,21 @@ angular.module('patientmanager').controller('PatientFileController', function (P
             nr: PatientStore.getCaseNr()
         };
         if (_.isUndefined(vm.patient.cases)) {
-            vm.patient.cases = [];
+            vm.patient.cases = {};
         }
 
-        vm.patient.cases.push(newCase);
+        vm.patient.cases[newCase.nr] = newCase;
     }
 
     function saveCase() {
-        vm.patientArray.splice(_.findIndex(vm.patientArray, function(patient) {
-            return patient.id === vm.patient.id;
-        }), 1, vm.patient);
-        PatientStore.savePatients(vm.patientArray)
+        vm.patients[vm.patient.id] = vm.patient;
+        PatientStore.savePatients(vm.patients);
     }
 
-    vm.currentlySelectedCaseNr = 5;
+    function removeCase (caseNr) {
+        delete vm.patient.cases[caseNr];
+        saveCase();
+    }
 
 });
 

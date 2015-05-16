@@ -6,7 +6,7 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
     RefDataStore.getAntiBodies(function (data) {
         vm.availableAntiBodies = data;
     });
-    vm.patientArray = PatientStore.getPatients();
+    vm.patients = PatientStore.getPatients();
     vm.onSave = onSave;
     vm.onRemove = onRemove;
     vm.openRemovePatientConfirmationDialog = openRemovePatientConfirmationDialog;
@@ -35,10 +35,7 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
     resetPatient();
 
     function editPatient(patientId) {
-        vm.editedPatientIndex = _.findIndex(vm.patientArray, function (patient) {
-            return patient.id === patientId;
-        });
-        vm.newPatient = vm.patientArray[vm.editedPatientIndex];
+        vm.newPatient = vm.patients[patientId];
     }
 
     function buildAntiBodyString() {
@@ -49,8 +46,6 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
             vm.newPatient.antiBodyString = 'keine';
         }
     }
-
-
 
 
     function normalizeDateInput() {
@@ -99,26 +94,21 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
             buildAntiBodyString();
             vm.birthdayAlert = true;
             vm.nameAlert = true;
-            //adds patient to Array if its a new one i.e. has no id
+            //gets new id if patient is new i.e. not edited
             if (vm.newPatient.id === '') {
                 vm.newPatient.id = PatientStore.getID();
-                vm.patientArray.push(vm.newPatient);
             }
-            //updates patient in Array if its an existing one i.e. has id
-            else {
-                vm.patientArray.splice(vm.editedPatientIndex, 1, vm.newPatient);
-            }
-            PatientStore.savePatients(vm.patientArray);
+            vm.patients[vm.newPatient.id] = vm.newPatient;
+
+            PatientStore.savePatients(vm.patients);
             resetPatient();
         }
 
     }
 
     function onRemove(patientId) {
-        _.remove(vm.patientArray, function predicate(patient) {
-            return patient.id === patientId;
-        });
-        PatientStore.savePatients(vm.patientArray);
+        delete vm.patients[patientId];
+        PatientStore.savePatients(vm.patients);
     }
 
     function openRemovePatientConfirmationDialog(patientId) {
