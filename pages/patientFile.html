@@ -50,13 +50,13 @@
             <ui-select ng-model="case.analysis" multiple>
                 <ui-select-match placeholder="Analysen hinzufügen">{{$item.label}}</ui-select-match>
                 <ui-select-choices repeat="analysis in file.availableAnalysis | filter: $select.search">
-                    <div>{{analysis.label}}</div>
+                    <div>{{analyses.label}}</div>
                 </ui-select-choices>
             </ui-select>
             <br>
             <button class="btn btn-default" ng-click="file.saveCase()">Speichern</button>
             <br>
-            <div ng-repeat="analysis in case.analysis">
+            <div ng-repeat="analysis in case.analyses">
                 <p>{{analysis.label}}</p>
             </div>
         </tab>

@@ -4,8 +4,8 @@
 angular.module('patientmanager').controller('PatientFileController', function (PatientStore, RefDataStore, $routeParams) {
 
     var vm = this;
-    RefDataStore.getAnalysis(function (data) {
-        vm.availableAnalysis = data;
+    RefDataStore.getAnalyses(function (data) {
+        vm.availableAnalyses = data;
     });
     vm.patients = PatientStore.getPatients();
     vm.patient = {
@@ -37,7 +37,7 @@ angular.module('patientmanager').controller('PatientFileController', function (P
 
         var newCase = {
             date: new Date(),
-            analysis: [],
+            analyses: [],
             nr: PatientStore.getCaseNr()
         };
         if (_.isUndefined(vm.patient.cases)) {

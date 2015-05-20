@@ -11,8 +11,8 @@ angular.module('patientmanager').factory('RefDataStore', function($http){
                    // or server returns response with an error status.
                });
        },
-       getAnalysis: function (callback) {
-           $http.get('/store/analysis.json').
+       getAnalyses: function (callback) {
+           $http.get('/store/analyses.json').
                success(function(data) {
                    callback(data);
                }).

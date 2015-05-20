@@ -1,17 +1,17 @@
 <div class="container container-content" ng-controller="MainController as main">
-    <div class="form-horizontal">
+    <div class="form-horizontal" ng-form="main.createNewPatient">
         <div class="form-group">
             <label>ID</label>
-            <input ng-model="main.newPatient.id" type="number" class="form-control id" disabled>
+            <input ng-model="main.newPatient.id" name="ID" type="number" class="form-control id" disabled>
         </div>
         <div class="form-group">
             <label>Nachname</label>
-            <input ng-model="main.newPatient.surname" type="text" class="form-control surname"
+            <input ng-model="main.newPatient.surname" ng-pattern="main.nameRegex" name="surname" type="text" class="form-control surname"
                    placeholder="Nachname des Patienten" required autofocus/>
         </div>
         <div class="form-group">
             <label>Vorname</label>
-            <input ng-model="main.newPatient.name" type="text" class="form-control name"
+            <input ng-model="main.newPatient.name" name="name" ng-pattern="main.nameRegex" type="text" class="form-control name"
                    placeholder="Vorname des Patienten" required/>
         </div>
         <div class="form-group">
@@ -25,9 +25,8 @@
         </div>
         <div class="form-group">
             <label>Geburtstag</label><br>
-            <input ng-keyup="main.normalizeDateInput()" ng-keypress="main.preventDefault($event)"
-                   ng-model="main.newPatient.birthday" placeholder="dd.mm.yyyy" type="text"
-                   class="form-control birthDate"/>
+            <input ng-model="main.newPatient.birthday" ng-pattern="main.birthDateRegex" name="birthDate" placeholder="dd.mm.yyyy" type="text"
+                   class="form-control birthDate" required/>
         </div>
         <div class="form-group">
             <label>Blutgruppe</label><br>
@@ -65,6 +64,14 @@
                 </ui-select-choices>
             </ui-select>
 
+        </div>
+        <div class="form-group" role="alert" ng-show="main.createNewPatient.submitted">
+                <span class=" alert alert-danger glyphicon glyphicon-exclamation-sign" ng-show="main.createNewPatient.name.$error.required"> <span class="normalfont">Bitte geben Sie den Vornamen des Patienten an</span></span>
+                <span class=" alert alert-danger glyphicon glyphicon-exclamation-sign" ng-show="main.createNewPatient.surname.$error.required"> <span class="normalfont">Bitte geben Sie den Nachnamen des Patienten an</span></span>
+                <span class=" alert alert-danger glyphicon glyphicon-exclamation-sign" ng-show="main.createNewPatient.birthDate.$error.required"> <span class="normalfont">Bitte geben Sie das Geburtsdatum des Patienten an</span></span>
+                <span class=" alert alert-danger glyphicon glyphicon-exclamation-sign" ng-show="main.createNewPatient.name.$error.pattern"> <span class="normalfont">Bitte geben Sie einen gültigen Vornamen ein</span></span>
+                <span class=" alert alert-danger glyphicon glyphicon-exclamation-sign" ng-show="main.createNewPatient.surname.$error.pattern"> <span class="normalfont">Bitte geben Sie einen gültigen Nachnamen ein</span></span>
+                <span class=" alert alert-danger glyphicon glyphicon-exclamation-sign" ng-show="main.createNewPatient.birthDate.$error.pattern"> <span class="normalfont">Bitte geben Sie ein gültiges Geburtsdatum ein (dd.mm.yyyy)</span></span>
         </div>
         <div class="form-group">
             <div ng-hide="main.nameAlert" class="alert alert-danger" role="alert">

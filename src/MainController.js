@@ -10,12 +10,13 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
     vm.onSave = onSave;
     vm.onRemove = onRemove;
     vm.openRemovePatientConfirmationDialog = openRemovePatientConfirmationDialog;
-    vm.normalizeDateInput = normalizeDateInput;
     vm.editPatient = editPatient;
-    vm.preventDefault = preventDefault;
     vm.birthdayAlert = true;
     vm.nameAlert = true;
     vm.duplicateAlert = true;
+    vm.createNewPatient = '';
+    vm.nameRegex = /[a-zA-Z]+/g;
+    vm.birthDateRegex = /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/;
 
 
     function resetPatient() {
@@ -47,27 +48,6 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
         }
     }
 
-
-    function normalizeDateInput() {
-        var birthday = vm.newPatient.birthday;
-        var twoDigitsRegex = /^\d{3}$/;
-        var fourDigitsRegex = /^\d{2}\.\d{3}$/;
-
-        if (twoDigitsRegex.test(birthday)) {
-            vm.newPatient.birthday = [birthday.slice(0, 2), '.', birthday.slice(2)].join('');
-        }
-
-        if (fourDigitsRegex.test(birthday)) {
-            vm.newPatient.birthday = [birthday.slice(0, 5), '.', birthday.slice(5)].join('');
-        }
-    }
-
-    function preventDefault($event) {
-        if (vm.newPatient.birthday.length > 9) {
-            $event.preventDefault();
-        }
-    }
-
     function validateBirthday() {
         var day = vm.newPatient.birthday.slice(0, 2);
         var month = vm.newPatient.birthday.slice(3, 5);
@@ -81,6 +61,25 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
     }
 
     function onSave() {
+
+        if (vm.createNewPatient.$valid) {
+           vm.createNewPatient.submitted = false;
+            buildAntiBodyString();
+            vm.birthdayAlert = true;
+            vm.nameAlert = true;
+            //gets new id if patient is new i.e. not edited
+            if (vm.newPatient.id === '') {
+                vm.newPatient.id = PatientStore.getID();
+            }
+            vm.patients[vm.newPatient.id] = vm.newPatient;
+
+            PatientStore.savePatients(vm.patients);
+            resetPatient();
+        }
+        else {
+            vm.createNewPatient.submitted = true;
+        }
+/*
         validateBirthday();
         //only saves Patient if Name and Surname is given
         if (vm.newPatient.surname.length < 1 || vm.newPatient.name.length < 1) {
@@ -102,7 +101,7 @@ angular.module('patientmanager').controller('MainController', function (RefDataS
 
             PatientStore.savePatients(vm.patients);
             resetPatient();
-        }
+        }*/
 
     }
 
