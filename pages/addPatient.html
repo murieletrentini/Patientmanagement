@@ -43,59 +43,6 @@
             <button ng-click="main.onSave()" class="btn btn-default">Speichern</button>
         </div>
     </div>
-    <div id="patientlist">
 
-        <h2>gespeicherte Patienten</h2>
-
-        <div id="search">
-            <input ng-model="query" type="text" class="form-control search" placeholder="Suche"
-                   style="font-style: italic"/>
-        </div>
-        <br>
-        <table class="table table-hover glyphicon-hover">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nachname</th>
-                <th>Vorname</th>
-                <th>Geschlecht</th>
-                <th>Geburtstag</th>
-                <th>Blutgruppe</th>
-                <th>Antikörper</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="patient in main.patients | filter:query as results">
-                <td>{{patient.id}}</td>
-                <td>{{patient.surname}}</td>
-                <td>{{patient.name}}</td>
-                <td>{{patient.gender}}</td>
-                <td>{{patient.birthday}}</td>
-                <td>{{patient.bloodType}} {{patient.rhesus}}</td>
-                <td>{{patient.antiBodyString}}
-                    <span ng-click="main.openRemovePatientConfirmationDialog(patient.id)"
-                          class="glyphicon glyphicon-remove"></span>
-                    <a href="#patientFile/{{patient.id}}"><span class="glyphicon glyphicon-folder-open"></span></a>
-                    <span ng-click="main.editPatient(patient.id)" class="glyphicon glyphicon-pencil"></span></td>
-            </tr>
-            </tbody>
-        </table>
-
-        <div>
-            <script type="text/ng-template" id="removePatientModal">
-                <div class="modal-header">
-                    <h3 class="modal-title">Patient löschen</h3>
-                </div>
-                <div class="modal-body">
-                    Soll der Patient wirklich unwiederruflich gelöscht werden?
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger" ng-click="ok()">OK</button>
-                    <button class="btn" ng-click="cancel()">Cancel</button>
-                </div>
-            </script>
-        </div>
-
-    </div>
 
 </div>

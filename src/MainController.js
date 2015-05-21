@@ -1,20 +1,20 @@
 /**
  * Created by muriele on 03.04.15.
  */
-angular.module('patientmanager').controller('MainController', function (PatientStore, $modal) {
+angular.module('patientmanager').controller('MainController', function (PatientStore, $routeParams) {
     var vm = this;
     vm.patients = PatientStore.getPatients();
     vm.onSave = onSave;
-    vm.onRemove = onRemove;
-    vm.openRemovePatientConfirmationDialog = openRemovePatientConfirmationDialog;
-    vm.editPatient = editPatient;
-    vm.birthdayAlert = true;
-    vm.nameAlert = true;
-    vm.duplicateAlert = true;
+
     vm.createNewPatient = '';
     vm.nameRegex = /[a-zA-Z]+/g;
     vm.birthDateRegex = /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/;
 
+    if (!_.isUndefined($routeParams.patientId)) {
+        var patientId = parseInt($routeParams.patientId);
+        vm.newPatient = vm.patients[patientId];
+
+    }
 
     function resetPatient() {
         vm.newPatient = {
@@ -30,11 +30,10 @@ angular.module('patientmanager').controller('MainController', function (PatientS
         };
     }
 
-    resetPatient();
 
-    function editPatient(patientId) {
-        vm.newPatient = vm.patients[patientId];
-    }
+
+
+
 
     function buildAntiBodyString() {
         if (vm.newPatient.antiBodies.length > 0) {
@@ -65,22 +64,6 @@ angular.module('patientmanager').controller('MainController', function (PatientS
 
     }
 
-    function onRemove(patientId) {
-        delete vm.patients[patientId];
-        PatientStore.savePatients(vm.patients);
-    }
 
-    function openRemovePatientConfirmationDialog(patientId) {
-
-        var modalInstance = $modal.open({
-            templateUrl: 'removePatientModal',
-            controller: 'ModalInstanceCtrl',
-            size: 'sm'
-        });
-
-        modalInstance.result.then(function () {
-            vm.onRemove(patientId);
-        });
-    }
 
 });

@@ -23,6 +23,13 @@ angular.module('patientmanager').controller('PatientFileController', function (P
     vm.patientAnalyses = '';
     vm.onSave = onSave;
 
+    if (!_.isUndefined($routeParams.patientId)) {
+        var patientId = parseInt($routeParams.patientId);
+        vm.patient = vm.patients[patientId];
+
+    }
+
+
     function onSave() {
         buildAntiBodyString();
         vm.patients[vm.patient.id] = vm.patient;
@@ -38,11 +45,7 @@ angular.module('patientmanager').controller('PatientFileController', function (P
         }
     }
 
-    if (!_.isUndefined($routeParams.patientId)) {
-        var patientId = parseInt($routeParams.patientId);
-        vm.patient = vm.patients[patientId];
 
-    }
 
     function findPatient($event, patientId) {
         if ($event.keyCode === 13) {

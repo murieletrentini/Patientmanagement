@@ -9,10 +9,6 @@ angular.module('patientmanager').factory('PatientStore', function () {
             }
             return patientStorage;
         },
-        getPatientById: function (patientId) {
-            var patientArray = this.getPatients();
-            return _.find(patientArray, 'id', patientId);
-        },
         savePatients: function (patients) {
             localStorage.setItem('storedPatients', angular.toJson(patients));
         },

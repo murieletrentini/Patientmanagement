@@ -8,6 +8,10 @@ angular.module('patientmanager')
                 templateUrl: '../pages/addPatient.html',
                 controller: 'MainController'
             })
+            .when('/addPatient/:patientId', {
+                templateUrl: '../pages/addPatient.html',
+                controller: 'MainController'
+            })
             .when('/patientFile/', {
                 templateUrl: '../pages/patientFile.html',
                 controller: 'PatientFileController'
@@ -15,6 +19,10 @@ angular.module('patientmanager')
             .when('/patientFile/:patientId', {
                 templateUrl: '../pages/patientFile.html',
                 controller: 'PatientFileController'
+            })
+            .when('/patientList/', {
+                templateUrl: '../pages/PatientList.html',
+                controller: 'PatientListController'
             })
             .otherwise({
                 redirectTo: '/addPatient'
