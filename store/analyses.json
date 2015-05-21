@@ -1,0 +1,33 @@
+[
+
+  {
+    "order": 0,
+    "label": "Blutgruppe",
+    "result": ""
+  },
+  {
+    "order": 1,
+    "label": "Isoagglutinine",
+    "result": ""
+  },
+  {
+    "order": 2,
+    "label": "Rhesus Phänotyp",
+    "result": ""
+  },
+  {
+    "order": 3,
+    "label": "Antikörpersuchtest",
+    "result": ""
+  },
+  {
+    "order": 4,
+    "label": "Antikörperspezifizierung",
+    "result": ""
+  },
+  {
+    "order": 5,
+    "label": "ABD Kontrolle",
+    "result": ""
+  }
+]

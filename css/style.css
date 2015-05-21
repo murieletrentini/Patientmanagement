@@ -48,10 +48,24 @@ input {
     min-width: 200px;
 }
 
+/*divs
+-----------------------------------------------------------------------*/
+.analyses-results {
+    border: 1px solid;
+    border-radius: 4px;
+    border-color: #cccccc;
+    margin: 5px;
+    padding: 10px;
+}
+
 /*bootstrap change
 -----------------------------------------------------------------------*/
 #removePatientModal {
     top: 20%;
+}
+
+.form-inline > .form-group {
+    display: block;
 }
 
 .tabs {
@@ -83,7 +97,10 @@ span.normalfont {
 
 .glyphicon-exclamation-sign {
     display: block;
+}
 
+.glyphicon-ok {
+    color: #3c763d;
 }
 
 .glyphicon-pencil, .glyphicon-remove, .glyphicon-folder-open {

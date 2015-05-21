@@ -27,10 +27,22 @@
                     <div class="col-md-2">
                         <label>Blutgruppe</label>
                     </div>
-                    <div class="col-md-10">
-                        <input class="form-control" type="text"
-                               value="{{file.patient.bloodType}} {{file.patient.rhesus}}"
-                               disabled>
+                    <div class="col-md-10 form-inline">
+                        <select ng-model="file.patient.bloodType" class="form-control">
+                            <option>--</option>
+                            <option>NB</option>
+                            <option>A</option>
+                            <option>B</option>
+                            <option>0</option>
+                            <option>AB</option>
+                        </select>
+                        <select ng-model="file.patient.rhesus" class="form-control">
+                            <option>--</option>
+                            <option>NB</option>
+                            <option>positiv</option>
+                            <option>negativ</option>
+                            <option>D weak</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row">
@@ -38,34 +50,58 @@
                         <label>Antikörper</label>
                     </div>
                     <div class="col-md-10">
-                        <input class="form-control" type="text" value="{{file.patient.antiBodyString}}" disabled>
+                        <div class="form-group">
+                            <ui-select ng-model="file.patient.antiBodies" multiple>
+                                <ui-select-match placeholder="Antikörper hinzufügen">{{$item.label}}</ui-select-match>
+                                <ui-select-choices
+                                        repeat="antiBody in file.availableAntiBodies | filter: $select.search">
+                                    <div>{{antiBody.label}}</div>
+                                </ui-select-choices>
+                            </ui-select>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button ng-click="file.onSave()" class="btn btn-default">Speichern</button>
                     </div>
                 </div>
             </div>
         </tab>
         <button ng-click="file.createNewCase()" class="btn btn-default">+</button>
-        <tab ng-repeat="(key, case) in file.patient.cases" heading="{{case.date | date: 'dd.mm.yyyy'}} | Nr: {{case.nr}}">
-            <label>Fallnummer</label> {{case.nr}}
-            <span  ng-click="file.removeCase(case.nr)" style="cursor: pointer" class="glyphicon glyphicon-remove"> <i>Fall löschen</i></span>
-            <ui-select ng-model="case.analysis" multiple>
-                <ui-select-match placeholder="Analysen hinzufügen">{{$item.label}}</ui-select-match>
-                <ui-select-choices repeat="analysis in file.availableAnalysis | filter: $select.search">
-                    <div>{{analyses.label}}</div>
-                </ui-select-choices>
-            </ui-select>
-            <br>
-            <button class="btn btn-default" ng-click="file.saveCase()">Speichern</button>
-            <br>
-            <div ng-repeat="analysis in case.analyses">
-                <p>{{analysis.label}}</p>
+        <tab ng-repeat="(key, case) in file.patient.cases"
+             heading="{{case.date | date: 'dd.mm.yyyy'}} | Nr: {{case.nr}}">
+            <div ng-form="file.patientAnalyses">
+                <div class="form-group">
+                    <label>Fallnummer</label> {{case.nr}}
+            <span ng-click="file.removeCase(case.nr)" style="cursor: pointer" class="glyphicon glyphicon-remove"> <i>Fall
+                löschen</i></span>
+                    <ui-select ng-model="case.analyses" multiple>
+                        <ui-select-match placeholder="Analysen hinzufügen">{{$item.label}}</ui-select-match>
+                        <ui-select-choices repeat="analysis in file.availableAnalyses | filter: $select.search">
+                            <div>{{analysis.label}}</div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-default" ng-click="file.saveCase(case.nr)">Speichern</button>
+                </div>
+                <div class="form-group">
+                    <label>Analysen</label>
+
+                    <div ng-repeat="analysis in case.analyses">
+
+
+                        <div>
+                            <p>{{analysis.label}}</p>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </tab>
     </tabset>
 
     <hr/>
-
-
-
 
 
     <br>

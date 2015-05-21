@@ -1,7 +1,8 @@
 /**
  * Created by muriele on 14.05.15.
  */
-angular.module('patientmanager').config(function ($routeProvider) {
+angular.module('patientmanager')
+    .config(function ($routeProvider) {
         $routeProvider
             .when('/addPatient', {
                 templateUrl: '../pages/addPatient.html',
@@ -19,3 +20,4 @@ angular.module('patientmanager').config(function ($routeProvider) {
                 redirectTo: '/addPatient'
             });
     });
+
