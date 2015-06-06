@@ -3,31 +3,74 @@
   {
     "order": 0,
     "label": "Blutgruppe",
-    "result": ""
+    "result": "",
+    "fields": [
+  {"fieldName": "Resultat", "fieldContent": ""},
+  {"fieldName": "A", "fieldContent": ""},
+  {"fieldName": "B", "fieldContent": ""},
+  {"fieldName": "AB", "fieldContent": ""},
+  {"fieldName": "DVI+", "fieldContent": ""},
+  {"fieldName": "DVI-", "fieldContent": ""},
+  {"fieldName": "ctl", "fieldContent": ""}
+  ]
   },
   {
     "order": 1,
     "label": "Isoagglutinine",
-    "result": ""
+    "result": "",
+    "fields": [
+      {"fieldName": "Resultat", "fieldContent": ""},
+      {"fieldName": "A1", "fieldContent": ""},
+      {"fieldName": "A2", "fieldContent": ""},
+      {"fieldName": "B", "fieldContent": ""},
+      {"fieldName": "0", "fieldContent": ""}
+    ]
   },
   {
     "order": 2,
     "label": "Rhesus Phänotyp",
-    "result": ""
+    "fields": [
+      {"fieldName": "Resultat", "fieldContent": ""},
+      {"fieldName": "C", "fieldContent": ""},
+      {"fieldName": "c", "fieldContent": ""},
+      {"fieldName": "E", "fieldContent": ""},
+      {"fieldName": "e", "fieldContent": ""},
+      {"fieldName": "K", "fieldContent": ""},
+      {"fieldName": "ctl", "fieldContent": ""}
+    ]
   },
   {
     "order": 3,
-    "label": "Antikörpersuchtest",
-    "result": ""
+    "label": "polyDAT",
+    "result": "",
+    "fields":  [
+      {"fieldName": "Resultat", "fieldContent": ""},
+      {"fieldName": "Reaktion", "fieldContent": ""}
+    ]
   },
   {
     "order": 4,
-    "label": "Antikörperspezifizierung",
-    "result": ""
+    "label": "monoDAT",
+    "result": "",
+    "fields":  [
+      {"fieldName": "Resultat", "fieldContent": ""},
+      {"fieldName": "IgG", "fieldContent": ""},
+      {"fieldName": "IgA", "fieldContent": ""},
+      {"fieldName": "IgM", "fieldContent": ""},
+      {"fieldName": "C3c", "fieldContent": ""},
+      {"fieldName": "C3d", "fieldContent": ""},
+      {"fieldName": "ctl", "fieldContent": ""}
+    ]
   },
   {
     "order": 5,
     "label": "ABD Kontrolle",
-    "result": ""
+    "result": "",
+    "fields":  [
+      {"fieldName": "Resultat", "fieldContent": ""},
+      {"fieldName": "A", "fieldContent": ""},
+      {"fieldName": "B", "fieldContent": ""},
+      {"fieldName": "D", "fieldContent": ""}
+    ]
   }
 ]

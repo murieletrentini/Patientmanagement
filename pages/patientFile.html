@@ -86,13 +86,26 @@
                     <button class="btn btn-default" ng-click="file.saveCase(case.nr)">Speichern</button>
                 </div>
                 <div class="form-group">
-                    <label>Analysen</label>
-
-                    <div ng-repeat="analysis in case.analyses">
+                    <div ng-repeat="analysis in case.analyses" class="analyses-results">
 
 
                         <div>
-                            <p>{{analysis.label}}</p>
+                            <h4>{{analysis.label}}</h4>
+
+                            <table class="table analysesTable">
+                                <thead>
+                                <tr>
+                                    <th ng-repeat="field in analysis.fields">{{field.fieldName}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td  ng-repeat="field in analysis.fields">
+                                        <input ng-model="field.fieldContent" class="form-control analysesInput"/>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
 
                         </div>
                     </div>

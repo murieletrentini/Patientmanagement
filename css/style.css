@@ -44,7 +44,7 @@ input:valid {
     border: 1px solid black;
 }
 
-input {
+.addPatient input {
     min-width: 200px;
 }
 
@@ -56,6 +56,23 @@ input {
     border-color: #cccccc;
     margin: 5px;
     padding: 10px;
+}
+
+
+
+.analysesInput {
+    width: auto;
+    min-width: 50px;
+    max-width: 100px;
+}
+
+.analysesTable {
+    width: auto;
+}
+
+.analysesTable>thead>tr>th,
+.analysesTable>tbody>tr>td {
+    width: 55px;
 }
 
 /*bootstrap change

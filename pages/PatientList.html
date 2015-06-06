@@ -1,7 +1,7 @@
 <div class="container container-content" ng-controller="PatientListController as list">
     <div class="form-horizontal">
         <div class="form-group">
-            <input ng-model="query" type="text" class="form-control search" placeholder="Suche"
+            <input ng-model="query" ng-keyup="list.handleSearch(query)" type="text" class="form-control search" placeholder="Suche"
                    style="font-style: italic"/>
         </div>
         <br>
@@ -18,7 +18,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="patient in list.patients">
+            <tr ng-repeat="patient in list.filteredPatients">
                 <td>{{patient.id}}</td>
                 <td>{{patient.surname}}</td>
                 <td>{{patient.name}}</td>

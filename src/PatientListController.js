@@ -4,12 +4,18 @@
 angular.module('patientmanager').controller('PatientListController', function (PatientStore, $modal) {
     var vm = this;
     vm.patients = PatientStore.getPatients();
+    vm.filteredPatients = PatientStore.getFilteredPatients();
     vm.onRemove = onRemove;
     vm.openRemovePatientConfirmationDialog = openRemovePatientConfirmationDialog;
+    vm.handleSearch = handleSearch;
 
     function onRemove(patientId) {
         delete vm.patients[patientId];
         PatientStore.savePatients(vm.patients);
+    }
+
+    function handleSearch (query) {
+        vm.filteredPatients = PatientStore.getFilteredPatients(query);
     }
 
     function openRemovePatientConfirmationDialog(patientId) {

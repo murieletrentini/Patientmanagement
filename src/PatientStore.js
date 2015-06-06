@@ -1,4 +1,4 @@
-angular.module('patientmanager').factory('PatientStore', function () {
+angular.module('patientmanager').factory('PatientStore', function ($filter) {
 
     return {
         id: undefined,
@@ -8,6 +8,16 @@ angular.module('patientmanager').factory('PatientStore', function () {
                 patientStorage = {};
             }
             return patientStorage;
+        },
+        getFilteredPatients: function (query) {
+            if (query === '' || _.isUndefined(query)) {
+                return this.getPatients();
+            }
+
+            var upperCaseQuery = $filter('uppercase')(query);
+            return _.filter(this.getPatients(), function (patient) {
+                return _.values(patient).join(' ').toUpperCase().indexOf(upperCaseQuery) !== -1;
+            });
         },
         savePatients: function (patients) {
             localStorage.setItem('storedPatients', angular.toJson(patients));
