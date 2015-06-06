@@ -50,7 +50,7 @@ input:valid {
 
 /*divs
 -----------------------------------------------------------------------*/
-.analyses-results {
+.borderDiv {
     border: 1px solid;
     border-radius: 4px;
     border-color: #cccccc;
@@ -61,18 +61,24 @@ input:valid {
 
 
 .analysesInput {
-    width: auto;
-    min-width: 50px;
     max-width: 100px;
+}
+
+.analysesInput:valid {
+    border-color: #A3A3A3;
 }
 
 .analysesTable {
     width: auto;
+
 }
 
 .analysesTable>thead>tr>th,
 .analysesTable>tbody>tr>td {
-    width: 55px;
+    min-width: 50px;
+    max-width: 100px;
+    text-align: center;
+    padding: 4px 2px;
 }
 
 /*bootstrap change

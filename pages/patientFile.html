@@ -86,11 +86,14 @@
                     <button class="btn btn-default" ng-click="file.saveCase(case.nr)">Speichern</button>
                 </div>
                 <div class="form-group">
-                    <div ng-repeat="analysis in case.analyses" class="analyses-results">
+
+
+
+                    <div ng-repeat="analysis in case.analyses" class="borderDiv">
 
 
                         <div>
-                            <h4>{{analysis.label}}</h4>
+                            <h5 id="analysis.label">{{analysis.label}}</h5>
 
                             <table class="table analysesTable">
                                 <thead>
