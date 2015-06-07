@@ -44,6 +44,8 @@ angular.module('patientmanager').controller('MainController', function (PatientS
             if (!vm.newPatient.id) {
                 vm.newPatient.id = PatientStore.getID();
             }
+            vm.newPatient.cases = {};
+            vm.newPatient.antiBodies = [];
             vm.patients[vm.newPatient.id] = vm.newPatient;
             PatientStore.savePatients(vm.patients);
             resetPatient();

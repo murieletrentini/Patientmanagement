@@ -23,6 +23,8 @@ a {
     cursor: pointer;
 }
 
+
+
 /*navbar
 ---------------------------------------------------------------------*/
 .navbar-nav > li > a {
@@ -36,6 +38,10 @@ a {
 
 /*input
 ---------------------------------------------------------------------*/
+input {
+    width: auto;
+}
+
 input:invalid {
     border: 1px solid crimson;
 }
@@ -58,8 +64,8 @@ input:valid {
     padding: 10px;
 }
 
-
-
+/*analyses classes
+-----------------------------------------------------------------------*/
 .analysesInput {
     max-width: 100px;
 }
@@ -79,6 +85,12 @@ input:valid {
     max-width: 100px;
     text-align: center;
     padding: 4px 2px;
+}
+
+/*ui-select change
+-----------------------------------------------------------------------*/
+.ui-select-search.input-xs.ng-pristine.ng-untouched.ng-valid {
+    min-width: 200px;
 }
 
 /*bootstrap change
@@ -136,7 +148,7 @@ table.glyphicon-hover .glyphicon {
     cursor: pointer;
 }
 
-table.glyphicon-hover td:hover .glyphicon {
+table.glyphicon-hover tr:hover .glyphicon {
     visibility: visible;
     cursor: pointer;
 }
