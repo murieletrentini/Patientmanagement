@@ -7,8 +7,10 @@ angular.module('patientmanager').controller('MainController', function (PatientS
     vm.onSave = onSave;
 
     vm.createNewPatient = '';
+    //RegEx for ng-pattern of patient name/surname input
     vm.nameRegex = /[a-zA-Z]+/g;
-    vm.birthDateRegex = /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/;
+    //RegEx for ng-pattern of patient birthdate input
+    vm.birthDateRegex = /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d\b/;
 
     if (!_.isUndefined($routeParams.patientId)) {
         var patientId = parseInt($routeParams.patientId);
@@ -32,34 +34,21 @@ angular.module('patientmanager').controller('MainController', function (PatientS
 
 
 
-
-
-
-    function buildAntiBodyString() {
-        if (vm.newPatient.antiBodies.length > 0) {
-            vm.newPatient.antiBodyString = (_.pluck(_.sortBy(vm.newPatient.antiBodies, 'order'), 'label')).join(', ');
-        }
-        else {
-            vm.newPatient.antiBodyString = 'keine';
-        }
-    }
-
     function onSave() {
 
-        if (vm.createNewPatient.$valid) {
-            buildAntiBodyString();
-           vm.createNewPatient.submitted = false;
+        if (!vm.createNewPatient.$valid) {
+            //shows relevant error Messages
+            vm.createNewPatient.errorMsg = true;
+        } else {
             //gets new id if patient is new i.e. not edited
-            if (vm.newPatient.id === '') {
+            if (!vm.newPatient.id) {
                 vm.newPatient.id = PatientStore.getID();
             }
             vm.patients[vm.newPatient.id] = vm.newPatient;
-
             PatientStore.savePatients(vm.patients);
             resetPatient();
-        }
-        else {
-            vm.createNewPatient.submitted = true;
+            //hides all previous error Messages
+            vm.createNewPatient.errorMsg = false;
         }
 
     }
