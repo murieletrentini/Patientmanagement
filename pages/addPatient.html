@@ -17,10 +17,10 @@
         <div class="form-group">
             <label>Geschlecht</label><br>
             <label class="radio-inline">
-                <input ng-model="main.newPatient.gender" type="radio" name="sex" value="weiblich" checked/> Weiblich
+                <input ng-model="main.newPatient.gender" type="radio" class="gender" name="gender" value="weiblich" required/> Weiblich
             </label>
             <label class="radio-inline">
-                <input ng-model="main.newPatient.gender" type="radio" name="sex" value="männlich"/> Männlich
+                <input ng-model="main.newPatient.gender" type="radio" name="gender" value="männlich" required/> Männlich
             </label>
         </div>
         <div class="form-group">
@@ -34,6 +34,7 @@
                 <span class=" alert alert-danger glyphicon glyphicon-exclamation-sign" ng-show="main.createNewPatient.name.$error.required"> <span class="normalfont">Bitte geben Sie den Vornamen des Patienten an</span></span>
                 <span class=" alert alert-danger glyphicon glyphicon-exclamation-sign" ng-show="main.createNewPatient.surname.$error.required"> <span class="normalfont">Bitte geben Sie den Nachnamen des Patienten an</span></span>
                 <span class=" alert alert-danger glyphicon glyphicon-exclamation-sign" ng-show="main.createNewPatient.birthDate.$error.required"> <span class="normalfont">Bitte geben Sie das Geburtsdatum des Patienten an</span></span>
+                <span class=" alert alert-danger glyphicon glyphicon-exclamation-sign" ng-show="main.createNewPatient.gender.$error.required"> <span class="normalfont">Bitte geben Sie das Geschlecht des Patienten an</span></span>
                 <span class=" alert alert-danger glyphicon glyphicon-exclamation-sign" ng-show="main.createNewPatient.name.$error.pattern"> <span class="normalfont">Bitte geben Sie einen gültigen Vornamen ein</span></span>
                 <span class=" alert alert-danger glyphicon glyphicon-exclamation-sign" ng-show="main.createNewPatient.surname.$error.pattern"> <span class="normalfont">Bitte geben Sie einen gültigen Nachnamen ein</span></span>
                 <span class=" alert alert-danger glyphicon glyphicon-exclamation-sign" ng-show="main.createNewPatient.birthDate.$error.pattern"> <span class="normalfont">Bitte geben Sie ein gültiges Geburtsdatum ein (dd.mm.yyyy)</span></span>
