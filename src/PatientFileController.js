@@ -11,29 +11,53 @@ angular.module('patientmanager').controller('PatientFileController', function (P
         vm.availableAntiBodies = data;
     });
     vm.patients = PatientStore.getPatients();
+    vm.patientAnalyses = '';
     vm.patient = {
         cases: {},
         antiBodies: []
     };
-    vm.currentlySelectedCaseNr = 5;
+    vm.patientValidity = '';
+    //RegEx for ng-pattern of patient name/surname input
+    vm.nameRegex = /[a-zA-Z]+/g;
+    //RegEx for ng-pattern of patient birthdate input
+    vm.birthDateRegex = /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d\b/;
     vm.findPatient = findPatient;
     vm.createNewCase = createNewCase;
-    vm.saveCase = saveCase;
     vm.removeCase = removeCase;
-    vm.patientAnalyses = '';
-    vm.onSave = onSave;
+    vm.saveCase = saveCase;
+    vm.saveDiagnosis = saveDiagnosis;
+    vm.savePersonalData = savePersonalData;
 
     if (!_.isUndefined($routeParams.patientId)) {
-        var patientId = parseInt($routeParams.patientId);
-        vm.patient = vm.patients[patientId];
-
+        if ($routeParams.patientId === '+') {
+            vm.patient = {
+                id: PatientStore.getID(),
+                cases: {},
+                antiBodies: []
+            };
+        }
+        else {
+            var patientId = parseInt($routeParams.patientId, 10);
+            vm.patient = vm.patients[patientId];
+        }
     }
 
-
-    function onSave() {
-        buildAntiBodyString();
+    function savePatientToStore() {
         vm.patients[vm.patient.id] = vm.patient;
         PatientStore.savePatients(vm.patients);
+    }
+
+    function savePersonalData() {
+        if (!vm.patientValidity.$valid) {
+            //shows relevant error Messages
+            vm.patientValidity.errorMsg = true;
+        } else {
+            //hides all previous error Messages
+            vm.patientValidity.errorMsg = false;
+            buildAntiBodyString();
+            savePatientToStore();
+        }
+
     }
 
     function buildAntiBodyString() {
@@ -43,6 +67,11 @@ angular.module('patientmanager').controller('PatientFileController', function (P
         else {
             vm.patient.antiBodyString = 'keine';
         }
+    }
+
+    function saveDiagnosis() {
+        buildAntiBodyString();
+        savePatientToStore();
     }
 
 
@@ -73,7 +102,7 @@ angular.module('patientmanager').controller('PatientFileController', function (P
     }
 
     function saveCase(casenr) {
-        vm.onSave();
+        savePatientToStore();
     }
 
     function removeCase(caseNr) {

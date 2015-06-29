@@ -32,7 +32,7 @@ angular.module('patientmanager').factory('PatientStore', function ($filter) {
         },
         initID: function () {
             this.id = localStorage.getItem('lastId');
-            if (this.id == null) {
+            if (this.id === null) {
                 this.id = 0;
             }
             else {

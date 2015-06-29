@@ -38,8 +38,8 @@ a {
 
 /*input
 ---------------------------------------------------------------------*/
-input {
-    width: auto;
+input.id {
+    width: 100px;
 }
 
 input:invalid {
@@ -51,7 +51,12 @@ input:valid {
 }
 
 .addPatient input {
-    min-width: 200px;
+    min-width: 100px;
+}
+
+.patientFile input {
+    min-width: 100px;
+    max-width: 400px;
 }
 
 /*divs

@@ -1,69 +1,149 @@
-<div ng-controller="PatientFileController as file" class="container-content">
+<div ng-controller="PatientFileController as file" class="container-content patientFile">
 
     <tabset class="tabs">
-        <tab heading="Patientenmappe">
+        <tab heading="Personalien">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-2">
-                        <label>ID</label>
-                    </div>
-                    <div class="col-md-10">
-                        <input ng-keypress="file.findPatient($event,file.patient.id)" ng-model="file.patient.id"
-                               type="number"
-                               class="form-control id" autofocus>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <label>Name</label>
-                    </div>
-                    <div class="col-md-10">
-                        <input class="form-control" type="text"
-                               value="{{file.patient.surname}} {{file.patient.name}}"
-                               disabled>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <label>Blutgruppe</label>
-                    </div>
-                    <div class="col-md-10 form-inline">
-                        <select ng-model="file.patient.bloodType" class="form-control">
-                            <option>--</option>
-                            <option>NB</option>
-                            <option>A</option>
-                            <option>B</option>
-                            <option>0</option>
-                            <option>AB</option>
-                        </select>
-                        <select ng-model="file.patient.rhesus" class="form-control">
-                            <option>--</option>
-                            <option>NB</option>
-                            <option>positiv</option>
-                            <option>negativ</option>
-                            <option>D weak</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <label>Antikörper</label>
-                    </div>
-                    <div class="col-md-10">
-                        <div class="form-group">
-                            <ui-select ng-model="file.patient.antiBodies" multiple>
-                                <ui-select-match placeholder="Antikörper hinzufügen">{{$item.label}}</ui-select-match>
-                                <ui-select-choices
-                                        repeat="antiBody in file.availableAntiBodies | filter: $select.search">
-                                    <div>{{antiBody.label}}</div>
-                                </ui-select-choices>
-                            </ui-select>
-
+                <div class="form-horizontal" ng-form="file.patientValidity">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>ID</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input ng-keypress="file.findPatient($event,file.patient.id)" ng-model="file.patient.id"
+                                       type="number"
+                                       class="form-control id" autofocus>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <button ng-click="file.onSave()" class="btn btn-default">Speichern</button>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>Nachname</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input ng-model="file.patient.surname" ng-pattern="file.nameRegex" name="surname"
+                                       class="form-control surname" type="text"
+                                       required/>
+                            </div>
+                        </div>
                     </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>Vorname</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input ng-model="file.patient.name" ng-pattern="file.nameRegex" name="name"
+                                       class="form-control name" type="text"
+                                       required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>Geschlecht</label>
+                            </div>
+                            <div class="col-md-10">
+                                <label class="radio-inline">
+                                    <input ng-model="file.patient.gender" type="radio" class="gender" name="gender"
+                                           value="weiblich" required/> Weiblich
+                                </label>
+                                <label class="radio-inline">
+                                    <input ng-model="file.patient.gender" type="radio" name="gender" value="männlich"
+                                           required/> Männlich
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>Geburtstag</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input ng-model="file.patient.birthday" ng-pattern="file.birthDateRegex"
+                                       name="birthDate"
+                                       placeholder="dd.mm.yyyy" type="text"
+                                       class="form-control birthDate" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" role="alert" ng-show="file.patientValidity.errorMsg">
+                        <span class="alert alert-danger glyphicon glyphicon-exclamation-sign"
+                              ng-show="file.patientValidity.name.$error.required"> <span class="normalfont">Bitte geben Sie den Vornamen des Patienten an</span></span>
+                        <span class="alert alert-danger glyphicon glyphicon-exclamation-sign"
+                              ng-show="file.patientValidity.surname.$error.required"> <span class="normalfont">Bitte geben Sie den Nachnamen des Patienten an</span></span>
+                        <span class="alert alert-danger glyphicon glyphicon-exclamation-sign"
+                              ng-show="file.patientValidity.birthDate.$error.required"> <span class="normalfont">Bitte geben Sie das Geburtsdatum des Patienten an</span></span>
+                        <span class="alert alert-danger glyphicon glyphicon-exclamation-sign"
+                              ng-show="file.patientValidity.gender.$error.required"> <span class="normalfont">Bitte geben Sie das Geschlecht des Patienten an</span></span>
+                        <span class="alert alert-danger glyphicon glyphicon-exclamation-sign"
+                              ng-show="file.patientValidity.name.$error.pattern"> <span class="normalfont">Bitte geben Sie einen gültigen Vornamen ein</span></span>
+                        <span class="alert alert-danger glyphicon glyphicon-exclamation-sign"
+                              ng-show="file.patientValidity.surname.$error.pattern"> <span class="normalfont">Bitte geben Sie einen gültigen Nachnamen ein</span></span>
+                        <span class="alert alert-danger glyphicon glyphicon-exclamation-sign"
+                              ng-show="file.patientValidity.birthDate.$error.pattern"> <span class="normalfont">Bitte geben Sie ein gültiges Geburtsdatum ein (dd.mm.yyyy)</span></span>
+                    </div>
+                    <div class="form-group">
+                        <button ng-click="file.savePersonalData()" class="btn btn-default">Speichern</button>
+                    </div>
+                </div>
+            </div>
+        </tab>
+        <tab heading="Serodiagnose">
+            <div class="container">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label>Blutgruppe</label>
+                        </div>
+                        <div class="col-md-10 form-inline">
+                            <select ng-model="file.patient.bloodType" class="form-control">
+                                <option>--</option>
+                                <option>NB</option>
+                                <option>A</option>
+                                <option>B</option>
+                                <option>0</option>
+                                <option>AB</option>
+                            </select>
+                            <select ng-model="file.patient.rhesus" class="form-control">
+                                <option>--</option>
+                                <option>NB</option>
+                                <option>positiv</option>
+                                <option>negativ</option>
+                                <option>D weak</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label>Antikörper</label>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <ui-select ng-model="file.patient.antiBodies" multiple>
+                                    <ui-select-match placeholder="Antikörper hinzufügen">{{$item.label}}
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                            repeat="antiBody in file.availableAntiBodies | filter: $select.search">
+                                        <div>{{antiBody.label}}</div>
+                                    </ui-select-choices>
+                                </ui-select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <button ng-click="file.saveDiagnosis()" class="btn btn-default">Speichern</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </tab>
@@ -88,7 +168,6 @@
                 <div class="form-group">
 
 
-
                     <div ng-repeat="analysis in case.analyses" class="borderDiv">
 
 
@@ -103,7 +182,7 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td  ng-repeat="field in analysis.fields">
+                                    <td ng-repeat="field in analysis.fields">
                                         <input ng-model="field.fieldContent" class="form-control analysesInput"/>
                                     </td>
                                 </tr>
@@ -121,13 +200,6 @@
 
 
     <br>
-
-
-    <script type="text/javascript" src="../src/app.js"></script>
-    <script type="text/javascript" src="../src/RefDataStore.js"></script>
-    <script type="text/javascript" src="../src/PatientStore.js"></script>
-    <script type="text/javascript" src="../src/PatientFileController.js"></script>
-    <script type="text/javascript" src="../src/ModalController.js"></script>
 
 
 </div>
