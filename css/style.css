@@ -23,8 +23,6 @@ a {
     cursor: pointer;
 }
 
-
-
 /*navbar
 ---------------------------------------------------------------------*/
 .navbar-nav > li > a {
@@ -35,6 +33,11 @@ a {
     padding-top: 30px;
     padding-right: 20px;
 }
+
+.search {
+    margin-top: 25px;
+}
+
 
 /*input
 ---------------------------------------------------------------------*/
@@ -79,8 +82,8 @@ input:valid {
 
 }
 
-.analysesTable>thead>tr>th,
-.analysesTable>tbody>tr>td {
+.analysesTable > thead > tr > th,
+.analysesTable > tbody > tr > td {
     min-width: 50px;
     max-width: 100px;
     text-align: center;
@@ -114,15 +117,13 @@ input:valid {
 }
 
 .container-content {
-    margin-top: 75px;
+    margin-top: 80px;
 }
 
-.form-horizontal {
-    padding-top: 25px;
-}
+
 
 span.normalfont {
-    font-family:Helvetica Neue, Helvetica, Arial, sans-serif
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif
 }
 
 .alert {
@@ -152,7 +153,6 @@ table.glyphicon-hover tr:hover .glyphicon {
     visibility: visible;
     cursor: pointer;
 }
-
 
 .form-inline label {
     margin-right: 50px;
