@@ -25,8 +25,8 @@ angular.module('patientmanager').controller('PatientFileController', function (P
     vm.patientSeroError = false;
     vm.saveSerodiagnosis = saveSerodiagnosis;
     vm.savePersonalData = savePersonalData;
-//RegEx for ng-pattern of patient name/surname input
-    vm.nameRegex = /[a-zA-Z]+/g;
+    //RegEx for ng-pattern of patient name/surname input
+    vm.nameRegex = /[a-zA-Z]/;
     //RegEx for ng-pattern of patient birthdate input
     vm.birthDateRegex = /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d\b/;
 
@@ -38,12 +38,6 @@ angular.module('patientmanager').controller('PatientFileController', function (P
         vm.patient = vm.patients[patientId];
 
     }
-    
-    
-
-    
-
-
 
     function savePersonalData() {
 
@@ -55,27 +49,32 @@ angular.module('patientmanager').controller('PatientFileController', function (P
             if (!vm.patient.id) {
                 vm.patient.id = PatientStore.getID();
             }
+            if (_.isUndefined(vm.patient.cases)){
             vm.patient.cases = {};
-            vm.patient.antiBodies = [];
-            buildAntiBodyString();
-            vm.patients[vm.patient.id] = vm.patient;
-            PatientStore.savePatients(vm.patients);
+            }
+            if (_.isUndefined(vm.patient.antiBodies )){
+                vm.patient.antiBodies = [];
+            }
+           saveToStore();
             //hides all previous error Messages
-            vm.patient.errorMsg = false;
+            vm.patientData.errorMsg = false;
+            vm.patientSeroError = false;
         }
 
     }
 
-
+    function saveToStore() {
+        buildAntiBodyString();
+        vm.patients[vm.patient.id] = vm.patient;
+        PatientStore.savePatients(vm.patients);
+    }
 
 
     function saveSerodiagnosis() {
         if (_.isUndefined(vm.patient.id)) {
             vm.patientSeroError = true;
         } else {
-            buildAntiBodyString();
-            vm.patients[vm.patient.id] = vm.patient;
-            PatientStore.savePatients(vm.patients);
+            saveToStore();
         }
 
     }
@@ -91,9 +90,9 @@ angular.module('patientmanager').controller('PatientFileController', function (P
 
 
 
-    function findPatient($event, patientId) {
+    function findPatient($event, patId) {
         if ($event.keyCode === 13) {
-            vm.patient = vm.patients[patientId];
+            vm.patient = vm.patients[patId];
         }
     }
 
@@ -106,23 +105,20 @@ angular.module('patientmanager').controller('PatientFileController', function (P
         var newCase = {
             date: new Date(),
             analyses: [],
-            nr: PatientStore.getCaseNr(),
+            nr: PatientStore.getCaseNr()
         };
-        if (_.isUndefined(vm.patient.cases)) {
-            vm.patient.cases = {};
-        }
 
         vm.patient.cases[newCase.nr] = newCase;
 
     }
 
-    function saveCase(casenr) {
-        vm.onSave();
+    function saveCase() {
+        saveToStore();
     }
 
     function removeCase(caseNr) {
         delete vm.patient.cases[caseNr];
-        saveCase();
+
     }
 
 });
