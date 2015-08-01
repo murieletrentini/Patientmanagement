@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     eslint = require('gulp-eslint'),
     connect = require('gulp-connect');
+    jasmine = require('gulp-jasmine');
 
 
 
