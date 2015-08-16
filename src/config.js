@@ -4,14 +4,6 @@
 angular.module('patientmanager')
     .config(function ($routeProvider) {
         $routeProvider
-            .when('/addPatient', {
-                templateUrl: '../pages/addPatient.html',
-                controller: 'MainController'
-            })
-            .when('/addPatient/:patientId', {
-                templateUrl: '../pages/addPatient.html',
-                controller: 'MainController'
-            })
             .when('/patientFile/', {
                 templateUrl: '../pages/patientFile.html',
                 controller: 'PatientFileController'
@@ -25,7 +17,7 @@ angular.module('patientmanager')
                 controller: 'PatientListController'
             })
             .otherwise({
-                redirectTo: '/addPatient'
+                redirectTo: '/patientList'
             });
     });
 

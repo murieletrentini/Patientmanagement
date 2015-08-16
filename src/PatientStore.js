@@ -3,7 +3,8 @@ angular.module('patientmanager').factory('PatientStore', function ($filter) {
     return {
         id: undefined,
         getPatients: function () {
-            var patientStorage = JSON.parse(localStorage.getItem('storedPatients'));
+            var storedPatientString = localStorage.getItem('storedPatients');
+            var patientStorage = JSON.parse(storedPatientString);
             if (patientStorage == null) {
                 patientStorage = {};
             }
@@ -15,9 +16,11 @@ angular.module('patientmanager').factory('PatientStore', function ($filter) {
             }
 
             var upperCaseQuery = $filter('uppercase')(query);
-            return _.filter(this.getPatients(), function (patient) {
+            var filteredPatients= _.filter(this.getPatients(), function (patient) {
                 return _.values(patient).join(' ').toUpperCase().indexOf(upperCaseQuery) !== -1;
             });
+            console.log(filteredPatients);
+            return filteredPatients;
         },
         savePatients: function (patients) {
             localStorage.setItem('storedPatients', angular.toJson(patients));

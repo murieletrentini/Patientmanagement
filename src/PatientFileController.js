@@ -15,7 +15,7 @@ angular.module('patientmanager').controller('PatientFileController', function (P
         cases: {},
         antiBodies: []
     };
-    vm.currentlySelectedCaseNr = 5;
+
     vm.findPatient = findPatient;
     vm.createNewCase = createNewCase;
     vm.saveCase = saveCase;
