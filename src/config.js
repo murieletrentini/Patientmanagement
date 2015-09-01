@@ -13,8 +13,12 @@ angular.module('patientmanager')
                 controller: 'PatientFileController'
             })
             .when('/patientList/', {
-                templateUrl: '../pages/PatientList.html',
+                templateUrl: '../pages/patientList.html',
                 controller: 'PatientListController'
+            })
+            .when('/panelProgramm/', {
+                templateUrl: '../pages/panelProgramm.html',
+                controller: 'PanelProgrammController'
             })
             .otherwise({
                 redirectTo: '/patientList'

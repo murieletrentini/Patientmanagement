@@ -16,10 +16,9 @@ angular.module('patientmanager').factory('PatientStore', function ($filter) {
             }
 
             var upperCaseQuery = $filter('uppercase')(query);
-            var filteredPatients= _.filter(this.getPatients(), function (patient) {
+            var filteredPatients = _.filter(this.getPatients(), function (patient) {
                 return _.values(patient).join(' ').toUpperCase().indexOf(upperCaseQuery) !== -1;
             });
-            console.log(filteredPatients);
             return filteredPatients;
         },
         savePatients: function (patients) {

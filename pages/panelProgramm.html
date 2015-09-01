@@ -1,0 +1,125 @@
+<div class="container container-content" ng-controller="PanelProgrammController as panel">
+    <div class="form-group borderDiv">
+        <label>Verfügbare Zellen</label>
+
+        <p style="float: right" class="click" ng-click="panel.addCell()"><span
+                class="glyphicon glyphicon-plus-sign"></span> neue Zelle erfassen</P>
+        <table class="table availableCells">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Herkunft</th>
+                <th>Blutgruppe</th>
+                <th>Rhesusphänotyp</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="cell in panel.availableCells">
+                <td>{{cell.id}}</td>
+                <td>{{cell.origin}}</td>
+                <td>{{cell.bloodType}}</td>
+                <td>{{cell.rhesus}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group borderDiv" ng-show="panel.addCellDiv">
+        <label>Neue Zelle erfassen</label>
+        <div ng-form="addCell">
+            <div class="form-group">
+                <label>ID</label>
+                <input ng-model="panel.newCell.id" name="cellId" placeholder="Spendernummer der Zelle"
+                       type="number" class="form-control cellId" autofocus required/>
+            </div>
+            <div class="form-group">
+                <label>Herkunft</label>
+                <select ng-model="panel.newCell.origin" name="cellOrigin" class="form-control cellOrigin"
+                        required>
+                    <option>BioRad</option>
+                    <option>Grifols</option>
+                    <option>BSD</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Blutgruppe</label>
+                <select ng-model="panel.newCell.bloodType" name="cellBloodType" type="text"
+                        class="form-control cellBloodType" required>
+                    <option>0</option>
+                    <option>A1</option>
+                    <option>A2</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Antigen-Profil</label>
+                <table class="antigenprofil">
+                    <thead>
+                    <tr>
+                        <th>D</th>
+                        <th>C</th>
+                        <th>c</th>
+                        <th>E</th>
+                        <th>e</th>
+                        <th>K</th>
+                        <th>k</th>
+                        <th>Kpa</th>
+                        <th>Kpb</th>
+                        <th>Fya</th>
+                        <th>Fyb</th>
+                        <th>Jka</th>
+                        <th>Jkb</th>
+                        <th>Lea</th>
+                        <th>Leb</th>
+                        <th>P1</th>
+                        <th>M</th>
+                        <th>N</th>
+                        <th>S</th>
+                        <th>s</th>
+                        <th>Lua</th>
+                        <th>Lub</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><input class="antigenprofil" name="xxd" ng-model="panel.newCell.antigens.xxd"/></td>
+                        <td><input class="antigenprofil" name="xxc" ng-model="panel.newCell.antigens.xxc"/></td>
+                        <td><input class="antigenprofil" name="xkc" ng-model="panel.newCell.antigens.xkc"/></td>
+                        <td><input class="antigenprofil" name="xxe" ng-model="panel.newCell.antigens.xxe"/></td>
+                        <td><input class="antigenprofil" name="xke" ng-model="panel.newCell.antigens.xke"/></td>
+                        <td><input class="antigenprofil" name="xxk" ng-model="panel.newCell.antigens.xxk"/></td>
+                        <td><input class="antigenprofil" name="xkk" ng-model="panel.newCell.antigens.xkk"/></td>
+                        <td><input class="antigenprofil" name="kpa" ng-model="panel.newCell.antigens.kpa"/></td>
+                        <td><input class="antigenprofil" name="kpb" ng-model="panel.newCell.antigens.kpb"/></td>
+                        <td><input class="antigenprofil" name="fya" ng-model="panel.newCell.antigens.fya"/></td>
+                        <td><input class="antigenprofil" name="fyb" ng-model="panel.newCell.antigens.fyb"/></td>
+                        <td><input class="antigenprofil" name="jka" ng-model="panel.newCell.antigens.jka"/></td>
+                        <td><input class="antigenprofil" name="jkb" ng-model="panel.newCell.antigens.jkb"/></td>
+                        <td><input class="antigenprofil" name="lea" ng-model="panel.newCell.antigens.lea"/></td>
+                        <td><input class="antigenprofil" name="leb" ng-model="panel.newCell.antigens.leb"/></td>
+                        <td><input class="antigenprofil" name="xp1" ng-model="panel.newCell.antigens.xp1"/></td>
+                        <td><input class="antigenprofil" name="xxm" ng-model="panel.newCell.antigens.xxm"/></td>
+                        <td><input class="antigenprofil" name="xxn" ng-model="panel.newCell.antigens.xxn"/></td>
+                        <td><input class="antigenprofil" name="xxs" ng-model="panel.newCell.antigens.xxs"/></td>
+                        <td><input class="antigenprofil" name="xks" ng-model="panel.newCell.antigens.xks"/></td>
+                        <td><input class="antigenprofil" name="lua" ng-model="panel.newCell.antigens.lua"/></td>
+                        <td><input class="antigenprofil" name="lub" ng-model="panel.newCell.antigens.lub"/></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <button ng-click="panel.saveCell()" class="btn btn-success">Speichern</button>
+        <button ng-click="panel.cancleCell()" class="btn btn-danger">Abbrechen</button>
+    </div>
+    <div class="form-group borderDiv">
+        <label>Panel zusammenstellen</label>
+        <ui-select ng-model="panel.newPanel" multiple>
+            <ui-select-match placeholder="Zellen hinzufügen">{{$item.id}}</ui-select-match>
+            <ui-select-choices
+                    repeat="cell in panel.availableCells | filter: $select.search">
+                <div>{{cell.id}} / {{cell.origin}}</div>
+            </ui-select-choices>
+        </ui-select>
+    </div>
+
+
+</div>

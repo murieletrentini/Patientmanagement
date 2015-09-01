@@ -23,6 +23,11 @@ a {
     cursor: pointer;
 }
 
+.click {
+    cursor: pointer;
+}
+
+
 /*navbar
 ---------------------------------------------------------------------*/
 .navbar-nav > li > a {
@@ -67,6 +72,27 @@ input:valid {
     padding: 10px;
 }
 
+/*antigen classes
+-----------------------------------------------------------------------*/
+input.antigenprofil {
+    width: 25px;
+}
+
+table.antigenprofil > thead > tr > th,
+table.antigenprofil > tbody> tr > td {
+    border: 1px solid;
+    border-collapse: collapse;
+    font-size: 9pt;
+    max-width: 25px;
+    min-width: 25px;
+    text-align: center;
+    padding: 0;
+}
+
+table.availableCells {
+    margin-bottom: 0;
+}
+
 /*analyses classes
 -----------------------------------------------------------------------*/
 .analysesInput {
@@ -89,6 +115,8 @@ input:valid {
     text-align: center;
     padding: 4px 2px;
 }
+
+
 
 /*ui-select change
 -----------------------------------------------------------------------*/

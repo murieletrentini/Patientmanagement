@@ -1,6 +1,5 @@
 angular.module('patientmanager').controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
 
-
     $scope.ok = function () {
         $modalInstance.close();
     };
